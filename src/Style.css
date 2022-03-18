@@ -76,10 +76,24 @@ a {
           align-items: center;
 }
 
-.quizContainer .quiz .quizFooter .likesDislikesContainer span {
-  margin-right: 10px;
-  font-size: 1rem;
+.quizContainer .quiz .quizFooter .likesDislikesContainer div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
+  font-size: 1rem;
+}
+
+.quizContainer .quiz .quizFooter .likesDislikesContainer div span.heartIcon {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.quizContainer .quiz .quizFooter .likesDislikesContainer div span.likesNumber {
+  padding-bottom: 5px;
 }
 
 .quizContainer .quiz .quizFooter span.createdAt {
