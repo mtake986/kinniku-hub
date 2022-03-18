@@ -4,9 +4,9 @@ import { doc, collection, onSnapshot } from 'firebase/firestore';
 import db from '../firebaseConfig';
 
 const Quiz = () => {
-  const [disableClick, setDisableClick] = useState('able');
+  const [disableClick, setDisableClick] = useState('ableClick');
+  const [clickedAnswers, setClickedAnswers] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
-  let clickedAnswers = [];
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
@@ -37,19 +37,20 @@ const Quiz = () => {
   }, []);
 
   console.log(quizzes);
-  const handleJudge = (a, quiz) => {
+  const handleJudge = (a, quiz, index) => {
     const correctAns = quiz.answers[quiz.correctAns];
-    console.log(a, correctAns);
+    // console.log(a, correctAns, index);
     if (correctAns === a) {
       alert('Awesome!! The correct answer is ' + a);
     } else {
-      clickedAnswers.push(a);
-      console.log(clickedAnswers);
-      console.log(clickedAnswers.includes(a))
+      console.log(clickedAnswers)
+      setClickedAnswers([...clickedAnswers, index])
       setDisableClick('disableClick');
       alert(disableClick);
     }
+    console.log(`after clickedAnswers ${clickedAnswers}`)
   };
+
   return (
     <div className='quizContainer'>
       {quizzes.map(quiz => (
@@ -58,13 +59,13 @@ const Quiz = () => {
             <p className='quizQText'>{quiz.question}</p>
           </div>
           <ul className='answersContainer'>
-            {quiz.answers.map(a => (
+            {quiz.answers.map((a, index) => (
               <li
                 key={a}
                 onClick={() => {
-                  handleJudge(a, quiz);
+                  handleJudge(a, quiz, index);
                 }}
-                className={clickedAnswers.includes(a) && disableClick}
+                className={clickedAnswers.includes(index) && disableClick}
               >
                 <a disabled={true} href='#'>
                   {a}
