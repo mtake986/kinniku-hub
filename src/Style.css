@@ -79,6 +79,7 @@ a {
 .quizContainer .quiz .quizFooter .likesDislikesContainer span {
   margin-right: 10px;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .quizContainer .quiz .quizFooter span.createdAt {
