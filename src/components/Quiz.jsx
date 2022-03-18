@@ -2,12 +2,24 @@ import { useEffect, useState } from 'react';
 import { doc, collection, onSnapshot } from 'firebase/firestore';
 
 import db from '../firebaseConfig';
+import GoodBad from './GoodBad'
 
 const Quiz = () => {
-  const [disableClick, setDisableClick] = useState('ableClick');
-  const [clickedAnswers, setClickedAnswers] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
-
+  const [disableClick, setDisableClick] = useState('ableClick');
+  const [clickedAnswers, setClickedAnswers] = useState(new Map());
+  /*
+  Ideally
+  {
+    quizIndex: [
+      "answer1", "answer2"
+    ], 
+    quizIndex : [
+      "buiohlnk"
+    ]
+  }
+  */
+  
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
 
@@ -36,36 +48,51 @@ const Quiz = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
-  console.log(quizzes);
-  const handleJudge = (a, quiz, index) => {
-    const correctAns = quiz.answers[quiz.correctAns];
-    // console.log(a, correctAns, index);
-    if (correctAns === a) {
-      alert('Awesome!! The correct answer is ' + a);
-    } else {
-      console.log(clickedAnswers)
-      setClickedAnswers([...clickedAnswers, index])
-      setDisableClick('disableClick');
-      alert(disableClick);
+  const handleJudge = (a, quiz, answerIndex, quizIndex) => {
+    const correctAnswer = quiz.answers[quiz.correctAnswer];
+    console.log(`a => ${a}, correctAnswer => ${correctAnswer}, answerIndex => ${answerIndex}, quizIndex => ${quizIndex}`);
+
+
+    setClickedAnswers({quizIndex: "vjkjh"});
+    if (clickedAnswers) {
+      console.log('fhviefwfojvsknfejvbkafweoijsvdn k')
     }
-    console.log(`after clickedAnswers ${clickedAnswers}`)
+    console.log(`clickedAnswers => ${clickedAnswers}`)
+
+    // if (clickedAnswers.size === 0) {
+    //   clickedAnswers.set(quizIndex, [a]);
+    // } else {
+    //   clickedAnswers.set(quizIndex, [clickedAnswers.get(quizIndex)]);
+    // }
+    // console.log(clickedAnswers, clickedAnswers.get(quizIndex)); 
+
+    if (correctAnswer === a) {
+      alert('Awesome!! The correct answer is ' + a);
+      const eachQuizClickedAnswers = new Map();
+      eachQuizClickedAnswers.set(quizIndex, [a])
+      console.log(`each => ${eachQuizClickedAnswers.get(quizIndex)}`)
+      setDisableClick('disableClick');
+    } else {
+      // setClickedAnswers([...clickedAnswers, answerIndex])
+      setDisableClick('disableClick');
+    }
   };
 
   return (
     <div className='quizContainer'>
-      {quizzes.map(quiz => (
+      {quizzes.map((quiz, quizIndex) => (
         <div key={quiz.id} className='quiz'>
           <div className='quizQContainer'>
             <p className='quizQText'>{quiz.question}</p>
           </div>
           <ul className='answersContainer'>
-            {quiz.answers.map((a, index) => (
+            {quiz.answers.map((a, answerIndex) => (
               <li
                 key={a}
                 onClick={() => {
-                  handleJudge(a, quiz, index);
+                  handleJudge(a, quiz, answerIndex, quizIndex);
                 }}
-                className={clickedAnswers.includes(index) && disableClick}
+                // className={clickedAnswers.get(answerIndex) ? disableClick : ""}
               >
                 <a disabled={true} href='#'>
                   {a}
@@ -73,13 +100,7 @@ const Quiz = () => {
               </li>
             ))}
           </ul>
-          <div className='quizFooter'>
-            <div className='likesDislikesContainer'>
-              <span>good</span>
-              <span>bad</span>
-            </div>
-            <span className='createdAt'>{quiz.createdAt.seconds}</span>
-          </div>
+          <GoodBad quiz={quiz} />
         </div>
       ))}
     </div>
