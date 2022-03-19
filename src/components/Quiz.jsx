@@ -3,6 +3,7 @@ import { doc, collection, onSnapshot } from 'firebase/firestore';
 
 import db from '../firebaseConfig';
 import GoodBad from './GoodBad'
+import GoNextQuizBtn from './GoNextQuizBtn'
 
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -51,7 +52,7 @@ const Quiz = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
-  const handleJudge = (a, quiz, answerIndex, quizIndex) => {
+  const handleJudge = (e, a, quiz, answerIndex, quizIndex) => {
     const correctAnswer = quiz.answers[quiz.correctAnswer];
     console.log(`a => ${a}, correctAnswer => ${correctAnswer}, answerIndex => ${answerIndex}, quizIndex => ${quizIndex}`);
 
@@ -59,26 +60,10 @@ const Quiz = () => {
     setClickedAnswers([quizIndex, [a]]);
     console.log(`clickedAnswers => ${clickedAnswers}`)
 
-    // if (clickedAnswers.size === 0) {
-    //   clickedAnswers.set(quizIndex, [a]);
-    // } else {
-    //   clickedAnswers.set(quizIndex, [clickedAnswers.get(quizIndex)]);
-    // }
-    // console.log(clickedAnswers, clickedAnswers.get(quizIndex)); 
-
-    if (correctAnswer === a) {
-      alert('Awesome!! The correct answer is ' + a);
-      const eachQuizClickedAnswers = new Map();
-      eachQuizClickedAnswers.set(quizIndex, [a])
-      console.log(`each => ${eachQuizClickedAnswers.get(quizIndex)}`)
-      setDisableClick('disableClick');
-    } else {
-      // setClickedAnswers([...clickedAnswers, answerIndex])
-      setDisableClick('disableClick');
-    }
+    e.target.className = "disableClick"
   };
 
-  const goNextQ = () => {
+  const goNextQuiz = () => {
     console.log(currentQIndex, quizzes.length);
     if (currentQIndex !== quizzes.length) {
       setCurrentQIndex(prevState => prevState + 1);
@@ -90,7 +75,6 @@ const Quiz = () => {
 
   return (
     <div className='quizContainer'>
-      <button onClick={goNextQ}>next</button>
       {quizzes.map((quiz, quizIndex) => {
         if (quizIndex === currentQIndex) {
           return (
@@ -102,10 +86,10 @@ const Quiz = () => {
                 {quiz.answers.map((a, answerIndex) => (
                   <li
                     key={a}
-                    onClick={() => {
-                      handleJudge(a, quiz, answerIndex, quizIndex);
+                    onClick={(e) => {
+                      handleJudge(e, a, quiz, answerIndex, quizIndex);
                     }}
-                    // className={clickedAnswers.get(answerIndex) ? disableClick : ""}
+                    className={true ? disableClick : ""}
                   >
                     <a disabled={true} href='#'>
                       {a}
@@ -113,7 +97,10 @@ const Quiz = () => {
                   </li>
                 ))}
               </ul>
-              <GoodBad quiz={quiz} />
+              <div className="quizFooter">
+                <GoodBad quiz={quiz} />
+                <GoNextQuizBtn goNextQuiz={goNextQuiz}/>
+              </div>
             </div>
           )
         }
@@ -121,6 +108,7 @@ const Quiz = () => {
       {(currentQIndex >= quizzes.length) && (
         <h1>Finish</h1>
       )}
+
     </div>
   );
 };
