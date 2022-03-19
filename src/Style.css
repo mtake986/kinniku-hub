@@ -76,7 +76,10 @@ a {
           align-items: center;
 }
 
-.quizContainer .quiz .quizFooter .likesDislikesContainer div {
+.quizContainer .quiz .quizFooter .likesDislikesContainer {
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -87,13 +90,9 @@ a {
   font-size: 1rem;
 }
 
-.quizContainer .quiz .quizFooter .likesDislikesContainer div span.heartIcon {
-  height: 20px;
-  margin-right: 10px;
-}
-
-.quizContainer .quiz .quizFooter .likesDislikesContainer div span.likesNumber {
-  padding-bottom: 5px;
+.quizContainer .quiz .quizFooter .likesDislikesContainer span.heartIcon {
+  height: 15px;
+  margin-right: 20px;
 }
 
 .quizContainer .quiz .quizFooter span.createdAt {

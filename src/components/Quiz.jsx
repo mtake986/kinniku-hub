@@ -7,7 +7,10 @@ import GoodBad from './GoodBad'
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [disableClick, setDisableClick] = useState('ableClick');
-  const [clickedAnswers, setClickedAnswers] = useState(new Map());
+  const [clickedAnswers, setClickedAnswers] = useState([]);
+  const [currentQIndex, setCurrentQIndex] = useState(0);
+  const [currentQ, setCurrentQ] = useState()
+
   /*
   Ideally
   {
@@ -52,11 +55,8 @@ const Quiz = () => {
     const correctAnswer = quiz.answers[quiz.correctAnswer];
     console.log(`a => ${a}, correctAnswer => ${correctAnswer}, answerIndex => ${answerIndex}, quizIndex => ${quizIndex}`);
 
-
-    setClickedAnswers({quizIndex: "vjkjh"});
-    if (clickedAnswers) {
-      console.log('fhviefwfojvsknfejvbkafweoijsvdn k')
-    }
+    
+    setClickedAnswers([quizIndex, [a]]);
     console.log(`clickedAnswers => ${clickedAnswers}`)
 
     // if (clickedAnswers.size === 0) {
@@ -78,31 +78,49 @@ const Quiz = () => {
     }
   };
 
+  const goNextQ = () => {
+    console.log(currentQIndex, quizzes.length);
+    if (currentQIndex !== quizzes.length) {
+      setCurrentQIndex(prevState => prevState + 1);
+    }
+  }
+
+
+  // console.log(`oneQ = ${oneQ}`)
+
   return (
     <div className='quizContainer'>
-      {quizzes.map((quiz, quizIndex) => (
-        <div key={quiz.id} className='quiz'>
-          <div className='quizQContainer'>
-            <p className='quizQText'>{quiz.question}</p>
-          </div>
-          <ul className='answersContainer'>
-            {quiz.answers.map((a, answerIndex) => (
-              <li
-                key={a}
-                onClick={() => {
-                  handleJudge(a, quiz, answerIndex, quizIndex);
-                }}
-                // className={clickedAnswers.get(answerIndex) ? disableClick : ""}
-              >
-                <a disabled={true} href='#'>
-                  {a}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <GoodBad quiz={quiz} />
-        </div>
-      ))}
+      <button onClick={goNextQ}>next</button>
+      {quizzes.map((quiz, quizIndex) => {
+        if (quizIndex === currentQIndex) {
+          return (
+            <div key={quiz.id} className='quiz'>
+              <div className='quizQContainer'>
+                <p className='quizQText'>{quiz.question}</p>
+              </div>
+              <ul className='answersContainer'>
+                {quiz.answers.map((a, answerIndex) => (
+                  <li
+                    key={a}
+                    onClick={() => {
+                      handleJudge(a, quiz, answerIndex, quizIndex);
+                    }}
+                    // className={clickedAnswers.get(answerIndex) ? disableClick : ""}
+                  >
+                    <a disabled={true} href='#'>
+                      {a}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <GoodBad quiz={quiz} />
+            </div>
+          )
+        }
+      })}
+      {(currentQIndex >= quizzes.length) && (
+        <h1>Finish</h1>
+      )}
     </div>
   );
 };

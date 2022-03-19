@@ -39,11 +39,9 @@ const GoodBad = ({quiz}) => {
 
   return (
     <div className='quizFooter'>
-      <div className='likesDislikesContainer'>
-        <div onClick={handleLikes}>
-          <span className='heartIcon'>{goodClicked ? <FaHeart /> : <FaRegHeart />} </span>
-          <span className="likesNumber">{goodCounter}</span>
-        </div>
+      <div className='likesDislikesContainer' onClick={handleLikes}>
+        <span className='heartIcon'>{goodClicked ? <FaHeart /> : <FaRegHeart />} </span>
+        <span className="likesNumber">{goodCounter}</span>
         <div></div>
         {/* <span onClick={handleDislikes}>{goodClicked ? <FontAwesomeIcon icon="fa-regular fa-thumbs-down" /> : <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />}bad: {badCounter}, {badClicked}</span> */}
       </div>
