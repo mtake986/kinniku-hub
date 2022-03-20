@@ -4,7 +4,7 @@ import { bsArrowRight } from '../icons/icons.jsx';
 const GoNextQuizBtn = ({ goNextQuiz }) => {
   return (
   <button onClick={goNextQuiz} className='goNextQuizBtn'>
-    {bsArrowRight}
+    <span>Next</span> {bsArrowRight}
   </button>
   )
   
