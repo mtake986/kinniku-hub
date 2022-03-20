@@ -9,7 +9,7 @@ const GoodBad = ({quiz}) => {
   const [goodCounter, setGoodCounter] = useState(quiz.likes);
   const [badCounter, setBadCounter] = useState(quiz.dislikes);
 
-  const handleLikes = () => {
+  const handleLikes = (e) => {
     if (goodClicked === false) {
       setGoodClicked(true)
       setGoodCounter(prevState => prevState + 1);
@@ -39,12 +39,9 @@ const GoodBad = ({quiz}) => {
 
   return (
     <div className='quizFooter'>
-      <div className='likesDislikesContainer'>
-        <div onClick={handleLikes}>
-          <span className='heartIcon'>{goodClicked ? <FaHeart /> : <FaRegHeart />} </span>
-          <span className="likesNumber">{goodCounter}</span>
-        </div>
-        <div></div>
+      <div className={goodClicked ? 'likesCounterContainer checked' : 'likesCounterContainer'} onClick={handleLikes}>
+        <span className='heartIcon'>{goodClicked ? <FaHeart /> : <FaRegHeart />} </span>
+        <span className="likesNumber">{goodCounter}</span>
         {/* <span onClick={handleDislikes}>{goodClicked ? <FontAwesomeIcon icon="fa-regular fa-thumbs-down" /> : <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />}bad: {badCounter}, {badClicked}</span> */}
       </div>
     </div>
