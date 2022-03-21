@@ -28,10 +28,10 @@ a {
 
 #main {
   /* background-color: #eee; */
-  padding: 50px;
+  padding: 30px;
   max-width: 600px;
   width: 100%;
-  margin: 100px auto;
+  margin: 30px auto;
   font-size: 2rem;
 }
 
@@ -54,10 +54,32 @@ a {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-top: 30px;
 }
 
 .quizContainer .quiz {
   margin-bottom: 50px;
+}
+
+.quizContainer .quiz .quizHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+}
+
+.quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.whoMadeThis {
+  font-size: 1.2rem;
+}
+
+.quizContainer .quiz .quizQuestionContainer p.quizQuestionText {
+  font-size: 1.8rem;
 }
 
 .quizContainer .quiz ul.answersContainer {
@@ -71,15 +93,59 @@ a {
   background: #f0f0f0;
   font-size: 1.5rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 75px;
 }
 
 .quizContainer .quiz ul.answersContainer li:hover {
-  background: whitesmoke;
+  background: #e6e6e6;
 }
 
-.quizContainer .quiz ul.answersContainer li.disableClick {
+.quizContainer .quiz ul.answersContainer li.correctAnswerClicked {
+  pointer-events: none;
+  background: #fff0f0;
+}
+
+.quizContainer .quiz ul.answersContainer li.correctAnswerClicked div.correctIncorrectIcons .correctIcon {
+  margin-left: 20px;
+  font-size: 1.5rem;
+  display: block;
+}
+
+.quizContainer .quiz ul.answersContainer li.incorrectAnswerClicked {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.quizContainer .quiz ul.answersContainer li.incorrectAnswerClicked div.correctIncorrectIcons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.quizContainer .quiz ul.answersContainer li.incorrectAnswerClicked div.correctIncorrectIcons .incorrectIcon {
+  margin-left: 20px;
+  font-size: 1.5rem;
+  display: block;
+}
+
+.quizContainer .quiz ul.answersContainer li div.correctIncorrectIcons .correctIcon {
+  display: none;
+}
+
+.quizContainer .quiz ul.answersContainer li div.correctIncorrectIcons .incorrectIcon {
+  display: none;
 }
 
 .quizContainer .quiz .quizFooter {
