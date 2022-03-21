@@ -5,6 +5,7 @@ import { doc, collection, onSnapshot } from 'firebase/firestore';
 import db from '../firebaseConfig';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
+import GoPrevQuizBtn from './GoPrevQuizBtn';
 import { bsEmojiDizzy, bsEmojiLaughing } from '../icons/icons';
 import QuizHome from './QuizHome';
 
@@ -120,7 +121,7 @@ const Quiz = () => {
                 ))}
               </ul>
               <div className='quizFooter'>
-                <GoNextQuizBtn goPrevQuiz={goPrevQuiz} text="Back" />
+                <GoPrevQuizBtn goPrevQuiz={goPrevQuiz} text="Prev" />
                 
                 <GoodBad quiz={quiz} />
                 {quizIndex+1 === quizzes.length ? (

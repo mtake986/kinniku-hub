@@ -12,6 +12,7 @@ import Profile from "./components/Profile";
 import NewQuiz from "./components/NewQuiz";
 import QuizHome from "./components/QuizHome";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 // Actual Coding
 function App() {
@@ -30,9 +31,8 @@ function App() {
           <Route path="*" element={<ErrorPage />}/>
         </Routes>
       </div>
-      <footer>
-        &copy; Masahiro Takechi 2022
-      </footer>
+      <Footer />
+
     </BrowserRouter>
   );
 }
