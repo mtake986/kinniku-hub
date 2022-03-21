@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
-import {Link, Outlet} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { doc, collection, onSnapshot } from 'firebase/firestore';
 
 import db from '../firebaseConfig';
-import GoodBad from './GoodBad'
-import GoNextQuizBtn from './GoNextQuizBtn'
+import GoodBad from './GoodBad';
+import GoNextQuizBtn from './GoNextQuizBtn';
+import { bsEmojiDizzy, bsEmojiLaughing } from '../icons/icons';
+import QuizHome from './QuizHome';
 
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [disableClick, setDisableClick] = useState('ableClick');
   const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
-  const [currentQ, setCurrentQ] = useState()
+  const [currentQ, setCurrentQ] = useState();
+  const [loading, setLoading] = useState(false);
 
   /*
   Ideally
@@ -24,26 +27,19 @@ const Quiz = () => {
     ]
   }
   */
-  
+
+
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
-
-    const unsub = onSnapshot(
-      collectionRef,
-      {
-        next: (snapshot) => {
-          setQuizzes(
-            snapshot.docs.map(
-              doc => ({ ...doc.data(), id: doc.id })
-            )
-          );
-        },
-        error: (err) => {
-          // don't forget error handling! e.g. update component with an error message
-          console.error("quizes listener failed: ", err);
-        }
-      }
-    );
+    const unsub = onSnapshot(collectionRef, {
+      next: snapshot => {
+        setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      },
+      error: err => {
+        // don't forget error handling! e.g. update component with an error message
+        console.error('quizes listener failed: ', err);
+      },
+    });
     return unsub;
     // const unsub = onSnapshot(collectionRef, snapshot => {
     //   setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -53,15 +49,25 @@ const Quiz = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
-  const handleJudge = (e, a, quiz, answerIndex, quizIndex) => {
-    const correctAnswer = quiz.answers[quiz.correctAnswer];
-    console.log(`a => ${a}, correctAnswer => ${correctAnswer}, answerIndex => ${answerIndex}, quizIndex => ${quizIndex}`);
+  const handleJudge = (e, answer, quiz, answerIndex, quizIndex) => {
+    // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.
+    answerIndex++;
+    quizIndex++;
+    const correctAnswerIndex = quiz.correctAnswer;
+    console.log(
+      `answer => ${answer}, answerIndex => ${answerIndex}, correctAnswerIndex => ${correctAnswerIndex}, quizIndex => ${quizIndex}`
+    );
 
-    
-    setClickedAnswers([quizIndex, [a]]);
-    console.log(`clickedAnswers => ${clickedAnswers}`)
+    // Noneed??
+    setClickedAnswers([...clickedAnswers, answer]);
+    console.log(`clickedAnswers => ${clickedAnswers}`);
 
-    e.target.className = "disableClick"
+    // add some styles to answers depending on correct or not
+    if (correctAnswerIndex === answerIndex) {
+      e.target.className = 'correctAnswerClicked disableClick';
+    } else {
+      e.target.className = 'incorrectAnswerClicked disableClick';
+    }
   };
 
   const goNextQuiz = () => {
@@ -69,47 +75,59 @@ const Quiz = () => {
     if (currentQIndex !== quizzes.length) {
       setCurrentQIndex(prevState => prevState + 1);
     }
-  }
-
+  };
 
   // console.log(`oneQ = ${oneQ}`)
-
+  console.log(quizzes);
   return (
     <div className='quizContainer'>
+      {quizzes.length === 0 ? "Loading..." : ""}
       {quizzes.map((quiz, quizIndex) => {
         if (quizIndex === currentQIndex) {
           return (
             <div key={quiz.id} className='quiz'>
-              <div className='quizQContainer'>
-                <p className='quizQText'>{quiz.question}</p>
+              <div className="quizHeader">
+                <span className="whoMadeThis">Made by: User 1</span>
+                <span className="quizNumber">{quizIndex+1}/{quizzes.length}</span>
+              </div>
+              <div className='quizQuestionContainer'>
+                <p className='quizQuestionText'>{quiz.question}</p>
               </div>
               <ul className='answersContainer'>
-                {quiz.answers.map((a, answerIndex) => (
+                {quiz.answers.map((answer, answerIndex) => (
                   <li
-                    key={a}
-                    onClick={(e) => {
-                      handleJudge(e, a, quiz, answerIndex, quizIndex);
+                    key={answer}
+                    onClick={e => {
+                      handleJudge(e, answer, quiz, answerIndex, quizIndex);
                     }}
-                    className={true ? disableClick : ""}
                   >
-                    <a disabled={true} href='#'>
-                      {a}
-                    </a>
+                    <span className='answer'>{answer}</span>
+                    <div className='correctIncorrectIcons'>
+                      <span className='incorrectIcon'>
+                        {bsEmojiDizzy}
+                      </span>
+                      <span className='correctIcon'>
+                        {bsEmojiLaughing}
+                      </span>
+                    </div>
                   </li>
                 ))}
               </ul>
-              <div className="quizFooter">
+              <div className='quizFooter'>
                 <GoodBad quiz={quiz} />
-                <GoNextQuizBtn goNextQuiz={goNextQuiz}/>
+                {quizIndex+1 === quizzes.length ? (
+                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Result" />
+                ) : (
+                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Next" />
+                )}
+                
               </div>
+              <span className="category">{quiz.category}</span>
             </div>
-          )
+          );
         }
       })}
-      {(currentQIndex >= quizzes.length) && (
-        <h1>Finish</h1>
-      )}
-
+      {quizzes.length !== 0 && currentQIndex >= quizzes.length ? "Finish" : ""}
     </div>
   );
 };

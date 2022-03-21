@@ -7,7 +7,9 @@ $color-text-disabled: #2d0a0a;
 $color-background: #fff;
 $colorGoodBtn: red;
 $colorQuizAnswerBg: rgb(240, 240, 240);
-$colorQuizAnswerBgHover: rgb(245, 245, 245);
+$colorQuizAnswerBgHover: rgb(230, 230, 230);
+$colorQuizClickedCorrectAnswerBg: rgb(255, 240, 240);
+$colorQuizClickedIncorrectAnswerBg: rgb(240, 240, 255);
 $colorGoodBtnHover: rgb(255, 245, 245);
 $colorGoNextQuizBtnHover: rgb(245, 245, 245);
 
@@ -43,10 +45,10 @@ a {
 }
 #main {
   /* background-color: #eee; */
-  padding: 50px;
+  padding: 30px;
   max-width: 600px;
   width: 100%;
-  margin: 100px auto;
+  margin: 30px auto;
   font-size: 2rem;
 }
 .createQuestionContainer {
@@ -64,10 +66,21 @@ a {
 .quizContainer {
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
   .quiz {
     margin-bottom: 50px;
-    .quizQContainer {
-      p.quizQText {
+    .quizHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      span.quizNumber, span.whoMadeThis {
+        font-size: $fzSmall;
+      }
+    }
+    .quizQuestionContainer {
+      p.quizQuestionText {
+        font-size: $fzMMedium;
       }
     }
     ul.answersContainer {
@@ -77,14 +90,47 @@ a {
         margin: 20px 0;
         padding: 20px;
         background: $colorQuizAnswerBg;
-        font-size: 1.5rem;
+        font-size: $fzMedium;
         cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 75px;
         &:hover {
           background: $colorQuizAnswerBgHover;
         }
-        &.disableClick {
+        &.correctAnswerClicked {
+          pointer-events: none;
+          background: $colorQuizClickedCorrectAnswerBg;
+          div.correctIncorrectIcons {
+            .correctIcon {
+              margin-left: 20px;
+              font-size: $fzMedium;
+              display: block;
+            }
+          }
+        }
+        &.incorrectAnswerClicked {
           pointer-events: none;
           opacity: 0.5;
+          div.correctIncorrectIcons {
+            display: flex;
+            align-items: center;
+            .incorrectIcon {
+              margin-left: 20px;
+              font-size: $fzMedium;
+              display: block;
+            } 
+          }
+        }
+        // default no icons
+        div.correctIncorrectIcons {
+          .correctIcon{
+            display: none;
+          }
+          .incorrectIcon {
+            display: none;
+          }
         }
       }
     }
@@ -108,8 +154,6 @@ a {
         span.heartIcon {
           height: 15px;
           margin-right: 15px;
-        }
-        span.likesNumber {
         }
       }
       .goodBtnThanksText {
