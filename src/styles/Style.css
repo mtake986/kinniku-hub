@@ -74,7 +74,7 @@ a {
   margin: 10px 0;
 }
 
-.quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.whoMadeThis {
+.quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.createdBy {
   font-size: 1.2rem;
 }
 
@@ -177,18 +177,12 @@ a {
 }
 
 .quizContainer .quiz .quizFooter .likesCounterContainer.checked {
-  background: #fff5f5;
+  background: #fff0f0;
 }
 
 .quizContainer .quiz .quizFooter .likesCounterContainer span.heartIcon {
   height: 15px;
   margin-right: 15px;
-}
-
-.quizContainer .quiz .quizFooter .goodBtnThanksText {
-  font-size: 0.8rem;
-  color: red;
-  margin-left: 10px;
 }
 
 .quizContainer .quiz .quizFooter button.goNextQuizBtn {
@@ -213,5 +207,48 @@ a {
 .quizContainer .quiz .quizFooter button.goNextQuizBtn .bsArrowRight {
   height: 20px;
   margin-left: 10px;
+}
+
+.quizForm {
+  padding-top: 30px;
+}
+
+.quizForm .quizFormInputText, .quizForm .quizFormInputSelect {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.quizForm .quizFormInputText label, .quizForm .quizFormInputSelect label {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.quizForm .quizFormInputText input, .quizForm .quizFormInputText select, .quizForm .quizFormInputSelect input, .quizForm .quizFormInputSelect select {
+  border: 1px solid #c8c8c8;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.quizForm button {
+  padding: 10px 18px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  background: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.quizForm button:hover {
+  background: whitesmoke;
 }
 /*# sourceMappingURL=Style.css.map */

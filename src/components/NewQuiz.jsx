@@ -22,48 +22,48 @@ const NewQuiz = () => {
       id: 1,
       name: 'question',
       type: 'text',
-      placeholder: 'question',
-      label: 'question',
+      placeholder: 'Is protein powder white happy magical snow??',
+      label: 'Question',
     },
     {
       id: 2,
       name: 'answer1',
       type: 'text',
-      placeholder: 'answer1',
-      label: 'answer1',
+      placeholder: 'No',
+      label: 'Answer 1',
     },
     {
       id: 3,
       name: 'answer2',
       type: 'text',
-      placeholder: 'answer2',
-      label: 'answer2',
+      placeholder: 'Yes',
+      label: 'Answer 2',
     },
     {
       id: 4,
       name: 'answer3',
       type: 'text',
-      placeholder: 'answer3',
-      label: 'answer3',
+      placeholder: 'Maybe',
+      label: 'Answer 3',
     },
     {
       id: 5,
       name: 'answer4',
       type: 'text',
-      placeholder: 'answer4',
-      label: 'answer4',
+      placeholder: 'Tqm',
+      label: 'Answer 4',
     },
     {
       id: 6,
       name: 'correctAnswer',
-      type: 'text',
+      type: 'number',
       placeholder: 1,
-      label: 'correctAnswer',
+      label: 'Correct Answer',
     },
     {
       id: 7,
       name: 'category',
-      label: 'category',
+      label: 'Category',
     },
   ];
 
@@ -99,7 +99,7 @@ const NewQuiz = () => {
       answer4: '',
       correctAnswer: 0,
       createdAt: '',
-      category: ""
+      category: "" // how to set it to default value
     })
   };
 
@@ -108,7 +108,7 @@ const NewQuiz = () => {
   return (
     <form action='' className='quizForm' onSubmit={handleSubmit}>
       {inputs.map((input, i) => {
-        if (input["type"] === "text") {
+        if (input["type"] === "text" || input["type"] === "number") {
           return (
             <FormInputText
               key={input.id}

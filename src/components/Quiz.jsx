@@ -11,7 +11,7 @@ import QuizHome from './QuizHome';
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [disableClick, setDisableClick] = useState('ableClick');
-  const [clickedAnswers, setClickedAnswers] = useState([]);
+  // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [currentQ, setCurrentQ] = useState();
   const [loading, setLoading] = useState(false);
@@ -59,8 +59,8 @@ const Quiz = () => {
     );
 
     // Noneed??
-    setClickedAnswers([...clickedAnswers, answer]);
-    console.log(`clickedAnswers => ${clickedAnswers}`);
+    // setClickedAnswers([...clickedAnswers, answer]);
+    // console.log(`clickedAnswers => ${clickedAnswers}`);
 
     // add some styles to answers depending on correct or not
     if (correctAnswerIndex === answerIndex) {
@@ -76,6 +76,12 @@ const Quiz = () => {
       setCurrentQIndex(prevState => prevState + 1);
     }
   };
+  const goPrevQuiz = () => {
+    console.log(currentQIndex, quizzes.length);
+    if (currentQIndex !== 0) {
+      setCurrentQIndex(prevState => prevState - 1);
+    }
+  };
 
   // console.log(`oneQ = ${oneQ}`)
   console.log(quizzes);
@@ -87,7 +93,7 @@ const Quiz = () => {
           return (
             <div key={quiz.id} className='quiz'>
               <div className="quizHeader">
-                <span className="whoMadeThis">Made by: User 1</span>
+                <span className="createdBy">Created by: User 1</span>
                 <span className="quizNumber">{quizIndex+1}/{quizzes.length}</span>
               </div>
               <div className='quizQuestionContainer'>
@@ -114,13 +120,14 @@ const Quiz = () => {
                 ))}
               </ul>
               <div className='quizFooter'>
+                <GoNextQuizBtn goPrevQuiz={goPrevQuiz} text="Back" />
+                
                 <GoodBad quiz={quiz} />
                 {quizIndex+1 === quizzes.length ? (
                   <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Result" />
                 ) : (
                   <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Next" />
                 )}
-                
               </div>
               <span className="category">{quiz.category}</span>
             </div>
