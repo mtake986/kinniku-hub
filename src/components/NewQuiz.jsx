@@ -99,7 +99,7 @@ const NewQuiz = () => {
       answer4: '',
       correctAnswer: 0,
       createdAt: '',
-      category: "Select a category" // how to set it to default value
+      category: "" // how to set it to default value
     })
   };
 

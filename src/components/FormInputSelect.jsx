@@ -5,8 +5,8 @@ const FormInputSelect = props => {
   return (
     <div className='quizFormInputSelect'>
       <label>{label}</label>
-      <select name={label} id={label} onChange={onChange} defaultValue="">
-        <option value="default" disabled>Select a category</option>
+      <select name={label} id={label} onChange={onChange}>
+        <option value="">Select a category</option>
         <option value="Workout">Workout</option>
         <option value="Muscle">Muscle</option>
         <option value="Nutrition">Nutrition</option>

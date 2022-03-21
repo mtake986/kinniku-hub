@@ -74,7 +74,7 @@ a {
   margin: 10px 0;
 }
 
-.quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.whoMadeThis {
+.quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.createdBy {
   font-size: 1.2rem;
 }
 
@@ -177,18 +177,12 @@ a {
 }
 
 .quizContainer .quiz .quizFooter .likesCounterContainer.checked {
-  background: #fff5f5;
+  background: #fff0f0;
 }
 
 .quizContainer .quiz .quizFooter .likesCounterContainer span.heartIcon {
   height: 15px;
   margin-right: 15px;
-}
-
-.quizContainer .quiz .quizFooter .goodBtnThanksText {
-  font-size: 0.8rem;
-  color: red;
-  margin-left: 10px;
 }
 
 .quizContainer .quiz .quizFooter button.goNextQuizBtn {
