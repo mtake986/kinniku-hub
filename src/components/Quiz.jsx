@@ -9,6 +9,7 @@ import GoNextQuizBtn from './GoNextQuizBtn';
 import GoPrevQuizBtn from './GoPrevQuizBtn';
 import { bsEmojiDizzy, bsEmojiLaughing } from '../icons/icons';
 
+
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [disableClick, setDisableClick] = useState('ableClick');
@@ -88,7 +89,7 @@ const Quiz = () => {
   console.log(quizzes);
   return (
     <div className='quizContainer'>
-      {quizzes.length === 0 ? <Loading /> : ""}
+      {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
       {quizzes.map((quiz, quizIndex) => {
         if (quizIndex === currentQIndex) {
           return (

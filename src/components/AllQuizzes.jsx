@@ -36,7 +36,7 @@ const AllQuizzes = () => {
 
   return (
     <div className="allQuizzes">
-      {quizzes.length === 0 ? <Loading /> : ""}
+      {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
       {quizzes.map((quiz, quizIndex) => (
         <div className="eachQuizContainer" key={quiz.id}>
           <div className="quizQuestionContainer">
