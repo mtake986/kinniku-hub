@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import "../styles/Header.css"
+
 const Header = () => {
   return (
-    <div id='header'>
-      <div id="icon">
+    <div id='appHeader'>
+      <div id="logo">
         <Link to="/">K!nN!ku Hub</Link>
       </div>
-      <nav>
+      <nav id="appNav">
         {/* instead of <a href="/"> */}
-        <Link to="/">Home</Link> {"   |   "}
-        <Link to="/about">About</Link>{"   |   "}
-        <Link to="/quiz-home">QuizHome</Link>{"   |   "}
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/kinniku-quiz">Quiz</Link>
         <Link to="/profile">Profile</Link>
       </nav>
     </div>

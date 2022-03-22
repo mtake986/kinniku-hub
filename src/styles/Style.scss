@@ -14,12 +14,15 @@ a {
   text-decoration: none;
 }
 
-#header {
+#appHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
   font-size: 1.5rem;
+  // #appNav{
+    
+  // }
 }
 #main {
   /* background-color: #eee; */
@@ -41,10 +44,13 @@ a {
   }
 }
 
+.quizHomeNav {
+  margin: 30px 0 50px;
+}
+
 .quizContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
   .quiz {
     margin-bottom: 50px;
     .quizHeader {
@@ -143,6 +149,7 @@ a {
         display: flex;
         align-items: center;
         cursor: pointer;
+        font-size: $fzSSmall;
         &:hover {
           background: $colorGoNextQuizBtnHover;
         }
@@ -187,6 +194,48 @@ a {
     transition: .3s;
     &:hover {
       background: $colorGoNextQuizBtnHover;
+    }
+  }
+}
+
+.allQuizzes {
+  font-size: $fzSmall;
+  .eachQuizContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid $colorAccent1Lighter;
+    &:first-child {
+      margin-top: 0;
+    }
+    .quizQuestionContainer {
+      display: flex;
+      align-items: center;
+      .quizIndex {
+        margin-right: 15px;
+      }
+      .quizQuestion {
+        margin: 0 15px;
+      }
+    }
+    div.icons {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+      .riEditBoxLine, .riDeleteBinLine {
+        cursor: pointer;
+        color: $colorAccent1;
+        &:hover { 
+          opacity: .7;
+          transition: .3s;
+        }
+      }
+      // .riDeleteBinLine {
+
+      // }
     }
   }
 }

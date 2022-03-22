@@ -5,8 +5,9 @@ const QuizHome = () => {
   return (
     <div className="quizHome">
       <nav className="quizHomeNav">
-        <Link to="/quiz-home/new">New</Link>{"   |   "}
-        <Link to="/quiz-home/quiz">Quiz</Link>
+        <Link to="/kinniku-quiz/new">New</Link>{"   |   "}
+        <Link to="/kinniku-quiz/quiz">Quiz</Link>{"   |   "}
+        <Link to="/kinniku-quiz/all-quizzes">All Quizzes</Link>
       </nav>
       <Outlet />
     </div>

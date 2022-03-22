@@ -3,7 +3,7 @@ import { collection, setDoc, doc, addDoc } from 'firebase/firestore';
 
 import FormInputText from './FormInputText';
 import FormInputSelect from './FormInputSelect';
-import db from '../firebaseConfig';
+import db from '../config/firebase';
 
 const NewQuiz = () => {
   const [values, setValues] = useState({
