@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { doc, collection, onSnapshot } from 'firebase/firestore';
+import Loading from 'react-simple-loading';
 
-import db from '../firebaseConfig';
+import db from '../config/firebase';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
 import GoPrevQuizBtn from './GoPrevQuizBtn';
 import { bsEmojiDizzy, bsEmojiLaughing } from '../icons/icons';
-import QuizHome from './QuizHome';
 
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -88,7 +88,7 @@ const Quiz = () => {
   console.log(quizzes);
   return (
     <div className='quizContainer'>
-      {quizzes.length === 0 ? "Loading..." : ""}
+      {quizzes.length === 0 ? <Loading /> : ""}
       {quizzes.map((quiz, quizIndex) => {
         if (quizIndex === currentQIndex) {
           return (

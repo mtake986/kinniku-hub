@@ -1,3 +1,18 @@
-.header {
-  background: rgb(255, 204, 204);
+@import './Variables.scss';
+
+#appHeader {
+  background: $colorAccent1;
+  color: $colorAccent2;
+  #logo {
+    a {
+      color: $colorAccent2;
+    }
+  }
+  #appNav {
+    color: $colorAccent2;
+    a {
+      margin-left: 20px;
+      color: $colorAccent2;
+    }
+  }
 }

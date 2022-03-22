@@ -1,4 +1,18 @@
-.header {
-  background: #ffcccc;
+#appHeader {
+  background: #005bbb;
+  color: #ffd500;
+}
+
+#appHeader #logo a {
+  color: #ffd500;
+}
+
+#appHeader #appNav {
+  color: #ffd500;
+}
+
+#appHeader #appNav a {
+  margin-left: 20px;
+  color: #ffd500;
 }
 /*# sourceMappingURL=Header.css.map */

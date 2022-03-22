@@ -1,8 +1,9 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,OAAO,CAAC;EACN,UAAU,EAAE,OAAkB;CAC/B",
+    "mappings": "AAEA,AAAA,UAAU,CAAC;EACT,UAAU,ECDG,OAAO;EDEpB,KAAK,ECDQ,OAAO;CDcrB;;AAfD,AAII,UAJM,CAGR,KAAK,CACH,CAAC,CAAC;EACA,KAAK,ECJI,OAAO;CDKjB;;AANL,AAQE,UARQ,CAQR,OAAO,CAAC;EACN,KAAK,ECRM,OAAO;CDanB;;AAdH,AAUI,UAVM,CAQR,OAAO,CAEL,CAAC,CAAC;EACA,WAAW,EAAE,IAAI;EACjB,KAAK,ECXI,OAAO;CDYjB",
     "sources": [
-        "Header.scss"
+        "Header.scss",
+        "Variables.scss"
     ],
     "names": [],
     "file": "Header.css"

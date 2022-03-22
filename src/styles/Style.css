@@ -12,7 +12,7 @@ a {
   text-decoration: none;
 }
 
-#header {
+#appHeader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -46,6 +46,10 @@ a {
   margin-right: 20px;
 }
 
+.quizHomeNav {
+  margin: 30px 0 50px;
+}
+
 .quizContainer {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -54,7 +58,6 @@ a {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-top: 30px;
 }
 
 .quizContainer .quiz {
@@ -198,6 +201,7 @@ a {
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn:hover {
@@ -255,5 +259,66 @@ a {
 
 .quizForm button:hover {
   background: whitesmoke;
+}
+
+.allQuizzes {
+  font-size: 1.2rem;
+}
+
+.allQuizzes .eachQuizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #b7daff;
+}
+
+.allQuizzes .eachQuizContainer:first-child {
+  margin-top: 0;
+}
+
+.allQuizzes .eachQuizContainer .quizQuestionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
+  margin-right: 15px;
+}
+
+.allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
+  margin: 0 15px;
+}
+
+.allQuizzes .eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.allQuizzes .eachQuizContainer div.icons .riEditBoxLine, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
+  cursor: pointer;
+  color: #005bbb;
+}
+
+.allQuizzes .eachQuizContainer div.icons .riEditBoxLine:hover, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine:hover {
+  opacity: .7;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 /*# sourceMappingURL=Style.css.map */
