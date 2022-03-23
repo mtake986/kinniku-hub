@@ -68,6 +68,7 @@ a {
 
 .quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.createdBy {
   font-size: 1.2rem;
+  color: grey;
 }
 
 .quizContainer .quiz .quizQuestionContainer p.quizQuestionText {
@@ -260,6 +261,7 @@ a {
 .allQuizzes .eachQuizContainer div.icons .riEditBoxLine, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
   cursor: pointer;
   color: #005bbb;
+  height: 20px;
 }
 
 .allQuizzes .eachQuizContainer div.icons .riEditBoxLine:hover, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine:hover {

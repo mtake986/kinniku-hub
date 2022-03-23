@@ -50,6 +50,7 @@ a {
       margin: 10px 0;
       span.quizNumber, span.createdBy {
         font-size: $fzSmall;
+        color: $colorQuizHeader;
       }
     }
     .quizQuestionContainer {
@@ -181,11 +182,11 @@ a {
     div.icons {
       display: flex;
       align-items: center;
-
       gap: 10px;
       .riEditBoxLine, .riDeleteBinLine {
         cursor: pointer;
         color: $colorAccent1;
+        height: 20px;
         &:hover { 
           opacity: .7;
           transition: .3s;
