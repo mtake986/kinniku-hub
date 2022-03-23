@@ -9,7 +9,6 @@ import Home from "./components/Home";
 import About from "./components/About";
 import ErrorPage from "./components/ErrorPage";
 import Profile from "./components/Profile";
-import NewQuiz from "./components/NewQuiz";
 import QuizHome from "./components/QuizHome";
 import AllQuizzes from "./components/AllQuizzes";
 import Header from "./components/Header";
@@ -27,7 +26,6 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="about" element={<About />}/>
           <Route path="kinniku-quiz" element={<QuizHome />}>
-            {/* <Route path="new" element={<NewQuiz />} /> */}
             <Route path="new" element={<FormikNewQuiz />} />
             <Route path="quiz" element={<Quiz />} />
             <Route path="all-quizzes" element={<AllQuizzes />} />

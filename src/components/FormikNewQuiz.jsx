@@ -226,7 +226,7 @@ const labelInputContainer = {
 };
 
 const label = {
-  fontSize: '1.2rem',
+  fontSize: '1.5rem',
   margin: '10px 0 5px',
 };
 
@@ -236,17 +236,16 @@ const quizFormInputText = {
   flexDirection: 'column',
   border: 'none',
   borderBottom: '1px solid rgb(200, 200, 200)',
-  fontSize: '1rem',
+  fontSize: '1.2rem',
   padding: '3px 10px',
   marginTop: "5px",
-
 };
 const focusStyle = {
   display: 'block',
   width: '100%',
   flexDirection: 'column',
   border: 'none',
-  fontSize: '1rem',
+  fontSize: '1.2rem',
   padding: '3px 10px',
   outline: 'none',
   borderBottom: '1px solid #005bbb',
@@ -256,26 +255,22 @@ const focusStyle = {
 const quizFormErrMsg = {
   color: 'red',
   fontSize: '.9rem',
-  // margin: '0px 0px 20px',
-  // background: 'rgb(255, 240, 240)',
 };
 
 const answerIndex = {
   fontSize: '1.2rem',
-  // marginRight: '10px',
 };
 
 
 // This includes an answer and error
 const answerContainer = {
   display: 'flex',
-  // alignItems: "center",
   flexDirection: 'column',
 };
 
 // This includes an answer index, input, and a remove icon .
 const indexAnswerIconContainer = {
-  marginTop: "10px",
+  marginTop: "5px",
   display: 'flex',
   alignItems: 'end',
   gap: "10px",
@@ -286,7 +281,6 @@ const moreAnswerIcon = {
   color: '#005bbb',
   marginLeft: '20px',
   padding: '0px 10px',
-  // border: "1px solid #005bbb",
   cursor: 'pointer',
 };
 
