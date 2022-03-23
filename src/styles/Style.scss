@@ -1,6 +1,6 @@
 @charset 'utf-8';
 @import "./Variables.scss";
-
+// To fold everything: cmd+k -> cmd+0
 *,
 *::after,
 *::before {
@@ -24,6 +24,7 @@ a {
     
   // }
 }
+
 #main {
   /* background-color: #eee; */
   padding: 30px;
@@ -31,17 +32,6 @@ a {
   width: 100%;
   margin: 30px auto;
   font-size: 2rem;
-}
-.createQuestionContainer {
-  .createQuestion {
-    width: 100px;
-    height: 50px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    background: white;
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
-    margin-right: 20px;
-  }
 }
 
 .quizHomeNav {
@@ -166,38 +156,6 @@ a {
   }
 }
 
-.quizForm {
-  padding-top: 30px;
-  .quizFormInputText, .quizFormInputSelect {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    label {
-      font-size: $fzSmall;
-      margin-bottom: 5px;
-    }
-    input, select {
-      border: 1px solid rgb(200, 200, 200);
-      font-size: $fzSSmall;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  }
-  button {
-    padding: 10px 18px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    background: white;
-    font-size: $fzSmall;
-    cursor: pointer;
-    transition: .3s;
-    &:hover {
-      background: $colorGoNextQuizBtnHover;
-    }
-  }
-}
-
 .allQuizzes {
   font-size: $fzSmall;
   .eachQuizContainer {
@@ -232,6 +190,9 @@ a {
           opacity: .7;
           transition: .3s;
         }
+      }
+      .riDeleteBinLine {
+        color: $colorGoodBtn;
       }
       // .riDeleteBinLine {
 
