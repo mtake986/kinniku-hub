@@ -4,18 +4,17 @@ $colorAccent1: #005bbb;
 $colorAccent1Light: #59a9ff;
 $colorAccent1Lighter: #ecf5ff;
 $colorAccent2: #ffd500;
-$colorAccent2Light: rgb(255, 225, 74);
-$colorAccent2Lighter: rgb(255, 249, 217);
+$colorAccent2Light: rgb(255, 225, 100);
+$colorAccent2Lighter: rgb(255, 249, 200);
 
 $color-background: #fff;
 $colorGoodBtn: red;
 $colorGoodBtnHover: rgb(255, 240, 240);
-$colorQuizAnswerBg: rgb(250, 250, 250);
-$colorQuizAnswerBgHover: rgb(230, 230, 230);
-$colorQuizClickedCorrectAnswerBg: rgb(255, 240, 240);
+$colorQuizAnswerBg: rgb(255, 249, 220);
+$colorQuizAnswerBgHover: rgb(255, 246, 180);
+$colorQuizClickedIncorrectAnswerBg: rgb(240, 240, 255);
 
 // Btn
-$colorQuizClickedIncorrectAnswerBg: rgb(240, 240, 255);
 $colorGoNextQuizBtnHover: rgb(245, 245, 245);
 $colorQuizFormSubmitBtn: rgb(240, 240, 255);
 $colorQuizFormSubmitBtnHover: rgb(245, 245, 245);

@@ -6,8 +6,9 @@ import { biCircle, biPlus } from '../icons/icons'
 
 const QuizResultWindow = ({correctAnswers, points, quizzes}) => {
   return (
-    <div className="allQuizzes">
-      <h3>You aced {points} out of {quizzes.length}.</h3>
+    <div className="quizResultWindow">
+      {correctAnswers}
+      <h3 className="quizResutlText">You aced {points} out of {quizzes.length} ({Math.round(points/quizzes.length*10000) / 100}%).</h3>
       {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
       {quizzes.map((quiz, quizIndex) => (
         <div className="eachQuizContainer" key={quiz.id}>

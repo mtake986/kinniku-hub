@@ -52,7 +52,7 @@
   list-style: none;
   margin: 20px 0;
   padding: 20px;
-  background: #fff9d9;
+  background: #fff9c8;
   font-size: 1.5rem;
   cursor: pointer;
   display: -webkit-box;
@@ -68,7 +68,7 @@
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li:hover {
-  background: #e6e6e6;
+  background: #ffe164;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked {
@@ -236,6 +236,72 @@
 }
 
 .allQuizzes .eachQuizContainer div.icons .biPlus {
+  -webkit-transform: rotate(225deg) translate(-2px, -2px);
+          transform: rotate(225deg) translate(-2px, -2px);
+  font-size: 1.5rem;
+  height: 20px;
+  color: red;
+}
+
+.quizResultWindow {
+  font-size: 1.2rem;
+}
+
+.quizResultWindow .quizResutlText {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.quizResultWindow .eachQuizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ecf5ff;
+}
+
+.quizResultWindow .eachQuizContainer:first-child {
+  margin-top: 0;
+}
+
+.quizResultWindow .eachQuizContainer .quizQuestionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.quizResultWindow .eachQuizContainer .quizQuestionContainer .quizIndex {
+  margin-right: 15px;
+}
+
+.quizResultWindow .eachQuizContainer .quizQuestionContainer .quizQuestion {
+  margin: 0 15px;
+}
+
+.quizResultWindow .eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.quizResultWindow .eachQuizContainer div.icons .biCircle {
+  color: #005bbb;
+  height: 20px;
+}
+
+.quizResultWindow .eachQuizContainer div.icons .biPlus {
   -webkit-transform: rotate(225deg) translate(-2px, -2px);
           transform: rotate(225deg) translate(-2px, -2px);
   font-size: 1.5rem;

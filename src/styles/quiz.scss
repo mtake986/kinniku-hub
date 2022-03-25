@@ -41,7 +41,7 @@
         align-items: center;
         height: 75px;
         &:hover {
-          background: $colorQuizAnswerBgHover;
+          background: $colorAccent2Light;
         }
         &.correctAnswerClicked {
           pointer-events: none;
@@ -133,6 +133,50 @@
 
 .allQuizzes {
   font-size: $fzSmall;
+  .eachQuizContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid $colorAccent1Lighter;
+    &:first-child {
+      margin-top: 0;
+    }
+    .quizQuestionContainer {
+      display: flex;
+      align-items: center;
+      .quizIndex {
+        margin-right: 15px;
+      }
+      .quizQuestion {
+        margin: 0 15px;
+      }
+    }
+    div.icons {
+      display: flex;
+      .biCircle {
+        color: $colorAccent1;
+        height: 20px;
+      }
+      .biPlus {
+        transform: rotate(225deg) translate(-2px, -2px);
+        font-size: $fzMedium;
+        height: 20px;
+        color: red;
+      }
+    }
+  }
+}
+
+.quizResultWindow {
+  font-size: $fzSmall;
+  .quizResutlText {
+    font-weight: bold;
+    text-align: center;
+    font-size: $fzMMedium;
+    margin-bottom: 30px;
+  }
   .eachQuizContainer {
     display: flex;
     justify-content: space-between;

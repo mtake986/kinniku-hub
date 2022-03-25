@@ -17,17 +17,7 @@ const Quiz = () => {
   const [points, setPoints] = useState(0);
   const [selected, setSelected] = useState(-1);
   const [correctAnswers, setCorrectAnswers] = useState([])
-  /*
-  Ideally
-  {
-    quizIndex: [
-      "answer1", "answer2"
-    ], 
-    quizIndex : [
-      "buiohlnk"
-    ]
-  }
-  */
+  const [clickedAnswerIndex, setClickedAnswerIndex] = useState(-1)
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
@@ -49,10 +39,12 @@ const Quiz = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
-  const handleJudge = (e, answer, quiz, answerIndex, quizIndex) => {
+  const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
     // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.
     answerIndex++;
     quizIndex++;
+
+    setClickedAnswerIndex(answerIndex);
     const correctAnswerIndex = quiz.correctAnswer;
     console.log(
       `answer => ${answer}, answerIndex => ${answerIndex}, correctAnswerIndex => ${correctAnswerIndex}, quizIndex => ${quizIndex}`
@@ -61,17 +53,15 @@ const Quiz = () => {
     setSelected(answerIndex);
     console.log(selected)
 
-
-
     if (answerIndex === correctAnswerIndex) {
       setPoints(prevState => prevState + 1)
       setCorrectAnswers([...correctAnswers, answerIndex])
     }
     // add some styles to answers depending on correct or not
     if (correctAnswerIndex === answerIndex) {
-      e.target.className = 'correctAnswerClicked disableClick';
+      e.target.className = await 'correctAnswerClicked disableClick';
     } else {
-      e.target.className = 'incorrectAnswerClicked disableClick';
+      e.target.className = await 'incorrectAnswerClicked disableClick';
     }
   };
 
@@ -80,13 +70,16 @@ const Quiz = () => {
     if (currentQIndex !== quizzes.length) {
       setCurrentQIndex(prevState => prevState + 1);
     }
+    setClickedAnswerIndex(-1)
   };
   const goPrevQuiz = () => {
     console.log(currentQIndex, quizzes.length);
     if (currentQIndex !== 0) {
       setCurrentQIndex(prevState => prevState - 1);
     } else {
+      setCurrentQIndex(currentQIndex);
     }
+    setClickedAnswerIndex(-1)
   };
 
   console.log(quizzes);
