@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { collection, setDoc, doc, addDoc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import db from '../config/firebase';
-import { ioAddCircleOutline, ioRemoveCircleOutline } from '../icons/icons';
+import { ioRemoveCircleSharp } from '../icons/icons';
 
-
-Yup.addMethod(Yup.array, 'unique', function(message, mapper = a => a) {
-    return this.test('unique', message, function(list) {
-        return list.length  === new Set(list.map(mapper)).size;
-    });
+Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
+  return this.test('unique', message, function (list) {
+    return list.length === new Set(list.map(mapper)).size;
+  });
 });
 
 const quizSchema = Yup.object().shape({
@@ -19,10 +18,7 @@ const quizSchema = Yup.object().shape({
     .max(250, 'Too Long!')
     .required('Required'),
   answers: Yup.array()
-    .of(
-      Yup.string()
-        .max(50, 'Too Long!')
-        .required('Required'))
+    .of(Yup.string().max(50, 'Too Long!').required('Required'))
     .unique('Duplicate answers are not allowed')
     .min(2, `Minimum of 2 answers`),
   correctAnswer: Yup.number('only numbers are allowed')
@@ -34,9 +30,10 @@ const quizSchema = Yup.object().shape({
   likes: Yup.number(),
 });
 
-
 export const FormikNewQuiz = () => {
-  const [focused, setFocused] = useState("");
+  const [focused, setFocused] = useState(false);
+  const [addHover, setAddHover] = useState(false);
+  const [submitBtnHover, setSubmitBtnHover] = useState(false);
 
   return (
     <div className='formikNewQuiz'>
@@ -51,16 +48,20 @@ export const FormikNewQuiz = () => {
         }}
         validateOnChange
         validationSchema={quizSchema}
-        onSubmit={async values => {
+        onSubmit={async (values, { resetForm }) => {
           // same shape as initial values
           console.log(values);
           const quizCollectionRef = collection(db, 'quizzes');
           const payload = values;
-          
           await addDoc(quizCollectionRef, payload);
+          // values["question"] = "";
+          // values["answers"] = ["", ""];
+          // values.correctAnswer = ""
+          // values.category = ""
+          resetForm();
         }}
       >
-        {({ errors, touched, values}) => (
+        {({ errors, touched, values }) => (
           <Form>
             <div style={labelInputContainer}>
               <label htmlFor='question' style={label}>
@@ -69,12 +70,12 @@ export const FormikNewQuiz = () => {
               <Field
                 name='question'
                 onFocus={() => {
-                  setFocused("question");
+                  setFocused('question');
                 }}
                 onBlur={() => {
-                  setFocused("");
+                  setFocused('');
                 }}
-                style={focused === "question" ? focusStyle : quizFormInputText }
+                style={focused === 'question' ? focusStyle : quizFormInputText}
               />
               {errors.question && touched.question ? (
                 <div style={quizFormErrMsg}>{errors.question}</div>
@@ -91,16 +92,19 @@ export const FormikNewQuiz = () => {
                   </label>
                   {values.answers.length <= 3 && (
                     <i
-                      style={moreAnswerIcon}
+                      style={addHover ? moreAnswerIconHover : moreAnswerIcon}
                       onClick={() => arrayHelpers.push('')}
+                      onMouseEnter={() => setAddHover(true)}
+                      onMouseLeave={() => setAddHover(false)}
                     >
                       Add
                     </i>
                   )}
-                  {errors.answers && touched.answers && errors.answers === 'Duplicate answers are not allowed' ? (
-                      <div style={quizFormErrMsg}>{errors.answers}</div>
-                    ) : null
-                  }
+                  {errors.answers &&
+                  touched.answers &&
+                  errors.answers === 'Duplicate answers are not allowed' ? (
+                    <div style={quizFormErrMsg}>{errors.answers}</div>
+                  ) : null}
                   {values.answers && values.answers.length > 0
                     ? values.answers.map((answer, index) => (
                         <div key={index} style={answerContainer}>
@@ -108,34 +112,52 @@ export const FormikNewQuiz = () => {
                             <span style={answerIndex}>{index + 1}</span>
                             <Field
                               name={`answers.${index}`}
-
                               onFocus={() => {
                                 switch (index) {
-                                  case 0: return setFocused("a1");
-                                  case 1: return setFocused("a2");
-                                  case 2: return setFocused("a3");
-                                  case 3: return setFocused("a4");
+                                  case 0:
+                                    return setFocused('a1');
+                                  case 1:
+                                    return setFocused('a2');
+                                  case 2:
+                                    return setFocused('a3');
+                                  case 3:
+                                    return setFocused('a4');
+                                  default: 
+                                    return setFocused('')
                                 }
                               }}
                               onBlur={() => {
                                 switch (index) {
-                                  case 0: return setFocused("");
-                                  case 1: return setFocused("");
-                                  case 2: return setFocused("");
-                                  case 3: return setFocused("");
+                                  case 0:
+                                    return setFocused('');
+                                  case 1:
+                                    return setFocused('');
+                                  case 2:
+                                    return setFocused('');
+                                  case 3:
+                                    return setFocused('');
+                                  default: 
+                                    return setFocused('')
                                 }
                               }}
-                              style={focused === "a1" && index === 0 ? focusStyle 
-                                : focused === "a2" && index === 1 ? focusStyle
-                                : focused === "a3" && index === 2 ? focusStyle 
-                                : focused === "a4" && index === 3 ? focusStyle : quizFormInputText}
+                              style={
+                                focused === 'a1' && index === 0
+                                  ? focusStyle
+                                  : focused === 'a2' && index === 1
+                                  ? focusStyle
+                                  : focused === 'a3' && index === 2
+                                  ? focusStyle
+                                  : focused === 'a4' && index === 3
+                                  ? focusStyle
+                                  : quizFormInputText
+                              }
                             />
                             {values.answers.length >= 3 ? (
                               <i
                                 onClick={() => arrayHelpers.remove(index)}
                                 style={removeIcon}
                               >
-                                {ioRemoveCircleOutline}
+                                {ioRemoveCircleSharp}
                               </i>
                             ) : (
                               ''
@@ -144,16 +166,17 @@ export const FormikNewQuiz = () => {
                           {/* <div style={quizFormErrMsg}>
                             <ErrorMessage name={`answers.${index}`} />
                           </div> */}
-                          {errors.answers && touched.answers && errors.answers !== 'Duplicate answers are not allowed' ? (
+                          {errors.answers &&
+                          touched.answers &&
+                          errors.answers !==
+                            'Duplicate answers are not allowed' ? (
                             <div style={quizFormErrMsg}>
-                            <ErrorMessage name={`answers.${index}`} />
+                              <ErrorMessage name={`answers.${index}`} />
                             </div>
                           ) : null}
                         </div>
                       ))
-                      : null
-                    }
-
+                    : null}
                 </div>
               )}
             />
@@ -163,15 +186,17 @@ export const FormikNewQuiz = () => {
                 Correct Answer
               </label>
               <Field
-              type="number"
+                min="1"
+                max={values.answers.length}
+                type='number'
                 name='correctAnswer'
                 onFocus={() => {
-                  setFocused("ca");
+                  setFocused('ca');
                 }}
                 onBlur={() => {
-                  setFocused("");
+                  setFocused('');
                 }}
-                style={focused === "ca" ? focusStyle : quizFormInputText }
+                style={focused === 'ca' ? focusStyle : quizFormInputText}
               />
               {errors.correctAnswer && touched.correctAnswer ? (
                 <div style={quizFormErrMsg}>
@@ -186,12 +211,12 @@ export const FormikNewQuiz = () => {
                 as='select'
                 name='category'
                 onFocus={() => {
-                  setFocused("category");
+                  setFocused('category');
                 }}
                 onBlur={() => {
-                  setFocused("");
+                  setFocused('');
                 }}
-                style={focused === "category" ? focusStyle : quizFormInputText }
+                style={focused === 'category' ? focusStyle : quizFormInputText}
               >
                 <option value='' disabled>
                   Select a category
@@ -209,7 +234,9 @@ export const FormikNewQuiz = () => {
             <button
               // disabled={!dirty && isValid}
               type='submit'
-              style={submitButton}
+              style={submitBtnHover ? submitButtonHover : submitButton}
+              onMouseEnter={() => setSubmitBtnHover(true)}
+              onMouseLeave={() => setSubmitBtnHover(false)}
             >
               Submit
             </button>
@@ -228,6 +255,7 @@ const labelInputContainer = {
 const label = {
   fontSize: '1.5rem',
   margin: '10px 0 5px',
+  fontFamily: "'Cormorant Garamond', serif"
 };
 
 const quizFormInputText = {
@@ -237,8 +265,9 @@ const quizFormInputText = {
   border: 'none',
   borderBottom: '1px solid rgb(200, 200, 200)',
   fontSize: '1.2rem',
-  padding: '3px 10px',
-  marginTop: "5px",
+  padding: '10px 15px',
+  marginTop: '5px',
+  transition:".3s",
 };
 const focusStyle = {
   display: 'block',
@@ -246,34 +275,17 @@ const focusStyle = {
   flexDirection: 'column',
   border: 'none',
   fontSize: '1.2rem',
-  padding: '3px 10px',
+  padding: '10px 15px',
   outline: 'none',
   borderBottom: '1px solid #005bbb',
-  marginTop: "5px",
+  marginTop: '5px',
+  background: "#ecf5ff",
+  transition:".3s",
 };
 
 const quizFormErrMsg = {
   color: 'red',
   fontSize: '.9rem',
-};
-
-const answerIndex = {
-  fontSize: '1.2rem',
-};
-
-
-// This includes an answer and error
-const answerContainer = {
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-// This includes an answer index, input, and a remove icon .
-const indexAnswerIconContainer = {
-  marginTop: "5px",
-  display: 'flex',
-  alignItems: 'end',
-  gap: "10px",
 };
 
 const moreAnswerIcon = {
@@ -282,13 +294,47 @@ const moreAnswerIcon = {
   marginLeft: '20px',
   padding: '0px 10px',
   cursor: 'pointer',
+  transition: ".3s",
 };
 
+const moreAnswerIconHover = {
+  fontSize: '1rem',
+  color: '#005bbb',
+  marginLeft: '20px',
+  padding: '0px 10px',
+  cursor: 'pointer',
+  transition: ".3s",
+  opacity: ".7",
+}
+// This includes an answer and error
+const answerContainer = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+// This includes an answer index, input, and a remove icon .
+const indexAnswerIconContainer = {
+  marginTop: '20px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+  position: "relative",
+};
+
+const answerIndex = {
+  position: "absolute",
+  top: "-4px",
+  left: "-4px",
+  fontSize: '1rem',
+};
 const removeIcon = {
+  position: "absolute",
+  top: "0px",
+  right: "-8px",
   fontSize: '1.2rem',
   color: 'red',
   cursor: 'pointer',
-  height: '25px'
+  height: '25px',
 };
 
 const submitButton = {
@@ -297,11 +343,28 @@ const submitButton = {
   borderRadius: '5px',
   border: 'none',
   width: '100%',
-  background: 'white',
   fontSize: '1rem',
   cursor: 'pointer',
   transition: '.3s',
-  background: 'rgb(245, 245, 245)',
+  background: 'none',
+  color: "#005bbb",
+  fontSize: "1.2rem",
+  fontFamily: "'Cormorant Garamond', serif"
 };
+
+const submitButtonHover = {
+  padding: '10px 18px',
+  marginTop: '20px',
+  borderRadius: '5px',
+  border: 'none',
+  width: '100%',
+  fontSize: '1rem',
+  cursor: 'pointer',
+  transition: '.3s',
+  background: '#ecf5ff',
+  color: "#005bbb",
+  fontSize: "1.2rem",
+  fontFamily: "'Cormorant Garamond', serif"
+}
 
 export default FormikNewQuiz;
