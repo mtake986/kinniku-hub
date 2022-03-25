@@ -32,7 +32,6 @@
 .quizContainer .quiz .quizHeader span.quizNumber,
 .quizContainer .quiz .quizHeader span.createdBy {
   font-size: 1rem;
-  color: grey;
 }
 
 .quizContainer .quiz .quizQuestionContainer p.quizQuestionText {
@@ -53,7 +52,7 @@
   list-style: none;
   margin: 20px 0;
   padding: 20px;
-  background: #f0f0f0;
+  background: #fff9d9;
   font-size: 1.5rem;
   cursor: pointer;
   display: -webkit-box;
