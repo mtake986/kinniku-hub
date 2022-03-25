@@ -8,16 +8,15 @@ import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
 import GoPrevQuizBtn from './GoPrevQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
-import { bsEmojiDizzy, bsEmojiLaughing } from '../icons/icons';
+import { biCircle, biPlus } from '../icons/icons';
 
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [points, setPoints] = useState(0);
-  const [selected, setSelected] = useState(-1);
-  const [correctAnswers, setCorrectAnswers] = useState([])
-  const [clickedAnswerIndex, setClickedAnswerIndex] = useState(-1)
+  const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
+  const [clickedAnswerIndex, setClickedAnswerIndex] = useState(0);
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
@@ -44,24 +43,26 @@ const Quiz = () => {
     answerIndex++;
     quizIndex++;
 
-    setClickedAnswerIndex(answerIndex);
     const correctAnswerIndex = quiz.correctAnswer;
     console.log(
       `answer => ${answer}, answerIndex => ${answerIndex}, correctAnswerIndex => ${correctAnswerIndex}, quizIndex => ${quizIndex}`
     );
 
-    setSelected(answerIndex);
-    console.log(selected)
+    setClickedAnswerIndex(answerIndex);
+    console.log(clickedAnswerIndex, e);
 
-    if (answerIndex === correctAnswerIndex) {
-      setPoints(prevState => prevState + 1)
-      setCorrectAnswers([...correctAnswers, answerIndex])
-    }
+    // When an answer is clicked:
+    // 1. make all disable to be clicked <- can be done by adding the same className to all.
+    // 2. show the answer with a slight dif style
+    // 3. add style to a selected answer.
+
     // add some styles to answers depending on correct or not
     if (correctAnswerIndex === answerIndex) {
-      e.target.className = await 'correctAnswerClicked disableClick';
+      setPoints(prevState => prevState + 1);
+      setUsersCorrectAnswers([...usersCorrectAnswers, answerIndex]);
+      e.target.className = await 'selected correctAnswerClicked';
     } else {
-      e.target.className = await 'incorrectAnswerClicked disableClick';
+      e.target.className = await 'selected incorrectAnswerClicked';
     }
   };
 
@@ -70,7 +71,7 @@ const Quiz = () => {
     if (currentQIndex !== quizzes.length) {
       setCurrentQIndex(prevState => prevState + 1);
     }
-    setClickedAnswerIndex(-1)
+    setClickedAnswerIndex();
   };
   const goPrevQuiz = () => {
     console.log(currentQIndex, quizzes.length);
@@ -79,7 +80,7 @@ const Quiz = () => {
     } else {
       setCurrentQIndex(currentQIndex);
     }
-    setClickedAnswerIndex(-1)
+    setClickedAnswerIndex();
   };
 
   console.log(quizzes);
@@ -99,19 +100,30 @@ const Quiz = () => {
               <div className='quizQuestionContainer'>
                 <p className='quizQuestionText'>{quiz.question}</p>
               </div>
-              <ul className='quizAnswersContainer'>
+              <ul
+                className={
+                  clickedAnswerIndex
+                    ? 'quizAnswersContainer answerDefined'
+                    : 'quizAnswersContainer'
+                }
+              >
                 {quiz.answers.map((answer, answerIndex) => (
                   <li
                     key={answer}
                     onClick={e => {
                       handleJudge(e, answer, quiz, answerIndex, quizIndex);
                     }}
-                    className={selected !== -1 ? "answerDefined" : ""}
+                    className={
+                      clickedAnswerIndex &&
+                      answerIndex + 1 === clickedAnswerIndex
+                        ? 'selected'
+                        : null
+                    }
                   >
                     <span className='answer'>{answer}</span>
                     <div className='correctIncorrectIcons'>
-                      <span className='incorrectIcon'>{bsEmojiDizzy}</span>
-                      <span className='correctIcon'>{bsEmojiLaughing}</span>
+                      <span className='correctIcon'>{biCircle}</span>
+                      <span className='incorrectIcon'>{biPlus}</span>
                     </div>
                   </li>
                 ))}
@@ -144,7 +156,11 @@ const Quiz = () => {
         }
       })}
       {quizzes.length !== 0 && currentQIndex >= quizzes.length ? (
-        <QuizResultWindow correctAnswers={correctAnswers} points={points} quizzes={quizzes} />
+        <QuizResultWindow
+          usersCorrectAnswers={usersCorrectAnswers}
+          points={points}
+          quizzes={quizzes}
+        />
       ) : (
         ''
       )}

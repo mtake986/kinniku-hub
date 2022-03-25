@@ -29,7 +29,37 @@
     }
     ul.quizAnswersContainer {
       padding: 0;
+      &.answerDefined {
+        li {
+          pointer-events: none;
+          opacity: .3;
+        }
+        li.incorrectAnswerClicked {
+          opacity: 1;
+        }
+      }
       li {
+        &.selected {
+          &.correctAnswerClicked {
+            outline: 3px solid $colorAccent1;
+            background-color: $colorAccent1Lighter;
+            opacity: 1;
+            span {
+              font-weight: bold;
+            }
+          }
+          &.incorrectAnswerClicked {
+            outline: 3px solid $colorAccent2;
+            background-color: $colorAccent2Lighter;
+            opacity: 1;
+            div {
+              transform: rotate(225deg) translate(-15px, 10px);
+              font-size: $fzMMMedium;
+              height: 20px;
+            }
+          }
+
+        }
         list-style: none;
         margin: 20px 0;
         padding: 20px;
@@ -56,7 +86,6 @@
         }
         &.incorrectAnswerClicked {
           pointer-events: none;
-          opacity: 0.5;
           div.correctIncorrectIcons {
             display: flex;
             align-items: center;
@@ -64,6 +93,7 @@
               margin-left: 20px;
               font-size: $fzMedium;
               display: block;
+              opacity: 1;
             }
           }
         }
