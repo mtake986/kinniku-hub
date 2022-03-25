@@ -1,5 +1,4 @@
-
-@import "./Variables.scss";
+@import './Variables.scss';
 
 .quizHomeNav {
   margin: 30px 0 50px;
@@ -15,7 +14,8 @@
       justify-content: space-between;
       align-items: center;
       margin: 10px 0;
-      span.quizNumber, span.createdBy {
+      span.quizNumber,
+      span.createdBy {
         font-size: $fzSSmall;
         color: $colorQuizHeader;
       }
@@ -24,9 +24,11 @@
       p.quizQuestionText {
         font-size: $fzMMedium;
         font-weight: 400;
+        display: flex;
+        flex-wrap: wrap;
       }
     }
-    ul.answersContainer {
+    ul.quizAnswersContainer {
       padding: 0;
       li {
         list-style: none;
@@ -63,12 +65,12 @@
               margin-left: 20px;
               font-size: $fzMedium;
               display: block;
-            } 
+            }
           }
         }
         // default no icons
         div.correctIncorrectIcons {
-          .correctIcon{
+          .correctIcon {
             display: none;
           }
           .incorrectIcon {
@@ -109,9 +111,13 @@
         align-items: center;
         cursor: pointer;
         font-size: $fzSSmall;
-        transition: .3s;
+        transition: 0.3s;
         &:hover {
           background: $colorGoNextQuizBtnHover;
+        }
+        &.disable {
+          pointer-events: none;
+          opacity: 0.5;
         }
         .bsArrowRight {
           height: 20px;
@@ -150,23 +156,16 @@
     }
     div.icons {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      .riEditBoxLine, .riDeleteBinLine {
-        cursor: pointer;
+      .biCircle {
         color: $colorAccent1;
         height: 20px;
-        &:hover { 
-          opacity: .7;
-          transition: .3s;
-        }
       }
-      .riDeleteBinLine {
-        color: $colorGoodBtn;
+      .biPlus {
+        transform: rotate(225deg) translate(-2px, -2px);
+        font-size: $fzMedium;
+        height: 20px;
+        color: red;
       }
-      // .riDeleteBinLine {
-
-      // }
     }
   }
 }
