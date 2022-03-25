@@ -1,18 +1,35 @@
 @import './Variables.scss';
 
 #appHeader {
-  background: $colorAccent1;
-  color: $colorAccent2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background: $colorAccent1Lighter;
   #logo {
     a {
-      color: $colorAccent2;
+      font-size: $fzLarge;
+      font-family: $fontLogo;
     }
   }
-  #appNav {
-    color: $colorAccent2;
+  #appNav{
     a {
-      margin-left: 20px;
-      color: $colorAccent2;
+      display: inline-block;
+      font-size: $fzSmall;
+      // font-family: $fontHeader;
+      padding: 5px 10px;
+      transition: .3s;
+      &:not(:nth-child(1)) {
+        margin-left: 10px;
+      }
+      &:hover {
+        background: rgba( 255, 255, 255, 0.1 );
+        box-shadow: 1px 1px 1px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 15px );
+        -webkit-backdrop-filter: blur( 15px );
+        border-radius: 10px;
+      }
     }
   }
 }

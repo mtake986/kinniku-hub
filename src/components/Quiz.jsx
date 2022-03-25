@@ -131,7 +131,7 @@ const Quiz = () => {
                   <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Next" />
                 )}
               </div>
-              <span className="category">{quiz.category}</span>
+              {/* <span className="category">{quiz.category}</span> */}
             </div>
           );
         }

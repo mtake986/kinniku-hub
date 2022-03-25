@@ -1,18 +1,41 @@
 #appHeader {
-  background: #005bbb;
-  color: #ffd500;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background: #ecf5ff;
 }
 
 #appHeader #logo a {
-  color: #ffd500;
-}
-
-#appHeader #appNav {
-  color: #ffd500;
+  font-size: 2.5rem;
+  font-family: "Caveat", cursive;
 }
 
 #appHeader #appNav a {
-  margin-left: 20px;
-  color: #ffd500;
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#appHeader #appNav a:not(:nth-child(1)) {
+  margin-left: 10px;
+}
+
+#appHeader #appNav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: 1px 1px 1px 0 rgba(31, 38, 135, 0.37);
+          box-shadow: 1px 1px 1px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 10px;
 }
 /*# sourceMappingURL=Header.css.map */
