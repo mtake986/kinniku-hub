@@ -27,10 +27,9 @@ function App() {
           <Route path="/" element={<Home />}/>
           {/* <Route path="about" element={<About />}/> */}
           <Route path="kinniku-quiz" element={<QuizHome />}>
-            <Route path="home" element={<QuizSelect />} />
+            <Route path="home" element={<AllQuizzes />} />
             <Route path="new" element={<FormikNewQuiz />} />
             <Route path="quiz" element={<Quiz />} />
-            <Route path="all-quizzes" element={<AllQuizzes />} />
           </Route> 
           <Route path="profile/:userId" element={<Profile />}/>
           <Route path="*" element={<ErrorPage />}/>

@@ -59,7 +59,7 @@ const Quiz = () => {
     // add some styles to answers depending on correct or not
     if (correctAnswerIndex === answerIndex) {
       setPoints(prevState => prevState + 1);
-      setUsersCorrectAnswers([...usersCorrectAnswers, answerIndex]);
+      setUsersCorrectAnswers([...usersCorrectAnswers, quizIndex]);
       e.target.className = await 'selected correctAnswerClicked';
     } else {
       e.target.className = await 'selected incorrectAnswerClicked';

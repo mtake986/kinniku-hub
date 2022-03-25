@@ -260,19 +260,27 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
 }
 
-.allQuizzes .eachQuizContainer div.icons .biCircle {
+.allQuizzes .eachQuizContainer div.icons .biCircle, .allQuizzes .eachQuizContainer div.icons .riEditBoxLine {
   color: #005bbb;
+  font-size: 1.2rem;
   height: 20px;
 }
 
-.allQuizzes .eachQuizContainer div.icons .biPlus {
+.allQuizzes .eachQuizContainer div.icons .biPlus, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
   -webkit-transform: rotate(225deg) translate(-2px, -2px);
           transform: rotate(225deg) translate(-2px, -2px);
   font-size: 1.5rem;
   height: 20px;
   color: red;
+}
+
+.allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
+  -webkit-transform: none;
+          transform: none;
+  font-size: 1.2rem;
 }
 
 .quizResultWindow {

@@ -35,6 +35,8 @@ export const FormikNewQuiz = () => {
   const [addHover, setAddHover] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
 
+
+
   return (
     <div className='formikNewQuiz'>
       <Formik
@@ -90,16 +92,6 @@ export const FormikNewQuiz = () => {
                   <label htmlFor='answers1' style={label}>
                     Answers
                   </label>
-                  {values.answers.length <= 3 && (
-                    <i
-                      style={addHover ? moreAnswerIconHover : moreAnswerIcon}
-                      onClick={() => arrayHelpers.push('')}
-                      onMouseEnter={() => setAddHover(true)}
-                      onMouseLeave={() => setAddHover(false)}
-                    >
-                      Add
-                    </i>
-                  )}
                   {errors.answers &&
                   touched.answers &&
                   errors.answers === 'Duplicate answers are not allowed' ? (
@@ -122,8 +114,8 @@ export const FormikNewQuiz = () => {
                                     return setFocused('a3');
                                   case 3:
                                     return setFocused('a4');
-                                  default: 
-                                    return setFocused('')
+                                  default:
+                                    return setFocused('');
                                 }
                               }}
                               onBlur={() => {
@@ -136,8 +128,8 @@ export const FormikNewQuiz = () => {
                                     return setFocused('');
                                   case 3:
                                     return setFocused('');
-                                  default: 
-                                    return setFocused('')
+                                  default:
+                                    return setFocused('');
                                 }
                               }}
                               style={
@@ -177,6 +169,17 @@ export const FormikNewQuiz = () => {
                         </div>
                       ))
                     : null}
+                  {values.answers.length <= 3 ? (
+                    <div
+                      // style={addHover ? moreAnswerIconHover : moreAnswerIcon}
+                      style={moreAnswerIcon}
+                      onClick={() => arrayHelpers.push('')}
+                      // onMouseEnter={() => setAddHover(true)}
+                      // onMouseLeave={() => setAddHover(false)}
+                    >
+                      Add
+                    </div>
+                  ) : null}
                 </div>
               )}
             />
@@ -186,7 +189,7 @@ export const FormikNewQuiz = () => {
                 Correct Answer
               </label>
               <Field
-                min="1"
+                min='1'
                 max={values.answers.length}
                 type='number'
                 name='correctAnswer'
@@ -247,6 +250,7 @@ export const FormikNewQuiz = () => {
   );
 };
 
+// ========== Styles =========
 const labelInputContainer = {
   background: '',
   margin: '20px 0',
@@ -255,7 +259,7 @@ const labelInputContainer = {
 const label = {
   fontSize: '1.5rem',
   margin: '10px 0 5px',
-  fontFamily: "'Cormorant Garamond', serif"
+  fontFamily: "'Cormorant Garamond', serif",
 };
 
 const quizFormInputText = {
@@ -267,7 +271,7 @@ const quizFormInputText = {
   fontSize: '1.2rem',
   padding: '10px 15px',
   marginTop: '5px',
-  transition:".3s",
+  transition: '.3s',
 };
 const focusStyle = {
   display: 'block',
@@ -279,8 +283,8 @@ const focusStyle = {
   outline: 'none',
   borderBottom: '1px solid #005bbb',
   marginTop: '5px',
-  background: "#ecf5ff",
-  transition:".3s",
+  background: '#ecf5ff',
+  transition: '.3s',
 };
 
 const quizFormErrMsg = {
@@ -288,24 +292,6 @@ const quizFormErrMsg = {
   fontSize: '.9rem',
 };
 
-const moreAnswerIcon = {
-  fontSize: '1rem',
-  color: '#005bbb',
-  marginLeft: '20px',
-  padding: '0px 10px',
-  cursor: 'pointer',
-  transition: ".3s",
-};
-
-const moreAnswerIconHover = {
-  fontSize: '1rem',
-  color: '#005bbb',
-  marginLeft: '20px',
-  padding: '0px 10px',
-  cursor: 'pointer',
-  transition: ".3s",
-  opacity: ".7",
-}
 // This includes an answer and error
 const answerContainer = {
   display: 'flex',
@@ -318,24 +304,47 @@ const indexAnswerIconContainer = {
   display: 'flex',
   alignItems: 'center',
   gap: '10px',
-  position: "relative",
+  position: 'relative',
 };
 
 const answerIndex = {
-  position: "absolute",
-  top: "-4px",
-  left: "-4px",
+  position: 'absolute',
+  top: '-4px',
+  left: '-4px',
   fontSize: '1rem',
 };
 const removeIcon = {
-  position: "absolute",
-  top: "0px",
-  right: "-8px",
+  position: 'absolute',
+  top: '0px',
+  right: '-8px',
   fontSize: '1.2rem',
   color: 'red',
   cursor: 'pointer',
   height: '25px',
 };
+
+const moreAnswerIcon = {
+  fontSize: '1.2rem',
+  fontFamily: "'Cormorant Garamond', serif",
+  color: '#005bbb',
+  padding: '5px 10px',
+  marginTop: "20px",
+  cursor: 'pointer',
+  transition: '.3s',
+  textAlign: 'center',
+};
+
+// const moreAnswerIconHover = {
+//   fontSize: '1.2rem',
+//   fontFamily: "'Cormorant Garamond', serif",
+//   color: '#005bbb',
+//   padding: '5px 10px',
+//   marginTop: "20px",
+//   cursor: 'pointer',
+//   transition: '.3s',
+//   textAlign: 'center',
+//   opacity: ".7"
+// };
 
 const submitButton = {
   padding: '10px 18px',
@@ -343,13 +352,12 @@ const submitButton = {
   borderRadius: '5px',
   border: 'none',
   width: '100%',
-  fontSize: '1rem',
   cursor: 'pointer',
   transition: '.3s',
   background: 'none',
-  color: "#005bbb",
-  fontSize: "1.2rem",
-  fontFamily: "'Cormorant Garamond', serif"
+  color: '#005bbb',
+  fontSize: '1.5rem',
+  fontFamily: "'Cormorant Garamond', serif",
 };
 
 const submitButtonHover = {
@@ -358,13 +366,12 @@ const submitButtonHover = {
   borderRadius: '5px',
   border: 'none',
   width: '100%',
-  fontSize: '1rem',
   cursor: 'pointer',
   transition: '.3s',
   background: '#ecf5ff',
-  color: "#005bbb",
-  fontSize: "1.2rem",
-  fontFamily: "'Cormorant Garamond', serif"
-}
+  color: '#005bbb',
+  fontSize: '1.5rem',
+  fontFamily: "'Cormorant Garamond', serif",
+};
 
 export default FormikNewQuiz;

@@ -161,6 +161,11 @@
   }
 }
 
+
+// .formikNewQuiz {
+// styles for the page to create a new quiz are embedded in the same component
+// }
+
 .allQuizzes {
   font-size: $fzSmall;
   .eachQuizContainer {
@@ -185,15 +190,21 @@
     }
     div.icons {
       display: flex;
-      .biCircle {
+      gap: 10px;
+      .biCircle, .riEditBoxLine {
         color: $colorAccent1;
+        font-size: $fzSmall;
         height: 20px;
       }
-      .biPlus {
+      .biPlus, .riDeleteBinLine {
         transform: rotate(225deg) translate(-2px, -2px);
         font-size: $fzMedium;
         height: 20px;
         color: red;
+      }
+      .riDeleteBinLine {
+        transform: none;
+        font-size: $fzSmall;
       }
     }
   }

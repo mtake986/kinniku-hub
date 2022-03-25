@@ -6,11 +6,18 @@
   justify-content: space-between;
   padding: 10px 20px;
   font-size: 1.5rem;
-  background: $colorAccent1Lighter;
+  background: rgb(255,213,0);
+  background: linear-gradient(150deg, rgba(255,213,0,1) 0%, rgba(255,249,200,1) 40%, rgba(236,245,255,1) 60%, rgba(89,169,255,1) 100%);
   #logo {
     a {
       font-size: $fzLarge;
       font-family: $fontLogo;
+      // background: #FFD500;
+      // background: -webkit-linear-gradient(to top, #FFD500 0%, #FFD500 45%, #005BBB 46%, #005BBB 100%);
+      // background: -moz-linear-gradient(to top, #FFD500 0%, #FFD500 45%, #005BBB 46%, #005BBB 100%);
+      // background: linear-gradient(to top, #FFD500 0%, #FFD500 45%, #005BBB 46%, #005BBB 100%);
+      // -webkit-background-clip: text;
+      // -webkit-text-fill-color: transparent;
     }
   }
   #appNav{

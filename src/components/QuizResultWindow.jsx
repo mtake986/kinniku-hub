@@ -4,10 +4,10 @@ import { riEditBoxLine, riDeleteBinLine } from '../icons/icons'
 import { handleQuizEdit, handleQuizDelete } from '../hooks/quizCRUD'
 import { biCircle, biPlus } from '../icons/icons'
 
-const QuizResultWindow = ({correctAnswers, points, quizzes}) => {
+const QuizResultWindow = ({usersCorrectAnswers, points, quizzes}) => {
   return (
     <div className="quizResultWindow">
-      {correctAnswers}
+      {usersCorrectAnswers}
       <h3 className="quizResutlText">You aced {points} out of {quizzes.length} ({Math.round(points/quizzes.length*10000) / 100}%).</h3>
       {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
       {quizzes.map((quiz, quizIndex) => (
@@ -17,7 +17,7 @@ const QuizResultWindow = ({correctAnswers, points, quizzes}) => {
             <p className="quizQuestion">{quiz.question}</p>
           </div>
           <div className="icons">
-            {correctAnswers.includes(quizIndex+1) ? (
+            {usersCorrectAnswers.includes(quizIndex+1) ? (
               <i className="biCircle">{biCircle}</i>
             ) : (
               <i className="biPlus">{biPlus}</i>

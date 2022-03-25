@@ -10,7 +10,8 @@
           justify-content: space-between;
   padding: 10px 20px;
   font-size: 1.5rem;
-  background: #ecf5ff;
+  background: #ffd500;
+  background: linear-gradient(150deg, #ffd500 0%, #fff9c8 40%, #ecf5ff 60%, #59a9ff 100%);
 }
 
 #appHeader #logo a {
