@@ -7,17 +7,16 @@ import db from '../config/firebase';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
 import GoPrevQuizBtn from './GoPrevQuizBtn';
+import QuizResultWindow from './QuizResultWindow';
 import { bsEmojiDizzy, bsEmojiLaughing } from '../icons/icons';
-
 
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
-  const [disableClick, setDisableClick] = useState('ableClick');
   // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
-  const [currentQ, setCurrentQ] = useState();
-  const [loading, setLoading] = useState(false);
-
+  const [points, setPoints] = useState(0);
+  const [selected, setSelected] = useState(-1);
+  const [correctAnswers, setCorrectAnswers] = useState([])
   /*
   Ideally
   {
@@ -29,7 +28,6 @@ const Quiz = () => {
     ]
   }
   */
-
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
@@ -60,10 +58,15 @@ const Quiz = () => {
       `answer => ${answer}, answerIndex => ${answerIndex}, correctAnswerIndex => ${correctAnswerIndex}, quizIndex => ${quizIndex}`
     );
 
-    // Noneed??
-    // setClickedAnswers([...clickedAnswers, answer]);
-    // console.log(`clickedAnswers => ${clickedAnswers}`);
+    setSelected(answerIndex);
+    console.log(selected)
 
+
+
+    if (answerIndex === correctAnswerIndex) {
+      setPoints(prevState => prevState + 1)
+      setCorrectAnswers([...correctAnswers, answerIndex])
+    }
     // add some styles to answers depending on correct or not
     if (correctAnswerIndex === answerIndex) {
       e.target.className = 'correctAnswerClicked disableClick';
@@ -82,53 +85,64 @@ const Quiz = () => {
     console.log(currentQIndex, quizzes.length);
     if (currentQIndex !== 0) {
       setCurrentQIndex(prevState => prevState - 1);
+    } else {
     }
   };
 
-  // console.log(`oneQ = ${oneQ}`)
   console.log(quizzes);
   return (
     <div className='quizContainer'>
-      {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
+      {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
       {quizzes.map((quiz, quizIndex) => {
         if (quizIndex === currentQIndex) {
           return (
             <div key={quiz.id} className='quiz'>
-              <div className="quizHeader">
-                <span className="createdBy">Created by: User 1</span>
-                <span className="quizNumber">{quizIndex+1}/{quizzes.length}</span>
+              <div className='quizHeader'>
+                <span className='createdBy'>Created by: User 1</span>
+                <span className='quizNumber'>
+                  {quizIndex + 1}/{quizzes.length}
+                </span>
               </div>
               <div className='quizQuestionContainer'>
                 <p className='quizQuestionText'>{quiz.question}</p>
               </div>
-              <ul className='answersContainer'>
+              <ul className='quizAnswersContainer'>
                 {quiz.answers.map((answer, answerIndex) => (
                   <li
                     key={answer}
                     onClick={e => {
                       handleJudge(e, answer, quiz, answerIndex, quizIndex);
                     }}
+                    className={selected !== -1 ? "answerDefined" : ""}
                   >
                     <span className='answer'>{answer}</span>
                     <div className='correctIncorrectIcons'>
-                      <span className='incorrectIcon'>
-                        {bsEmojiDizzy}
-                      </span>
-                      <span className='correctIcon'>
-                        {bsEmojiLaughing}
-                      </span>
+                      <span className='incorrectIcon'>{bsEmojiDizzy}</span>
+                      <span className='correctIcon'>{bsEmojiLaughing}</span>
                     </div>
                   </li>
                 ))}
               </ul>
               <div className='quizFooter'>
-                <GoPrevQuizBtn goPrevQuiz={goPrevQuiz} text="Prev" />
-                
-                <GoodBad quiz={quiz} />
-                {quizIndex+1 === quizzes.length ? (
-                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Result" />
+                {quizIndex !== 0 ? (
+                  <GoPrevQuizBtn
+                    goPrevQuiz={goPrevQuiz}
+                    text='Prev'
+                    disable=''
+                  />
                 ) : (
-                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text="Next" />
+                  <GoPrevQuizBtn
+                    goPrevQuiz={goPrevQuiz}
+                    text='Prev'
+                    disable='disable'
+                  />
+                )}
+
+                <GoodBad quiz={quiz} />
+                {quizIndex + 1 === quizzes.length ? (
+                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' />
+                ) : (
+                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' />
                 )}
               </div>
               {/* <span className="category">{quiz.category}</span> */}
@@ -136,7 +150,11 @@ const Quiz = () => {
           );
         }
       })}
-      {quizzes.length !== 0 && currentQIndex >= quizzes.length ? "Finish" : ""}
+      {quizzes.length !== 0 && currentQIndex >= quizzes.length ? (
+        <QuizResultWindow correctAnswers={correctAnswers} points={points} quizzes={quizzes} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

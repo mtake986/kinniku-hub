@@ -29,7 +29,8 @@
   margin: 10px 0;
 }
 
-.quizContainer .quiz .quizHeader span.quizNumber, .quizContainer .quiz .quizHeader span.createdBy {
+.quizContainer .quiz .quizHeader span.quizNumber,
+.quizContainer .quiz .quizHeader span.createdBy {
   font-size: 1rem;
   color: grey;
 }
@@ -37,13 +38,18 @@
 .quizContainer .quiz .quizQuestionContainer p.quizQuestionText {
   font-size: 1.8rem;
   font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-.quizContainer .quiz ul.answersContainer {
+.quizContainer .quiz ul.quizAnswersContainer {
   padding: 0;
 }
 
-.quizContainer .quiz ul.answersContainer li {
+.quizContainer .quiz ul.quizAnswersContainer li {
   list-style: none;
   margin: 20px 0;
   padding: 20px;
@@ -62,27 +68,27 @@
   height: 75px;
 }
 
-.quizContainer .quiz ul.answersContainer li:hover {
+.quizContainer .quiz ul.quizAnswersContainer li:hover {
   background: #e6e6e6;
 }
 
-.quizContainer .quiz ul.answersContainer li.correctAnswerClicked {
+.quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked {
   pointer-events: none;
   background: #ecf5ff;
 }
 
-.quizContainer .quiz ul.answersContainer li.correctAnswerClicked div.correctIncorrectIcons .correctIcon {
+.quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked div.correctIncorrectIcons .correctIcon {
   margin-left: 20px;
   font-size: 1.5rem;
   display: block;
 }
 
-.quizContainer .quiz ul.answersContainer li.incorrectAnswerClicked {
+.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked {
   pointer-events: none;
   opacity: 0.5;
 }
 
-.quizContainer .quiz ul.answersContainer li.incorrectAnswerClicked div.correctIncorrectIcons {
+.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,17 +97,17 @@
           align-items: center;
 }
 
-.quizContainer .quiz ul.answersContainer li.incorrectAnswerClicked div.correctIncorrectIcons .incorrectIcon {
+.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons .incorrectIcon {
   margin-left: 20px;
   font-size: 1.5rem;
   display: block;
 }
 
-.quizContainer .quiz ul.answersContainer li div.correctIncorrectIcons .correctIcon {
+.quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .correctIcon {
   display: none;
 }
 
-.quizContainer .quiz ul.answersContainer li div.correctIncorrectIcons .incorrectIcon {
+.quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .incorrectIcon {
   display: none;
 }
 
@@ -156,12 +162,17 @@
           align-items: center;
   cursor: pointer;
   font-size: 1rem;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn:hover {
   background: whitesmoke;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn.disable {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn .bsArrowRight {
@@ -218,25 +229,18 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
 }
 
-.allQuizzes .eachQuizContainer div.icons .riEditBoxLine, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
-  cursor: pointer;
+.allQuizzes .eachQuizContainer div.icons .biCircle {
   color: #005bbb;
   height: 20px;
 }
 
-.allQuizzes .eachQuizContainer div.icons .riEditBoxLine:hover, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine:hover {
-  opacity: .7;
-  -webkit-transition: .3s;
-  transition: .3s;
-}
-
-.allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
+.allQuizzes .eachQuizContainer div.icons .biPlus {
+  -webkit-transform: rotate(225deg) translate(-2px, -2px);
+          transform: rotate(225deg) translate(-2px, -2px);
+  font-size: 1.5rem;
+  height: 20px;
   color: red;
 }
 /*# sourceMappingURL=quiz.css.map */
