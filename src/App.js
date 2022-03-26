@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Import files existing in this project
 import './styles/Style.css';
 import './styles/quiz.css';
-import Quiz from "./components/Quiz";
+import Test from "./components/Test";
 import Home from "./components/Home";
 // import About from "./components/About";
 import ErrorPage from "./components/ErrorPage";
@@ -26,10 +26,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           {/* <Route path="about" element={<About />}/> */}
-          <Route path="kinniku-quiz" element={<QuizHome />}>
-            <Route path="home" element={<AllQuizzes />} />
+          <Route path="kinniku-quiz/" element={<QuizHome />}>
             <Route path="new" element={<FormikNewQuiz />} />
-            <Route path="quiz" element={<Quiz />} />
+            <Route path="test" element={<Test />} />
+            <Route path="all-quizzes" element={<AllQuizzes />} />
           </Route> 
           <Route path="profile/:userId" element={<Profile />}/>
           <Route path="*" element={<ErrorPage />}/>

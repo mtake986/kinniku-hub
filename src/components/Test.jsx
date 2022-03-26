@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { doc, collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 
 import db from '../config/firebase';
@@ -10,7 +9,7 @@ import GoPrevQuizBtn from './GoPrevQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
 import { biCircle, biPlus } from '../icons/icons';
 
-const Quiz = () => {
+const Test = () => {
   const [quizzes, setQuizzes] = useState([]);
   // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
@@ -168,4 +167,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default Test;

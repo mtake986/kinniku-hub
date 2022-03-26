@@ -1,14 +1,13 @@
 
 import Loading from 'react-simple-loading';
-import { riEditBoxLine, riDeleteBinLine } from '../icons/icons'
-import { handleQuizEdit, handleQuizDelete } from '../hooks/quizCRUD'
 import { biCircle, biPlus } from '../icons/icons'
 
 const QuizResultWindow = ({usersCorrectAnswers, points, quizzes}) => {
   return (
     <div className="quizResultWindow">
-      {usersCorrectAnswers}
-      <h3 className="quizResutlText">You aced {points} out of {quizzes.length} ({Math.round(points/quizzes.length*10000) / 100}%).</h3>
+      <h3 className="quizResutlText">
+        You aced {points} out of {quizzes.length}.
+      </h3>
       {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
       {quizzes.map((quiz, quizIndex) => (
         <div className="eachQuizContainer" key={quiz.id}>

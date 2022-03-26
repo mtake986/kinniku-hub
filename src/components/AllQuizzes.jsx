@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
-import { collection, onSnapshot, addDoc, setDoc, deleteDoc, doc } from 'firebase/firestore';
+// ========== Import from third parties ==========
+import { useState, useEffect } from 'react'
+import { collection, onSnapshot } from 'firebase/firestore';
+import Loading from 'react-simple-loading';
+
+// ========== Import from inside this project ==========
 import db from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons'
 import { handleQuizEdit, handleQuizDelete } from '../hooks/quizCRUD'
-// import { GetAllQuizzes } from '../hooks/GetAllQuizzes'
-import Loading from 'react-simple-loading';
 
+// ========== Main ==========
 const AllQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
 

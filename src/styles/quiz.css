@@ -1,5 +1,38 @@
-.quizHomeNav {
-  margin: 30px 0 50px;
+#quizHome .nav {
+  margin: 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.5rem;
+}
+
+#quizHome .nav .left a {
+  margin-right: 10px;
+}
+
+#quizHome .nav .left a:hover {
+  opacity: .5;
+}
+
+#quizHome .nav .right a {
+  background: #59a9ff;
+  color: white;
+  font-weight: bold;
+  padding: 5px 20px;
+  border-radius: 5px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#quizHome .nav .right a:hover {
+  -webkit-box-shadow: 0px 3px 5px 0 #59a9ff;
+          box-shadow: 0px 3px 5px 0 #59a9ff;
 }
 
 .quizContainer {
@@ -263,24 +296,30 @@
   gap: 10px;
 }
 
-.allQuizzes .eachQuizContainer div.icons .biCircle, .allQuizzes .eachQuizContainer div.icons .riEditBoxLine {
+.allQuizzes .eachQuizContainer div.icons i.riEditBoxLine {
   color: #005bbb;
   font-size: 1.2rem;
-  height: 20px;
+  -webkit-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
 }
 
-.allQuizzes .eachQuizContainer div.icons .biPlus, .allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
-  -webkit-transform: rotate(225deg) translate(-2px, -2px);
-          transform: rotate(225deg) translate(-2px, -2px);
-  font-size: 1.5rem;
-  height: 20px;
+.allQuizzes .eachQuizContainer div.icons i.riEditBoxLine:hover {
+  opacity: .5;
+}
+
+.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine {
   color: red;
-}
-
-.allQuizzes .eachQuizContainer div.icons .riDeleteBinLine {
+  font-size: 1.2rem;
   -webkit-transform: none;
           transform: none;
-  font-size: 1.2rem;
+  -webkit-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine:hover {
+  opacity: .5;
 }
 
 .quizResultWindow {
@@ -292,6 +331,11 @@
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 30px;
+}
+
+.quizResultWindow .quizResutlText span {
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .quizResultWindow .eachQuizContainer {

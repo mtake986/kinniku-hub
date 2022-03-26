@@ -3,13 +3,16 @@ import { Link, Outlet } from 'react-router-dom';
 
 const QuizHome = () => {
   return (
-    <div className="quizHome">
-      {/* <nav className="quizHomeNav">
-        <Link to="/kinniku-quiz/new">New</Link>{"   |   "}
-        <Link to="/kinniku-quiz/quiz">Quiz</Link>{"   |   "}
-        <Link to="/kinniku-quiz/all-quizzes">All Quizzes</Link>
-      </nav> */}
-      {/* <Link to="/kinniku-quiz/quiz">Quiz</Link> */}
+    <div id="quizHome">
+      <nav className="nav">
+        <div className="left">
+          <Link to="/kinniku-quiz/test">Test</Link>
+          <Link to="/kinniku-quiz/all-quizzes">All</Link>
+        </div>
+        <div className="right">
+          <Link to="/kinniku-quiz/new">New</Link>
+        </div>
+      </nav>
       <Outlet />
     </div>
 
