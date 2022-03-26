@@ -143,8 +143,9 @@
 
 .quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked div.correctIncorrectIcons .correctIcon {
   margin-left: 20px;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   display: block;
+  color: #005bbb;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked {
@@ -162,18 +163,17 @@
 
 .quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons .incorrectIcon {
   margin-left: 20px;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   display: block;
   opacity: 1;
+  color: red;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .correctIcon {
-  color: #005bbb;
   display: none;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .incorrectIcon {
-  color: red;
   display: none;
 }
 
@@ -328,16 +328,19 @@
   font-size: 1.2rem;
 }
 
-.quizResultWindow .quizResutlText {
+.quizResultWindow .quizResultText {
   font-weight: bold;
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 30px;
 }
 
-.quizResultWindow .quizResutlText span {
-  font-size: 1rem;
+.quizResultWindow .quizResultText h3 {
   font-weight: bold;
+}
+
+.quizResultWindow .quizResultText p {
+  font-size: 1.2rem;
 }
 
 .quizResultWindow .eachQuizContainer {

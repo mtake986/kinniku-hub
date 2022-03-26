@@ -106,8 +106,9 @@
           div.correctIncorrectIcons {
             .correctIcon {
               margin-left: 20px;
-              font-size: $fzMedium;
+              font-size: $fzMMedium;
               display: block;
+              color: $colorAccent1;
             }
           }
         }
@@ -118,20 +119,19 @@
             align-items: center;
             .incorrectIcon {
               margin-left: 20px;
-              font-size: $fzMedium;
+              font-size: $fzLarge;
               display: block;
               opacity: 1;
+              color: red;
             }
           }
         }
         // default no icons
         div.correctIncorrectIcons {
           .correctIcon {
-            color: $colorAccent1;
             display: none;
           }
           .incorrectIcon {
-            color: red;
             display: none;
           }
         }
@@ -245,14 +245,17 @@
 
 .quizResultWindow {
   font-size: $fzSmall;
-  .quizResutlText {
+  .quizResultText {
     font-weight: bold;
     text-align: center;
     font-size: $fzMMedium;
     margin-bottom: 30px;
-    span {
-      font-size: $fzSSmall;
+    h3 {
       font-weight: bold;
+    }
+    p {
+      font-size: $fzSmall;
+
     }
   }
   .eachQuizContainer {

@@ -18,7 +18,7 @@ export const handleQuizEdit = async () => {
 export const handleQuizDelete = async (id) => {
   const yesNo = prompt("Type yes(y) to delete permanently. You can't undo this action.");
   if (yesNo === "yes" || yesNo === "y") {
-    const docRef = doc(db, "quizzes", id);
-    await deleteDoc(docRef);
+    const quizDocRef = doc(db, "quizzes", id);
+    await deleteDoc(quizDocRef);
   }
 }
