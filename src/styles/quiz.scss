@@ -1,8 +1,8 @@
 @import './Variables.scss';
 
 #quizHome {
-  .nav {
-    margin: 20px 0;
+  nav {
+    margin: 20px 0 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -127,9 +127,11 @@
         // default no icons
         div.correctIncorrectIcons {
           .correctIcon {
+            color: $colorAccent1;
             display: none;
           }
           .incorrectIcon {
+            color: red;
             display: none;
           }
         }
@@ -169,7 +171,7 @@
         font-size: $fzSSmall;
         transition: 0.3s;
         &:hover {
-          background: $colorGoNextQuizBtnHover;
+          background: $colorAccent1Lighter;
         }
         &.disable {
           pointer-events: none;

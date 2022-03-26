@@ -1,5 +1,5 @@
-#quizHome .nav {
-  margin: 20px 0;
+#quizHome nav {
+  margin: 20px 0 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12,15 +12,15 @@
   font-size: 1.5rem;
 }
 
-#quizHome .nav .left a {
+#quizHome nav .left a {
   margin-right: 10px;
 }
 
-#quizHome .nav .left a:hover {
+#quizHome nav .left a:hover {
   opacity: .5;
 }
 
-#quizHome .nav .right a {
+#quizHome nav .right a {
   background: #59a9ff;
   color: white;
   font-weight: bold;
@@ -30,7 +30,7 @@
   transition: .3s;
 }
 
-#quizHome .nav .right a:hover {
+#quizHome nav .right a:hover {
   -webkit-box-shadow: 0px 3px 5px 0 #59a9ff;
           box-shadow: 0px 3px 5px 0 #59a9ff;
 }
@@ -168,10 +168,12 @@
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .correctIcon {
+  color: #005bbb;
   display: none;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .incorrectIcon {
+  color: red;
   display: none;
 }
 
@@ -231,7 +233,7 @@
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn:hover {
-  background: whitesmoke;
+  background: #ecf5ff;
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn.disable {

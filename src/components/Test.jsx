@@ -15,7 +15,7 @@ const Test = () => {
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
-  const [clickedAnswerIndex, setClickedAnswerIndex] = useState(0);
+  const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
@@ -37,6 +37,7 @@ const Test = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
+  console.log(`clickedAnswerIndex => ${clickedAnswerIndex}`)
   const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
     // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.
     answerIndex++;
@@ -144,12 +145,12 @@ const Test = () => {
 
                 <GoodBad quiz={quiz} />
                 {quizIndex + 1 === quizzes.length ? (
-                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' />
-                ) : (
-                  <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' />
-                )}
+                    <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
+                  ) : (
+                    <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
+                  )
+                }
               </div>
-              {/* <span className="category">{quiz.category}</span> */}
             </div>
           );
         }
