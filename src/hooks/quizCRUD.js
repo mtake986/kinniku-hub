@@ -11,9 +11,9 @@ import {
 import { useState, useEffect } from 'react'
 import db from "../config/firebase";
 
-export const handleQuizEdit = async () => {
-  prompt("handleQuizEdit");
-}
+// export const handleQuizEdit = async (id) => {
+//   prompt("handleQuizEdit");
+// }
 
 export const handleQuizDelete = async (id) => {
   const yesNo = prompt("Type yes(y) to delete permanently. You can't undo this action.");

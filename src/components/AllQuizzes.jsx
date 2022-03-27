@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { collection, onSnapshot } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
+import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
 import db from '../config/firebase';
@@ -36,7 +37,6 @@ const AllQuizzes = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
-
   return (
     <div className="allQuizzes">
       {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
@@ -47,7 +47,7 @@ const AllQuizzes = () => {
             <p className="quizQuestion">{quiz.question}</p>
           </div>
           <div className="icons">
-            <i className="riEditBoxLine" onClick={() => handleQuizEdit(quiz.id)}>{riEditBoxLine}</i>
+            <Link to={{pathname: `/kinniku-quiz/edit/${quiz.id}`}}><i className="riEditBoxLine">{riEditBoxLine}</i></Link>
             <i className="riDeleteBinLine" onClick={() => handleQuizDelete(quiz.id)}>{riDeleteBinLine}</i>
           </div>
         </div>

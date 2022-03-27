@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 // import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
 
