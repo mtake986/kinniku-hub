@@ -47,7 +47,7 @@ const AllQuizzes = () => {
             <p className="quizQuestion">{quiz.question}</p>
           </div>
           <div className="icons">
-            <Link to={{pathname: `/kinniku-quiz/edit/${quiz.id}`}}><i className="riEditBoxLine" onClick={() => handleQuizEdit(quiz)}>{riEditBoxLine}</i></Link>
+            <Link to={{pathname: `/kinniku-quiz/edit/${quiz.id}`}}><i className="riEditBoxLine">{riEditBoxLine}</i></Link>
             <i className="riDeleteBinLine" onClick={() => handleQuizDelete(quiz.id)}>{riDeleteBinLine}</i>
           </div>
         </div>

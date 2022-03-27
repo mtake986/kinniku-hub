@@ -15,7 +15,7 @@ Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
 const quizSchema = Yup.object().shape({
   question: Yup.string()
     .min(10, 'Too Short!')
-    .max(250, 'Too Long!')
+    .max(100, 'Too Long!')
     .required('Required'),
   answers: Yup.array()
     .of(Yup.string().max(50, 'Too Long!').required('Required'))
@@ -29,6 +29,7 @@ const quizSchema = Yup.object().shape({
   createdAt: Yup.date(),
   likes: Yup.number(),
 });
+
 
 export const FormikNewQuiz = () => {
   const [focused, setFocused] = useState(false);
