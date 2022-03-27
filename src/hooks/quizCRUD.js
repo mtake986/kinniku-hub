@@ -11,7 +11,7 @@ import {
 import { useState, useEffect } from 'react'
 import db from "../config/firebase";
 
-export const handleQuizEdit = async () => {
+export const handleQuizEdit = async (id) => {
   prompt("handleQuizEdit");
 }
 

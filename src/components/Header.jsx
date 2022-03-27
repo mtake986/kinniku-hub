@@ -12,7 +12,7 @@ const Header = () => {
         {/* instead of <a href="/"> */}
         {/* <Link to="/">Home</Link> */}
         <Link to="/kinniku-quiz/new">Create</Link>
-        <Link to="/kinniku-quiz/home">Home</Link>
+        <Link to="/kinniku-quiz/">Home</Link>
         <Link to="/profile">Profile</Link>
       </nav>
     </div>
