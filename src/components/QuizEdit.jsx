@@ -43,20 +43,17 @@ const QuizEdit = () => {
   useEffect(() => {
     const getData = async () => {
       const snap = await getDoc(doc(db, 'quizzes', id));
-      console.log(snap.data().answers);
       const quiz = snap.data();
-      console.log(quiz);
       setQuiz(quiz)
     };
     getData();
-  }, []);
+  }, [id]);
 
 
   // if (!q) {
   //   return "Loading quiz data..."
   // } 
 
-  console.log(id)
   return (
     <div className='formikNewQuiz'>
       {!q ? <Loading color={"#005bbb"} /> : (
@@ -73,8 +70,6 @@ const QuizEdit = () => {
           validationSchema={quizSchema}
           onSubmit={async (values) => {
             // same shape as initial values
-            // console.log(`values=>${values}`);
-            // console.log(`id=>${id}`);
             const docRef = doc(db, 'quizzes', id);
             const payload = values;
             await updateDoc(docRef, payload);

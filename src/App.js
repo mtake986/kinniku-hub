@@ -1,5 +1,7 @@
 // Import from 3rd parties
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth'
 
 // Import files existing in this project
 import './styles/Style.css';
@@ -17,24 +19,38 @@ import QuizHome from "./components/QuizHome";
 import QuizSelect from "./components/QuizSelect";
 import AllQuizzes from "./components/AllQuizzes";
 import FormikNewQuiz from "./components/FormikNewQuiz";
+import { auth } from './config/firebase';
 
 
 // Actual Coding
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user !== null) {
+      setCurrentUser({username: user.displayName, uid: user.uid, email: user.email, photoURL: user.photoURL})
+      console.log(currentUser)
+    }
+  })
+  }, [])
+
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header user={currentUser} />
       <div id="main">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home user={currentUser === {} ? "no user" : currentUser} />} />
           {/* <Route path="about" element={<About />}/> */}
           <Route path="kinniku-quiz/" element={<QuizHome />}>
             <Route path="new" element={<FormikNewQuiz />} />
             <Route path="test" element={<Test />} />
             <Route path="all-quizzes" element={<AllQuizzes />} />
-            <Route path="edit/:id" element={<QuizEdit quiz={"quiz props!!"}/>} />
+            <Route path="edit/:id" element={<QuizEdit quiz={"quiz props!!"} />} />
           </Route>
-          <Route path="profile/:userId" element={<Profile />} />
+          <Route path="profile/:uid" element={<Profile setCurrentUser={setCurrentUser} user={currentUser} />} />
+          {/* <Route path="login" /> */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>

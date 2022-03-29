@@ -6,36 +6,44 @@
   justify-content: space-between;
   padding: 10px 20px;
   font-size: 1.5rem;
-  background: rgb(255,213,0);
-  background: linear-gradient(150deg, rgba(255,213,0,1) 0%, rgba(255,249,200,1) 40%, rgba(236,245,255,1) 60%, rgba(89,169,255,1) 100%);
+  background: $colorAccent1;
   #logo {
     a {
+      color: $colorAccent2;
       font-size: $fzLarge;
       font-family: $fontLogo;
-      // background: #FFD500;
-      // background: -webkit-linear-gradient(to top, #FFD500 0%, #FFD500 45%, #005BBB 46%, #005BBB 100%);
-      // background: -moz-linear-gradient(to top, #FFD500 0%, #FFD500 45%, #005BBB 46%, #005BBB 100%);
-      // background: linear-gradient(to top, #FFD500 0%, #FFD500 45%, #005BBB 46%, #005BBB 100%);
-      // -webkit-background-clip: text;
-      // -webkit-text-fill-color: transparent;
     }
   }
   #appNav{
     a {
+      color: $colorTextSecond;
+      font-size: $fzSSmall;
       display: inline-block;
-      font-size: $fzSmall;
       // font-family: $fontHeader;
       padding: 5px 10px;
       transition: .3s;
       &:not(:nth-child(1)) {
-        margin-left: 10px;
+        margin-left: 5px;
       }
       &:hover {
-        background: rgba( 255, 255, 255, 0.1 );
-        box-shadow: 1px 1px 1px 0 $colorAccent1;
-        backdrop-filter: blur( 15px );
-        -webkit-backdrop-filter: blur( 15px );
-        border-radius: 3px;
+        opacity: .5;
+      }
+    }
+    #signInBtn {
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-left: 20px;
+      border: none;
+      font-size: 1rem;
+      // display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: $fzSSmall;
+      font-weight: bold;
+      transition: 0.3s;
+      background: $colorAccent2Lighter;
+      &:hover {
+        background: $colorAccent1Lighter;
       }
     }
   }
