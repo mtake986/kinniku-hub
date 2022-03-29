@@ -33,7 +33,6 @@ const quizSchema = Yup.object().shape({
 
 export const FormikNewQuiz = () => {
   const [focused, setFocused] = useState(false);
-  const [addHover, setAddHover] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
 
 
@@ -57,6 +56,7 @@ export const FormikNewQuiz = () => {
           const payload = values;
           await addDoc(quizCollectionRef, payload);
           // values["question"] = "";
+          
           // values["answers"] = ["", ""];
           // values.correctAnswer = ""
           // values.category = ""

@@ -15,6 +15,9 @@
     }
   }
   #appNav{
+    display: flex;
+    align-items: center;
+    gap: 5px;
     a {
       color: $colorTextSecond;
       font-size: $fzSSmall;
@@ -22,11 +25,21 @@
       // font-family: $fontHeader;
       padding: 5px 10px;
       transition: .3s;
-      &:not(:nth-child(1)) {
-        margin-left: 5px;
-      }
+      margin-right: 10px;
       &:hover {
-        opacity: .5;
+        opacity: .7;
+      }
+    }
+    span.imgLink {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      a {
+        padding: 0;
+        img {
+          width: 30px;
+          border-radius: 50%;
+        }
       }
     }
     #signInBtn {

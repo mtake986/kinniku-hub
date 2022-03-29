@@ -19,6 +19,16 @@
   font-family: "Caveat", cursive;
 }
 
+#appHeader #appNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+
 #appHeader #appNav a {
   color: #fff;
   font-size: 1rem;
@@ -26,14 +36,26 @@
   padding: 5px 10px;
   -webkit-transition: .3s;
   transition: .3s;
-}
-
-#appHeader #appNav a:not(:nth-child(1)) {
-  margin-left: 5px;
+  margin-right: 10px;
 }
 
 #appHeader #appNav a:hover {
-  opacity: .5;
+  opacity: .7;
+}
+
+#appHeader #appNav span.imgLink {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+#appHeader #appNav span.imgLink a {
+  padding: 0;
+}
+
+#appHeader #appNav span.imgLink a img {
+  width: 30px;
+  border-radius: 50%;
 }
 
 #appHeader #appNav #signInBtn {

@@ -18,9 +18,11 @@ const Header = ({user}) => {
 
         {/* <span onClick={signInWithGoogle}>Sign in</span> */}
         {user.username ? (
-          <>
-            <Link to={{ pathname: `/profile/${user.uid}` }}>Profile</Link>
-          </>
+          <span className="imgLink">
+            <Link to={{ pathname: `/profile/${user.uid}` }}>
+              <img src={user.photoURL} alt="Your Profile Picture" />
+            </Link>
+          </span>
         ) : (
           <button id="signInBtn" onClick={signInWithGoogle}>Login</button>
         )}
