@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { auth } from '../config/firebase';
-
+import "../styles/profile.css";
 
 const Profile = ({user, setCurrentUser}) => {
   const {uid} = useParams();
@@ -20,13 +20,13 @@ const Profile = ({user, setCurrentUser}) => {
   }
   
   return (
-    <div>
-      <h4>Username: {user.username}</h4>
-      <h4>Email: {user.email}</h4>
-      <h4>User id: {user.uid}</h4>
-      <h4>url: {user.photoURL}</h4>
-      <img src={user.photoURL} />
-      <button onClick={handleSignOut}>Sign out</button>
+    <div id="profilePage">
+      <div id="userInfo">
+        <img src={user.photoURL} alt="Your Profile Picture" />
+        <h4 className="username">{user.username}</h4>
+        <h5 className="email">{user.email}</h5>
+      </div>
+      <button id="logOutBtn" onClick={handleSignOut}>Logout</button>
     </div>
   )
 }

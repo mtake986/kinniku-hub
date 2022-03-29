@@ -18,13 +18,14 @@
     .right {
       a {
         background: $colorAccent1Light;
-        color: white;
+        color: $colorTextSecond;
         font-weight: bold;
         padding: 5px 20px;
         border-radius: 5px;
         transition: .3s;
         &:hover {
-          box-shadow: 0px 3px 5px 0 $colorAccent1Light;
+          background: $colorAccent2Light;
+          color: $colorTextPrimary;
         }
       }
     }
@@ -189,7 +190,6 @@
     }
   }
 }
-
 
 // .formikNewQuiz {
 // styles for the page to create a new quiz are embedded in the same component

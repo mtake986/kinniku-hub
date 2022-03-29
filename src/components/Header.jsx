@@ -22,7 +22,7 @@ const Header = ({user}) => {
             <Link to={{ pathname: `/profile/${user.uid}` }}>Profile</Link>
           </>
         ) : (
-          <button onClick={signInWithGoogle}>Sign in</button>
+          <button id="signInBtn" onClick={signInWithGoogle}>Login</button>
         )}
 
       </nav>

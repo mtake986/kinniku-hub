@@ -10,33 +10,50 @@
           justify-content: space-between;
   padding: 10px 20px;
   font-size: 1.5rem;
-  background: #ffd500;
-  background: linear-gradient(150deg, #ffd500 0%, #fff9c8 40%, #ecf5ff 60%, #59a9ff 100%);
+  background: #005bbb;
 }
 
 #appHeader #logo a {
+  color: #ffd500;
   font-size: 2.5rem;
   font-family: "Caveat", cursive;
 }
 
 #appHeader #appNav a {
+  color: #fff;
+  font-size: 1rem;
   display: inline-block;
-  font-size: 1.2rem;
   padding: 5px 10px;
   -webkit-transition: .3s;
   transition: .3s;
 }
 
 #appHeader #appNav a:not(:nth-child(1)) {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 #appHeader #appNav a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-box-shadow: 1px 1px 1px 0 #005bbb;
-          box-shadow: 1px 1px 1px 0 #005bbb;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 3px;
+  opacity: .5;
+}
+
+#appHeader #appNav #signInBtn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 20px;
+  border: none;
+  font-size: 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: #fff9c8;
+}
+
+#appHeader #appNav #signInBtn:hover {
+  background: #ecf5ff;
 }
 /*# sourceMappingURL=Header.css.map */
