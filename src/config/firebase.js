@@ -25,21 +25,7 @@ const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((res) => {
-      
-      // const username = res.user.displayName;
-      // const email = res.user.email;
-      // const profilePic = res.user.photoURL;
-      // const uid = res.user.uid;
-      // const user = res.user
-
-      // localStorage.setItem("username", username);
-      // localStorage.setItem("email", email);
-      // localStorage.setItem("profilePic", profilePic);
-      // localStorage.setItem("uid", uid);
-      // localStorage.setItem("user", user);
-
       console.log(res);
-
     }).catch((err) => {
       console.log(err);
     })
