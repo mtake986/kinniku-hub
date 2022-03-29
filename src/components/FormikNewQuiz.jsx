@@ -53,7 +53,6 @@ export const FormikNewQuiz = () => {
         validationSchema={quizSchema}
         onSubmit={async (values, { resetForm }) => {
           // same shape as initial values
-          console.log(values);
           const quizCollectionRef = collection(db, 'quizzes');
           const payload = values;
           await addDoc(quizCollectionRef, payload);

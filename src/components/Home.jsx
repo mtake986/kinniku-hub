@@ -1,15 +1,11 @@
 import React from 'react';
 import { signInWithGoogle } from '../config/firebase';
 
-const Home = () => {
+const Home = ({user}) => {
 
   return (
     <div>
-      <h3>home</h3>
-      <button onClick={signInWithGoogle}>sign in with ggl</button>
-      <h4>{localStorage.getItem("username")}</h4>
-      <h4>{localStorage.getItem("email")}</h4>
-      <img src={localStorage.getItem("profilePic")} />
+      Welcome, {user.username ? `${user.username}` : `Mr. Anonymous`}
     </div>
   );
 };

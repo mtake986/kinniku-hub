@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // ========== Import from inside this project ==========
 import db from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
-import { handleQuizEdit, handleQuizDelete } from '../hooks/quizCRUD';
+import { handleQuizDelete } from '../hooks/quizCRUD';
 
 // ========== Main ==========
 const AllQuizzes = () => {

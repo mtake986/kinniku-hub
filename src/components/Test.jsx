@@ -37,7 +37,6 @@ const Test = () => {
     // onSnapshot(): listen for realtime updates
   }, []);
 
-  console.log(`clickedAnswerIndex => ${clickedAnswerIndex}`)
   const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
     // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.
     answerIndex++;
@@ -49,7 +48,6 @@ const Test = () => {
     );
 
     setClickedAnswerIndex(answerIndex);
-    console.log(clickedAnswerIndex, e);
 
     // When an answer is clicked:
     // 1. make all disable to be clicked <- can be done by adding the same className to all.
@@ -67,14 +65,12 @@ const Test = () => {
   };
 
   const goNextQuiz = () => {
-    console.log(currentQIndex, quizzes.length);
     if (currentQIndex !== quizzes.length) {
       setCurrentQIndex(prevState => prevState + 1);
     }
     setClickedAnswerIndex();
   };
   const goPrevQuiz = () => {
-    console.log(currentQIndex, quizzes.length);
     if (currentQIndex !== 0) {
       setCurrentQIndex(prevState => prevState - 1);
     } else {
@@ -83,7 +79,6 @@ const Test = () => {
     setClickedAnswerIndex();
   };
 
-  console.log(quizzes);
   return (
     <div className='quizContainer'>
       {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
