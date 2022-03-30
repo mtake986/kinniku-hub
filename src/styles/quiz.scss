@@ -1,6 +1,6 @@
 @import 'Variables';
 
-#quizHome {
+#quizHeader {
   nav {
     margin: 20px 0 50px;
     display: flex;
@@ -18,9 +18,9 @@
     }
     .right {
       a {
-        background: $colorAccent1Light;
-        color: $colorTextSecond;
-        font-weight: bold;
+        border: 1px solid $colorAccent1;
+        background: $colorAccent1Lighter;
+        color: $colorAccent1;
         padding: 5px 20px;
         border-radius: 5px;
         transition: .3s;
@@ -32,6 +32,55 @@
   }
 }
 
+#quizHome {
+  font-size: $fzSSmall;
+  .quizRecentlyCreated {
+    .eachQuizContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      padding: 10px 0;
+      border-bottom: 1px solid $colorAccent1Lighter;
+      &:first-child {
+        margin-top: 0;
+      }
+      .quizQuestionContainer {
+        display: flex;
+        align-items: center;
+        .quizIndex {
+          margin-right: 15px;
+        }
+        .quizQuestion {
+          margin: 0 15px;
+        }
+      }
+      div.icons {
+        display: flex;
+        gap: 10px;
+        i.riEditBoxLine {
+          color: $colorAccent1;
+          font-size: $fzSmall;
+          transition: .3s;
+          cursor: pointer;
+          &:hover { 
+            opacity: .7;
+          }
+        }
+        i.riDeleteBinLine {
+          color: $colorGoodBtn;
+          font-size: $fzSmall;
+          transform: none;
+          transition: .3s;
+          cursor: pointer;
+          &:hover { 
+            opacity: .7;
+          }
+        }
+      }
+    }
+  }
+}
 .quizContainer {
   display: flex;
   flex-direction: column;

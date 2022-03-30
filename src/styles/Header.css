@@ -33,10 +33,10 @@
   color: #fff;
   font-size: 1rem;
   display: inline-block;
-  padding: 5px 10px;
+  padding: 3px 5px;
   -webkit-transition: .3s;
   transition: .3s;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 #appHeader #appNav a:hover {
@@ -47,7 +47,7 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 #appHeader #appNav span.imgLink a {
@@ -61,7 +61,7 @@
 }
 
 #appHeader #appNav #signInBtn {
-  padding: 5px 10px;
+  padding: 3px 5px;
   border-radius: 5px;
   border: none;
   font-size: 1rem;

@@ -1,23 +1,57 @@
-
-import { Link, Outlet } from 'react-router-dom';
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { db } from '../config/firebase';
+import Loading from 'react-simple-loading';
 
 const QuizHome = () => {
+  const [quizzes, setQuizzes] = useState([]);
+
+  // useEffect(() => {
+  //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
+  // })
+
+  useEffect(() => {
+    const collectionRef = collection(db, 'quizzes');
+    const q = query(collectionRef, orderBy("createdAt", "desc"), limit(5));
+    const unsub = onSnapshot(q, {
+      next: snapshot => {
+        setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      },
+      error: err => {
+        // don't forget error handling! e.g. update component with an error message
+        console.error('quizes listener failed: ', err);
+      },
+    });
+    return unsub;
+    // const unsub = onSnapshot(collectionRef, snapshot => {
+    //   setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    // });
+    // return unsub;
+    // getData(): run once
+    // onSnapshot(): listen for realtime updates
+  }, []);
+
   return (
-    <div id="quizHome">
-      <nav className="nav">
-        <div className="left">
-          <Link to="/kinniku-quiz/test">Test</Link>
-          <Link to="/kinniku-quiz/all-quizzes">All</Link>
-        </div>
-        <div className="right">
-          <Link to="/kinniku-quiz/new">New</Link>
-        </div>
-      </nav>
-      <Outlet />
+    <div id='quizHome'>
+      <div className="quizRecentlyCreated">
+        <h3>Quizzes Recently Created</h3>
+        {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+        {quizzes.map((quiz, quizIndex) => (
+          <div className='eachQuizContainer' key={quiz.id}>
+            <div className='quizQuestionContainer'>
+              <span className='quizIndex'>{quizIndex + 1}.</span>
+              <p className='quizQuestion'>{quiz.question}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-
-    
-  )
-}
-
-export default QuizHome
+  );
+};
+export default QuizHome;

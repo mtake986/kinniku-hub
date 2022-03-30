@@ -1,11 +1,11 @@
 // ========== Import from third parties ==========
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
-import db from '../config/firebase';
+import {db} from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
 import { handleQuizDelete } from '../hooks/quizCRUD';
 
@@ -19,7 +19,8 @@ const AllQuizzes = ({uid}) => {
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
-    const unsub = onSnapshot(collectionRef, {
+    const q = query(collectionRef, orderBy("createdAt", "desc"));
+    const unsub = onSnapshot(q, {
       next: snapshot => {
         setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
       },

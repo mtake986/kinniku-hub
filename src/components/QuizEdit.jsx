@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import {updateDoc, getDoc, doc } from 'firebase/firestore';
 
-import db from '../config/firebase';
+import {db} from '../config/firebase';
 import { useState, useEffect } from 'react';
 
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
