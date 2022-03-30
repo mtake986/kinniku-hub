@@ -26,3 +26,9 @@ a {
   font-size: 2rem;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

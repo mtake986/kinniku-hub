@@ -14,10 +14,12 @@
 
 #quizHome nav .left a {
   margin-right: 10px;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 #quizHome nav .left a:hover {
-  opacity: .5;
+  opacity: .7;
 }
 
 #quizHome nav .right a {
@@ -31,8 +33,7 @@
 }
 
 #quizHome nav .right a:hover {
-  background: #ffe164;
-  color: #333;
+  opacity: .7;
 }
 
 .quizContainer {
@@ -307,7 +308,7 @@
 }
 
 .allQuizzes .eachQuizContainer div.icons i.riEditBoxLine:hover {
-  opacity: .5;
+  opacity: .7;
 }
 
 .allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine {
@@ -321,7 +322,7 @@
 }
 
 .allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine:hover {
-  opacity: .5;
+  opacity: .7;
 }
 
 .quizResultWindow {

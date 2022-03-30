@@ -10,8 +10,9 @@
     .left {
       a {
         margin-right: 10px;
+        transition: .3s;
         &:hover {
-          opacity: .5;
+          opacity: .7;
         }
       }
     }
@@ -24,8 +25,7 @@
         border-radius: 5px;
         transition: .3s;
         &:hover {
-          background: $colorAccent2Light;
-          color: $colorTextPrimary;
+          opacity: .7;
         }
       }
     }
@@ -226,7 +226,7 @@
         transition: .3s;
         cursor: pointer;
         &:hover { 
-          opacity: .5;
+          opacity: .7;
         }
       }
       i.riDeleteBinLine {
@@ -236,7 +236,7 @@
         transition: .3s;
         cursor: pointer;
         &:hover { 
-          opacity: .5;
+          opacity: .7;
         }
       }
     }

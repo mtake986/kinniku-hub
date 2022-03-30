@@ -10,7 +10,7 @@ import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
 import { handleQuizDelete } from '../hooks/quizCRUD';
 
 // ========== Main ==========
-const AllQuizzes = () => {
+const AllQuizzes = ({uid}) => {
   const [quizzes, setQuizzes] = useState([]);
 
   // useEffect(() => {
@@ -46,17 +46,20 @@ const AllQuizzes = () => {
             <span className='quizIndex'>{quizIndex + 1}.</span>
             <p className='quizQuestion'>{quiz.question}</p>
           </div>
-          <div className='icons'>
-            <Link to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}>
-              <i className='riEditBoxLine'>{riEditBoxLine}</i>
-            </Link>
-            <i
-              className='riDeleteBinLine'
-              onClick={() => handleQuizDelete(quiz.id)}
-            >
-              {riDeleteBinLine}
-            </i>
-          </div>
+
+          {quiz.uid && uid === quiz.uid ? (
+            <div className='icons'>
+              <Link to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}>
+                <i className='riEditBoxLine'>{riEditBoxLine}</i>
+              </Link>
+              <i
+                className='riDeleteBinLine'
+                onClick={() => handleQuizDelete(quiz.id)}
+              >
+                {riDeleteBinLine}
+              </i>
+            </div>
+          ) : null}
         </div>
       ))}
     </div>

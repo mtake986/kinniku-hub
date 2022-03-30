@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -30,15 +30,15 @@ const quizSchema = Yup.object().shape({
   createdAt: Yup.date(),
   likes: Yup.number(),
   uid: Yup.string(),
+  username: Yup.string(),
 });
 
-export const FormikNewQuiz = ({ uid }) => {
+export const FormikNewQuiz = ({ uid, username }) => {
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const snackbarRef = useRef(null);
 
-  console.log(uid);
-
+  console.log(uid, username)
   return (
     <div className='formikNewQuiz'>
       <Snackbar type='success' msg='Successfully Stored!!' ref={snackbarRef} />
@@ -52,6 +52,7 @@ export const FormikNewQuiz = ({ uid }) => {
           createdAt: new Date(),
           likes: 0,
           uid,
+          username,
         }}
         validateOnChange
         validationSchema={quizSchema}
@@ -61,11 +62,6 @@ export const FormikNewQuiz = ({ uid }) => {
           const payload = values;
           console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
-          // values["question"] = "";
-
-          // values["answers"] = ["", ""];
-          // values.correctAnswer = ""
-          // values.category = ""
           snackbarRef.current.show()
           resetForm();
         }}

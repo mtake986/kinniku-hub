@@ -44,17 +44,19 @@
 }
 
 #appHeader #appNav span.imgLink {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 #appHeader #appNav span.imgLink a {
+  margin: 0;
   padding: 0;
 }
 
 #appHeader #appNav span.imgLink a img {
-  width: 30px;
+  width: 40px;
   border-radius: 50%;
 }
 

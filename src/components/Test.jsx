@@ -9,7 +9,7 @@ import GoPrevQuizBtn from './GoPrevQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
 import { biCircle, biPlus } from '../icons/icons';
 
-const Test = () => {
+const Test = ({username}) => {
   const [quizzes, setQuizzes] = useState([]);
   // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
@@ -17,6 +17,7 @@ const Test = () => {
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
 
+  console.log(username)
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
     const unsub = onSnapshot(collectionRef, {
@@ -87,7 +88,7 @@ const Test = () => {
           return (
             <div key={quiz.id} className='quiz'>
               <div className='quizHeader'>
-                <span className='createdBy'>Created by: User 1</span>
+                <span className='createdBy'>Created by: {username ? username : "Anonymous"}</span>
                 <span className='quizNumber'>
                   {quizIndex + 1}/{quizzes.length}
                 </span>
