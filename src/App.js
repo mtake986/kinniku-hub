@@ -27,13 +27,14 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-  onAuthStateChanged(auth, (user) => {
-    if (user !== null) {
-      setCurrentUser({username: user.displayName, uid: user.uid, email: user.email, photoURL: user.photoURL})
-      console.log(currentUser)
-    }
-  })
+    onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        setCurrentUser({username: user.displayName, uid: user.uid, email: user.email, photoURL: user.photoURL})
+        console.log(currentUser)
+      }
+    })
   }, [])
+
 
 
   return (
@@ -44,7 +45,7 @@ function App() {
           <Route path="/" element={<Home user={currentUser === {} ? "no user" : currentUser} />} />
           {/* <Route path="about" element={<About />}/> */}
           <Route path="kinniku-quiz/" element={<QuizHome />}>
-            <Route path="new" element={<FormikNewQuiz />} />
+            <Route path="new" element={<FormikNewQuiz uid={currentUser.uid} />} />
             <Route path="test" element={<Test />} />
             <Route path="all-quizzes" element={<AllQuizzes />} />
             <Route path="edit/:id" element={<QuizEdit quiz={"quiz props!!"} />} />

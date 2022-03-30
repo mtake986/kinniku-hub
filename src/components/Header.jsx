@@ -17,10 +17,10 @@ const Header = ({user}) => {
         <Link to="/kinniku-quiz/">Home</Link>
 
         {/* <span onClick={signInWithGoogle}>Sign in</span> */}
-        {user.username ? (
+        {user.photoURL ? (
           <span className="imgLink">
             <Link to={{ pathname: `/profile/${user.uid}` }}>
-              <img src={user.photoURL} alt="Your Profile Picture" />
+              <img src={user.photoURL} alt="Your Profile Picture" referrerPolicy="no-referrer" />
             </Link>
           </span>
         ) : (

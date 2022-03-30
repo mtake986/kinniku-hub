@@ -1,0 +1,91 @@
+.snackbar {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  border: 1px solid #68ca50;
+  background: #ceffc4;
+  color: #1b8600;
+  font-size: 1rem;
+}
+
+.snackbar div.icon {
+  height: 20px;
+  width: 20px;
+  font-size: 1.2rem;
+}
+
+.snackbar div.msg {
+  font-weight: bold;
+}
+
+.snackbar#show {
+  visibility: visible;
+  -webkit-animation: fadeIn .5s, fadeOut .5s 2.5s;
+          animation: fadeIn .5s, fadeOut .5s 2.5s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.snackbar#hide {
+  visibility: hidden;
+  display: none;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0px;
+    opacity: 0;
+  }
+}
+/*# sourceMappingURL=snackbar.css.map */

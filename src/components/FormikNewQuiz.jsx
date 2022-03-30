@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { collection, addDoc } from 'firebase/firestore';
 import db from '../config/firebase';
 import { ioRemoveCircleSharp } from '../icons/icons';
+import Snackbar from './Snackbar';
 
 Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
   return this.test('unique', message, function (list) {
@@ -28,17 +29,20 @@ const quizSchema = Yup.object().shape({
   category: Yup.string().required('Required'),
   createdAt: Yup.date(),
   likes: Yup.number(),
+  uid: Yup.string(),
 });
 
-
-export const FormikNewQuiz = () => {
+export const FormikNewQuiz = ({ uid }) => {
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
+  const snackbarRef = useRef(null);
 
-
+  console.log(uid);
 
   return (
     <div className='formikNewQuiz'>
+      <Snackbar type='success' msg='Successfully Stored!!' ref={snackbarRef} />
+
       <Formik
         initialValues={{
           question: '',
@@ -47,6 +51,7 @@ export const FormikNewQuiz = () => {
           category: '',
           createdAt: new Date(),
           likes: 0,
+          uid,
         }}
         validateOnChange
         validationSchema={quizSchema}
@@ -54,12 +59,14 @@ export const FormikNewQuiz = () => {
           // same shape as initial values
           const quizCollectionRef = collection(db, 'quizzes');
           const payload = values;
+          console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
           // values["question"] = "";
-          
+
           // values["answers"] = ["", ""];
           // values.correctAnswer = ""
           // values.category = ""
+          snackbarRef.current.show()
           resetForm();
         }}
       >
@@ -328,7 +335,7 @@ const moreAnswerIcon = {
   fontFamily: "'Cormorant Garamond', serif",
   color: '#005bbb',
   padding: '5px 10px',
-  marginTop: "20px",
+  marginTop: '20px',
   cursor: 'pointer',
   transition: '.3s',
   textAlign: 'center',

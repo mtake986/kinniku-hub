@@ -1,0 +1,61 @@
+@import 'Variables';
+
+.snackbar {
+  // position: fixed;
+  // left: 50%;
+  // top: 5%;
+  // transform: translate(-50%, -50%);
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  margin: 0 auto;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: $fzSmall;
+  border: 1px solid $colorAccent3Light;
+  background: $colorAccent3Lighter;
+  color: $colorAccent3;
+  font-size: $fzSSmall;
+  div.icon {
+    height: 20px;
+    width: 20px;
+    font-size: $fzSmall;
+  }
+  div.msg {
+    font-weight: bold;
+  }
+  &#show {
+    visibility: visible;
+    animation: fadeIn .5s, fadeOut .5s 2.5s;
+    display: flex;
+  }
+  &#hide {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0px;
+    opacity: 0;
+  }
+}
