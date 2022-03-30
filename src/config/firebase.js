@@ -19,7 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-export default getFirestore();
+export const db = getFirestore();
 export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => {

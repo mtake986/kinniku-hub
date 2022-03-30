@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 
-import db from '../config/firebase';
+import {db} from '../config/firebase';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
 import GoPrevQuizBtn from './GoPrevQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
 import { biCircle, biPlus } from '../icons/icons';
 
-const Test = ({username}) => {
+const Test = () => {
   const [quizzes, setQuizzes] = useState([]);
   // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
@@ -17,10 +17,10 @@ const Test = ({username}) => {
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
 
-  console.log(username)
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
-    const unsub = onSnapshot(collectionRef, {
+    const q = query(collectionRef, orderBy("likes", "asc"));
+    const unsub = onSnapshot(q, {
       next: snapshot => {
         setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
       },
@@ -88,7 +88,7 @@ const Test = ({username}) => {
           return (
             <div key={quiz.id} className='quiz'>
               <div className='quizHeader'>
-                <span className='createdBy'>Created by: {username ? username : "Anonymous"}</span>
+                <span className='createdBy'>Created by: {quiz.username ? quiz.username : "Anonymous"}</span>
                 <span className='quizNumber'>
                   {quizIndex + 1}/{quizzes.length}
                 </span>

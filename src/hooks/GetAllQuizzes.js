@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 
-import db from '../config/firebase';
+import {db} from '../config/firebase';
 
 export const GetAllQuizzes = ({quizzes, setQuizzes}) => {
 

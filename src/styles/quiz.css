@@ -1,4 +1,4 @@
-#quizHome nav {
+#quizHeader nav {
   margin: 20px 0 50px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -12,27 +12,100 @@
   font-size: 1.5rem;
 }
 
-#quizHome nav .left a {
+#quizHeader nav .left a {
   margin-right: 10px;
   -webkit-transition: .3s;
   transition: .3s;
 }
 
-#quizHome nav .left a:hover {
+#quizHeader nav .left a:hover {
   opacity: .7;
 }
 
-#quizHome nav .right a {
-  background: #59a9ff;
-  color: #fff;
-  font-weight: bold;
+#quizHeader nav .right a {
+  border: 1px solid #005bbb;
+  background: #ecf5ff;
+  color: #005bbb;
   padding: 5px 20px;
   border-radius: 5px;
   -webkit-transition: .3s;
   transition: .3s;
 }
 
-#quizHome nav .right a:hover {
+#quizHeader nav .right a:hover {
+  opacity: .7;
+}
+
+#quizHome {
+  font-size: 1rem;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ecf5ff;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer:first-child {
+  margin-top: 0;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer .quizQuestionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer .quizQuestionContainer .quizIndex {
+  margin-right: 15px;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer .quizQuestionContainer .quizQuestion {
+  margin: 0 15px;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riEditBoxLine {
+  color: #005bbb;
+  font-size: 1.2rem;
+  -webkit-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riEditBoxLine:hover {
+  opacity: .7;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riDeleteBinLine {
+  color: red;
+  font-size: 1.2rem;
+  -webkit-transform: none;
+          transform: none;
+  -webkit-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+}
+
+#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riDeleteBinLine:hover {
   opacity: .7;
 }
 

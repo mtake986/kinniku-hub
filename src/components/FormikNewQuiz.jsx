@@ -3,7 +3,7 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { collection, addDoc } from 'firebase/firestore';
-import db from '../config/firebase';
+import {db} from '../config/firebase';
 import { ioRemoveCircleSharp } from '../icons/icons';
 import Snackbar from './Snackbar';
 
@@ -51,15 +51,13 @@ export const FormikNewQuiz = ({ uid, username }) => {
           category: '',
           createdAt: new Date(),
           likes: 0,
-          uid,
-          username,
         }}
         validateOnChange
         validationSchema={quizSchema}
         onSubmit={async (values, { resetForm }) => {
           // same shape as initial values
           const quizCollectionRef = collection(db, 'quizzes');
-          const payload = values;
+          const payload = {...values, uid, username};
           console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
           snackbarRef.current.show()

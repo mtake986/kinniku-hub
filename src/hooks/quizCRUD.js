@@ -9,7 +9,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useState, useEffect } from 'react'
-import db from "../config/firebase";
+import {db} from "../config/firebase";
 
 // export const handleQuizEdit = async (id) => {
 //   prompt("handleQuizEdit");
