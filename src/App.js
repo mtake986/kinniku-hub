@@ -24,7 +24,7 @@ import { auth, db } from './config/firebase';
 
 // Actual Coding
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState("Anonymous");
   const [quizzes, setQuizzes] = useState({});
 
   useEffect(() => {
@@ -48,9 +48,6 @@ function App() {
     return unsub;
   }, [])
 
-  console.log(currentUser)
-  console.log(quizzes)
-
   return (
     <BrowserRouter>
       <Header currentUser={currentUser} />
@@ -73,7 +70,7 @@ function App() {
             />
             <Route
               path="test"
-              element={<Test />}
+              element={<Test currentUser={currentUser === {} ? "Anonymous" : currentUser} />}
             />
             <Route
               path="all-quizzes"

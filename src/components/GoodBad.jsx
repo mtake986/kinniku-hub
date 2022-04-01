@@ -1,28 +1,45 @@
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 // import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
-import { updateDoc, doc, increment } from 'firebase/firestore';
-
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  increment,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-const GoodBad = ({ quiz }) => {
-  const [goodClicked, setGoodClicked] = useState(false);
+const GoodBad = ({ quiz, currentUser }) => {
+
+  let alreadyLiked = false;
+  console.log(currentUser, quiz)
+
+  if (currentUser !== "Anonymous" && quiz.whoLikes !== null && quiz.whoLikes.includes(currentUser.uid)) {
+    alreadyLiked = true
+  }
+  const [goodClicked, setGoodClicked] = useState(alreadyLiked);
   const [goodCounter, setGoodCounter] = useState(quiz.likes);
 
-  // console.log(quiz.id, quiz.likes)
-
-  const handleLikesUI = async e => {
+  const handleLikes = async e => {
     const docRef = doc(db, 'quizzes', quiz.id);
-
     if (goodClicked === false) {
       setGoodClicked(true);
       setGoodCounter(prevState => prevState + 1);
-      const payload = { likes: increment(1) };
+      const payload = {
+        likes: increment(1),
+        whoLikes: currentUser !== "Anonymous" ? arrayUnion(currentUser.uid) : null,
+      };
       await updateDoc(docRef, payload);
     } else {
       setGoodClicked(false);
       setGoodCounter(prevState => prevState - 1);
-      const payload = { likes: increment(-1) };
+      const payload = {
+        likes: increment(-1),
+        whoLikes: currentUser !== "Anonymous" ? arrayRemove(currentUser.uid) : null,
+      };
       await updateDoc(docRef, payload);
     }
   };
@@ -35,7 +52,7 @@ const GoodBad = ({ quiz }) => {
             ? 'likesCounterContainer checked'
             : 'likesCounterContainer'
         }
-        onClick={() => handleLikesUI(quiz)}
+        onClick={() => handleLikes(quiz)}
       >
         <span className='heartIcon'>
           {goodClicked ? <FaHeart /> : <FaRegHeart />}{' '}
