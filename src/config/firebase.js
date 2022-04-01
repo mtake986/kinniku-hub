@@ -2,9 +2,8 @@
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import { addDoc, getDocs, getFirestore } from "firebase/firestore"
-import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
-import { useState } from "react";
-import { collection, query, where } from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { collection } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {

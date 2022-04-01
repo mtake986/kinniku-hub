@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 // import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
-import { updateDoc, getDoc, doc, increment } from 'firebase/firestore';
+import { updateDoc, doc, increment } from 'firebase/firestore';
 
 import { db } from '../config/firebase';
 

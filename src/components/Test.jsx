@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 
 import {db} from '../config/firebase';
@@ -31,6 +31,8 @@ const Test = () => {
     });
     return unsub;
   }, []);
+
+  // console.log(quizzes)
 
   const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
     // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.

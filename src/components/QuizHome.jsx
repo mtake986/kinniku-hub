@@ -56,7 +56,7 @@ const QuizHome = () => {
               >
                 <img
                   src={quiz.user.photoURL}
-                  alt='Profile Picture of the User Created the Quiz'
+                  alt='Profile Picture'
                   referrerPolicy='no-referrer'
                 />
               </Link>

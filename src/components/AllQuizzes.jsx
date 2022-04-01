@@ -5,7 +5,6 @@ import {
   onSnapshot,
   query,
   orderBy,
-  limit,
 } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
@@ -73,7 +72,7 @@ const AllQuizzes = ({ uid }) => {
             >
               <img
                 src={quiz.user.photoURL}
-                alt='Profile Picture of the User Created the Quiz'
+                alt='Profile Picture'
                 referrerPolicy='no-referrer'
               />
             </Link>
