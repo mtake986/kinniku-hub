@@ -1,14 +1,7 @@
 import {
-  collection,
-  addDoc,
-  setDoc,
   doc,
   deleteDoc,
-  query,
-  where,
-  getDocs,
 } from "firebase/firestore";
-import { useState, useEffect } from 'react'
 import {db} from "../config/firebase";
 
 // export const handleQuizEdit = async (id) => {

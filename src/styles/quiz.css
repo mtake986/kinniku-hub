@@ -115,7 +115,7 @@
 
 .quizContainer .quiz .quizHeader span.quizNumber,
 .quizContainer .quiz .quizHeader span.createdBy {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .quizContainer .quiz .quizQuestionContainer p.quizQuestionText {
@@ -300,6 +300,11 @@
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn .bsArrowLeft {
   height: 20px;
   margin-right: 10px;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn.prevBtn {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .allQuizzes {

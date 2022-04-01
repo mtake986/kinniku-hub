@@ -67,6 +67,7 @@
     }
   }
 }
+
 .quizContainer {
   display: flex;
   flex-direction: column;
@@ -79,7 +80,7 @@
       margin: 10px 0;
       span.quizNumber,
       span.createdBy {
-        font-size: $fzSSmall;
+        font-size: $fzSSSmall;
       }
     }
     .quizQuestionContainer {
@@ -220,6 +221,10 @@
         .bsArrowLeft {
           height: 20px;
           margin-right: 10px;
+        }
+        &.prevBtn {
+          opacity: 0;
+          pointer-events: none;
         }
       }
     }

@@ -28,7 +28,7 @@ const Profile = ({ currentUser, setCurrentUser }) => {
       <div id='userInfo'>
         <img
           src={user.photoURL}
-          alt='Your Profile Picture'
+          alt='Profile Picture'
           referrerPolicy='no-referrer'
         />
         <h4 className='username'>{user.username}</h4>

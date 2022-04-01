@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -29,6 +29,8 @@ const quizSchema = Yup.object().shape({
   category: Yup.string().required('Required'),
   createdAt: Yup.date(),
   likes: Yup.number(),
+  whoLikes: Yup.array()
+  .of(Yup.string())
 });
 
 export const FormikNewQuiz = ({ user }) => {
@@ -50,6 +52,7 @@ export const FormikNewQuiz = ({ user }) => {
           category: '',
           createdAt: new Date(),
           likes: 0,
+          whoLikes: [],
         }}
         validateOnChange
         validationSchema={quizSchema}

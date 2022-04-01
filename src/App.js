@@ -2,8 +2,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, onSnapshot, where, query, orderBy, limit } from 'firebase/firestore';
-import { addDoc, getDocs } from "firebase/firestore"
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 // Import files existing in this project
 import './styles/Style.css';
@@ -25,8 +24,7 @@ import { auth, db } from './config/firebase';
 
 // Actual Coding
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
-  const [users, setUsers] = useState();
+  const [currentUser, setCurrentUser] = useState("Anonymous");
   const [quizzes, setQuizzes] = useState({});
 
   useEffect(() => {
@@ -37,7 +35,7 @@ function App() {
     })
 
     const collectionRef = collection(db, 'quizzes');
-    const q = query(collectionRef, orderBy("likes", "desc"));
+    const q = query(collectionRef, orderBy("createdAt", "desc"));
     console.log(q)
     const unsub = onSnapshot(q, {
       next: snapshot => {
@@ -49,9 +47,6 @@ function App() {
     });
     return unsub;
   }, [])
-
-  console.log(currentUser)
-  console.log(quizzes)
 
   return (
     <BrowserRouter>
@@ -75,7 +70,7 @@ function App() {
             />
             <Route
               path="test"
-              element={<Test />}
+              element={<Test currentUser={currentUser === {} ? "Anonymous" : currentUser} />}
             />
             <Route
               path="all-quizzes"

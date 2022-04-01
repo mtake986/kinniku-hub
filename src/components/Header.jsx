@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import '../styles/Header.css';
-import { signInWithGoogle, handleSignOut } from '../config/firebase';
+import { signInWithGoogle } from '../config/firebase';
 
 const Header = ({ currentUser }) => {
   return (
@@ -13,7 +13,7 @@ const Header = ({ currentUser }) => {
         {/* instead of <a href="/"> */}
         {/* <Link to="/">Home</Link> */}
         <Link to='/kinniku-quiz/home'>Home</Link>
-        <Link to='/kinniku-quiz/new'>Create</Link>
+        <Link to='/kinniku-quiz/new'>New</Link>
 
         {/* <span onClick={signInWithGoogle}>Sign in</span> */}
         {currentUser.photoURL ? (
@@ -24,7 +24,7 @@ const Header = ({ currentUser }) => {
             >
               <img
                 src={currentUser.photoURL}
-                alt='Your Profile Picture'
+                alt='Your Profile Pic'
                 referrerPolicy='no-referrer'
               />
             </Link>
