@@ -88,7 +88,7 @@ const Test = () => {
           return (
             <div key={quiz.id} className='quiz'>
               <div className='quizHeader'>
-                <span className='createdBy'>Created by: {quiz.username ? quiz.username : "Anonymous"}</span>
+                <span className='createdBy'>Created by: {quiz.user.username ? quiz.user.username : "Anonymous"}</span>
                 <span className='quizNumber'>
                   {quizIndex + 1}/{quizzes.length}
                 </span>

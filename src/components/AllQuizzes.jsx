@@ -1,16 +1,22 @@
 // ========== Import from third parties ==========
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
-import {db} from '../config/firebase';
+import { db } from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
 import { handleQuizDelete } from '../hooks/quizCRUD';
 
 // ========== Main ==========
-const AllQuizzes = ({uid}) => {
+const AllQuizzes = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
 
   // useEffect(() => {
@@ -19,7 +25,7 @@ const AllQuizzes = ({uid}) => {
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
-    const q = query(collectionRef, orderBy("createdAt", "desc"));
+    const q = query(collectionRef, orderBy('createdAt', 'desc'));
     const unsub = onSnapshot(q, {
       next: snapshot => {
         setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -48,7 +54,7 @@ const AllQuizzes = ({uid}) => {
             <p className='quizQuestion'>{quiz.question}</p>
           </div>
 
-          {quiz.uid && uid === quiz.uid ? (
+          {quiz.user.uid && uid === quiz.user.uid ? (
             <div className='icons'>
               <Link to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}>
                 <i className='riEditBoxLine'>{riEditBoxLine}</i>
@@ -60,7 +66,18 @@ const AllQuizzes = ({uid}) => {
                 {riDeleteBinLine}
               </i>
             </div>
-          ) : null}
+          ) : (
+            <Link
+              to={{ pathname: `/profile/${quiz.user.uid}` }}
+              state={{ user: quiz.user }}
+            >
+              <img
+                src={quiz.user.photoURL}
+                alt='Profile Picture of the User Created the Quiz'
+                referrerPolicy='no-referrer'
+              />
+            </Link>
+          )}
         </div>
       ))}
     </div>

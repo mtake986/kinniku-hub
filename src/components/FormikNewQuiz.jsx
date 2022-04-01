@@ -29,16 +29,15 @@ const quizSchema = Yup.object().shape({
   category: Yup.string().required('Required'),
   createdAt: Yup.date(),
   likes: Yup.number(),
-  uid: Yup.string(),
-  username: Yup.string(),
 });
 
-export const FormikNewQuiz = ({ uid, username }) => {
+export const FormikNewQuiz = ({ user }) => {
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const snackbarRef = useRef(null);
 
-  console.log(uid, username)
+  console.log(user)
+
   return (
     <div className='formikNewQuiz'>
       <Snackbar type='success' msg='Successfully Stored!!' ref={snackbarRef} />
@@ -57,7 +56,7 @@ export const FormikNewQuiz = ({ uid, username }) => {
         onSubmit={async (values, { resetForm }) => {
           // same shape as initial values
           const quizCollectionRef = collection(db, 'quizzes');
-          const payload = {...values, uid, username};
+          const payload = {...values, user};
           console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
           snackbarRef.current.show()

@@ -34,48 +34,34 @@
 
 #quizHome {
   font-size: $fzSSmall;
-  .quizRecentlyCreated {
-    .eachQuizContainer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px 0;
-      padding: 10px 0;
-      border-bottom: 1px solid $colorAccent1Lighter;
-      &:first-child {
-        margin-top: 0;
-      }
-      .quizQuestionContainer {
+  .quizRecentlyCreatedContainer {
+
+    div{
+      margin-top: 10px;
+      .eachQuizContainer {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        .quizIndex {
-          margin-right: 15px;
+        margin: 10px 0;
+        padding: 10px 0;
+        border-bottom: 1px solid $colorAccent1Lighter;
+        &:first-child {
+          margin-top: 0;
         }
-        .quizQuestion {
-          margin: 0 15px;
-        }
-      }
-      div.icons {
-        display: flex;
-        gap: 10px;
-        i.riEditBoxLine {
-          color: $colorAccent1;
-          font-size: $fzSmall;
-          transition: .3s;
-          cursor: pointer;
-          &:hover { 
-            opacity: .7;
+        .quizQuestionContainer {
+          display: flex;
+          align-items: center;
+          .quizIndex {
+            margin-right: 15px;
+          }
+          .quizQuestion {
+            margin: 0 15px;
           }
         }
-        i.riDeleteBinLine {
-          color: $colorGoodBtn;
-          font-size: $fzSmall;
-          transform: none;
-          transition: .3s;
-          cursor: pointer;
-          &:hover { 
-            opacity: .7;
-          }
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
         }
       }
     }
@@ -288,6 +274,11 @@
           opacity: .7;
         }
       }
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
     }
   }
 }

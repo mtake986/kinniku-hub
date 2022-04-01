@@ -1,10 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore"
+import { addDoc, getDocs, getFirestore } from "firebase/firestore"
 import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
 import { useState } from "react";
-
+import { collection, query, where } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -20,12 +20,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const db = getFirestore();
+
+
 export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((res) => {
       console.log(res);
+      
     }).catch((err) => {
       console.log(err);
     })

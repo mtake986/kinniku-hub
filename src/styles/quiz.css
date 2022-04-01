@@ -40,7 +40,11 @@
   font-size: 1rem;
 }
 
-#quizHome .quizRecentlyCreated .eachQuizContainer {
+#quizHome .quizRecentlyCreatedContainer div {
+  margin-top: 10px;
+}
+
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -55,11 +59,11 @@
   border-bottom: 1px solid #ecf5ff;
 }
 
-#quizHome .quizRecentlyCreated .eachQuizContainer:first-child {
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer:first-child {
   margin-top: 0;
 }
 
-#quizHome .quizRecentlyCreated .eachQuizContainer .quizQuestionContainer {
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer .quizQuestionContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -68,45 +72,18 @@
           align-items: center;
 }
 
-#quizHome .quizRecentlyCreated .eachQuizContainer .quizQuestionContainer .quizIndex {
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer .quizQuestionContainer .quizIndex {
   margin-right: 15px;
 }
 
-#quizHome .quizRecentlyCreated .eachQuizContainer .quizQuestionContainer .quizQuestion {
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer .quizQuestionContainer .quizQuestion {
   margin: 0 15px;
 }
 
-#quizHome .quizRecentlyCreated .eachQuizContainer div.icons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 10px;
-}
-
-#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riEditBoxLine {
-  color: #005bbb;
-  font-size: 1.2rem;
-  -webkit-transition: .3s;
-  transition: .3s;
-  cursor: pointer;
-}
-
-#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riEditBoxLine:hover {
-  opacity: .7;
-}
-
-#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riDeleteBinLine {
-  color: red;
-  font-size: 1.2rem;
-  -webkit-transform: none;
-          transform: none;
-  -webkit-transition: .3s;
-  transition: .3s;
-  cursor: pointer;
-}
-
-#quizHome .quizRecentlyCreated .eachQuizContainer div.icons i.riDeleteBinLine:hover {
-  opacity: .7;
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .quizContainer {
@@ -396,6 +373,12 @@
 
 .allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine:hover {
   opacity: .7;
+}
+
+.allQuizzes .eachQuizContainer img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .quizResultWindow {
