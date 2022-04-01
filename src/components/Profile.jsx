@@ -1,19 +1,25 @@
 import { signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import { auth } from '../config/firebase';
 import '../styles/profile.css';
 
-const Profile = ({ user, setCurrentUser }) => {
-  // const {uid} = useParams();
+const Profile = ({ currentUser, setCurrentUser }) => {
+  const {uid} = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const {user} = location.state;
+  if (location.state) {
+    console.log("1232")
+  }
+  console.log(user)
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // console.log("SignOut Has Successfully Done!!!")
         setCurrentUser({});
-        navigate('/');
+        navigate('/kinniku-quiz/home');
       })
       .catch(err => {
         console.log(err);
@@ -31,9 +37,11 @@ const Profile = ({ user, setCurrentUser }) => {
         <h4 className='username'>{user.username}</h4>
         <h5 className='email'>{user.email}</h5>
       </div>
-      <button id='logOutBtn' onClick={handleSignOut}>
-        Logout
-      </button>
+      {user.uid === currentUser.uid && (
+        <button id='logOutBtn' onClick={handleSignOut}>
+          Logout
+        </button>
+      )}
     </div>
   );
 };
