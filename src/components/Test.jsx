@@ -19,23 +19,17 @@ const Test = () => {
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');
-    const q = query(collectionRef, orderBy("likes", "asc"));
+    // don't order by likes because onSnapshot listens real time updates so it's gonna make a bug. Order it by something never changes such as id and createAt.
+    const q = query(collectionRef, orderBy("createdAt", "desc"));
     const unsub = onSnapshot(q, {
       next: snapshot => {
         setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
       },
       error: err => {
-        // don't forget error handling! e.g. update component with an error message
         console.error('quizes listener failed: ', err);
       },
     });
     return unsub;
-    // const unsub = onSnapshot(collectionRef, snapshot => {
-    //   setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    // });
-    // return unsub;
-    // getData(): run once
-    // onSnapshot(): listen for realtime updates
   }, []);
 
   const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
@@ -49,11 +43,6 @@ const Test = () => {
     );
 
     setClickedAnswerIndex(answerIndex);
-
-    // When an answer is clicked:
-    // 1. make all disable to be clicked <- can be done by adding the same className to all.
-    // 2. show the answer with a slight dif style
-    // 3. add style to a selected answer.
 
     // add some styles to answers depending on correct or not
     if (correctAnswerIndex === answerIndex) {
@@ -71,6 +60,7 @@ const Test = () => {
     }
     setClickedAnswerIndex();
   };
+  
   const goPrevQuiz = () => {
     if (currentQIndex !== 0) {
       setCurrentQIndex(prevState => prevState - 1);
