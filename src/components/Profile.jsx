@@ -9,10 +9,7 @@ const Profile = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const {user} = location.state;
-  if (location.state) {
-    console.log("1232")
-  }
-  console.log(user)
+  // console.log(user)
 
   const handleSignOut = () => {
     signOut(auth)

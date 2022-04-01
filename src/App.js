@@ -35,6 +35,7 @@ function App() {
         setCurrentUser({ username: user.displayName, uid: user.uid, email: user.email, photoURL: user.photoURL })
       }
     })
+
     const collectionRef = collection(db, 'quizzes');
     const q = query(collectionRef, orderBy("likes", "desc"));
     console.log(q)
@@ -46,47 +47,6 @@ function App() {
         console.error('quizes listener failed: ', err);
       },
     });
-
-    const userCollectionRef = collection(db, 'users');
-
-    let userExistance = false;
-    console.log(userExistance)
-
-    const checkUserExists = async () => {
-      const querySnapshot = await getDocs(userCollectionRef);
-      querySnapshot.forEach( (doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        console.log(`currentUser.uid => ${currentUser.uid}`)
-        if (doc.data().uid === currentUser.uid) {
-          userExistance = true;
-          return;
-        }
-      });
-      console.log(userExistance)
-      if (userExistance === false) {
-        console.log('userExistance is false flsalesfhiovahvoian kfadoseifhnvose')
-        const addUser = async (currentUser) => {
-          console.log(currentUser)
-          if (currentUser) {
-            await addDoc(userCollectionRef, {
-              username: currentUser.username,
-              uid: currentUser.uid,
-              email: currentUser.email,
-              photoURL: currentUser.photoURL,
-              createdAt: new Date(),
-              bio: "biography",
-            });
-          }
-        }
-        addUser(currentUser);
-      }
-    }
-    checkUserExists();
-
-
-
-
     return unsub;
   }, [])
 
