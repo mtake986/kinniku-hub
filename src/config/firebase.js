@@ -32,39 +32,42 @@ export const signInWithGoogle = () => {
       // todo: 1st, check if res.user exists
       const userCollectionRef = collection(db, 'users');
       let userExistance = false;
-      // console.log(`currentUser.uid => ${res.user.uid}`)
-      // console.log(userExistance)
+      console.log(`currentUser.uid => ${res.user.uid}`)
+      console.log(userExistance)
       const checkUserExists = async () => {
         const querySnapshot = await getDocs(userCollectionRef);
         querySnapshot.forEach( (doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());      
-          console.log(`currentUser.uid => ${res.user.uid}`)
+          // console.log(doc.id, " => ", doc.data());      
+          // console.log(`currentUser.uid => ${res.user.uid}`)
           if (doc.data().uid === res.user.uid) {
             userExistance = true;
+            // console.log(userExistance)
             return 0;
           }
         });
+        console.log(userExistance)
+        // todo: 2nd, add this user to users collection if it doesn't exists
+        if (userExistance === false) {
+          console.log(`userExistance is false, meaning this user hasn't been registerd so I am going add the user into users collection!!! ${res.user.displayName}, ${JSON.stringify(res.user)}`)
+          const addUser = async () => {
+            const payload = {
+              username: res.user.displayName,
+              uid: res.user.uid,
+              email: res.user.email,
+              photoURL: res.user.photoURL,
+              createdAt: new Date(),
+              bio: "biography",
+            };
+            await addDoc(userCollectionRef, payload);
+          }
+          addUser();
+        } else {
+          console.log('This user has been already registered!! So glad he keep using this app!!')
+        }
       }
       checkUserExists();
-      // console.log(userExistance)
 
-      // todo: 2nd, add this user to users collection if it doesn't exists
-      if (userExistance === false) {
-        console.log(`userExistance is false ${res.user.displayName}, ${res.user}`)
-        const addUser = async () => {
-          const payload = {
-            username: res.user.displayName,
-            uid: res.user.uid,
-            email: res.user.email,
-            photoURL: res.user.photoURL,
-            createdAt: new Date(),
-            bio: "biography",
-          };
-          await addDoc(userCollectionRef, payload);
-        }
-        addUser();
-      }
 
     }).catch((err) => {
       console.log(err);

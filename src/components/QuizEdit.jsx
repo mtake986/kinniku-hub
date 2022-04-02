@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import {updateDoc, getDoc, doc } from 'firebase/firestore';
+import {updateDoc, getDoc, doc, serverTimestamp } from 'firebase/firestore';
 
 import {db} from '../config/firebase';
 import { useState, useEffect } from 'react';
@@ -63,7 +63,7 @@ const QuizEdit = () => {
             answers: q.answers,
             correctAnswer: q.correctAnswer,
             category: q.category,
-            createdAt: new Date(),
+            createdAt: q.createdAt,
             likes: q.likes,
           }}
           validateOnChange
@@ -71,7 +71,7 @@ const QuizEdit = () => {
           onSubmit={async (values) => {
             // same shape as initial values
             const docRef = doc(db, 'quizzes', id);
-            const payload = values;
+            const payload = {...values, updated: serverTimestamp() };
             await updateDoc(docRef, payload);
             // values["question"] = "";
             // values["answers"] = ["", ""];
