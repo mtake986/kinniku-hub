@@ -9,7 +9,6 @@ const Profile = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const {user} = location.state;
-  // console.log(user)
 
   const handleSignOut = () => {
     signOut(auth)

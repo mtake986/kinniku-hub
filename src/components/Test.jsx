@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
 import {db} from '../config/firebase';
@@ -16,6 +17,10 @@ const Test = ({currentUser}) => {
   const [points, setPoints] = useState(0);
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
+  const location = useLocation();
+  const selectedCategories = location.state;
+
+  console.log(`selectedCategories => `, selectedCategories.selectedCategories, "desu")
 
   // console.log(currentUser)
 

@@ -40,8 +40,69 @@
   font-size: 1rem;
 }
 
-#quizHome .quizRecentlyCreatedContainer div {
-  margin-top: 10px;
+#quizHome .testStartContainer {
+  margin-bottom: 50px;
+}
+
+#quizHome .testStartContainer .textContainer {
+  margin-bottom: 20px;
+}
+
+#quizHome .testStartContainer .textContainer h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 1.8rem;
+}
+
+#quizHome .testStartContainer .textContainer span {
+  font-size: 0.8rem;
+}
+
+#quizHome .testStartContainer .selectBtnsContainer button {
+  padding: 10px 20px;
+  margin: 0 10px 10px 0;
+  border-radius: 5px;
+  border: 1px solid white;
+  background: white;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#quizHome .testStartContainer .selectBtnsContainer button.selected {
+  background: #fff9c8;
+  border: 1px solid #ffd500;
+}
+
+#quizHome .testStartContainer .startBtn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#quizHome .testStartContainer .startBtn:hover {
+  background: #ecf5ff;
+}
+
+#quizHome .testStartContainer .startBtn.disable {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+#quizHome .quizRecentlyCreatedContainer {
+  margin-bottom: 50px;
+}
+
+#quizHome .quizRecentlyCreatedContainer h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
 }
 
 #quizHome .quizRecentlyCreatedContainer div .eachQuizContainer {
@@ -51,16 +112,15 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin: 10px 0;
-  padding: 10px 0;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  padding: 15px 0;
   border-bottom: 1px solid #ecf5ff;
 }
 
 #quizHome .quizRecentlyCreatedContainer div .eachQuizContainer:first-child {
-  margin-top: 0;
+  padding-top: 0;
 }
 
 #quizHome .quizRecentlyCreatedContainer div .eachQuizContainer .quizQuestionContainer {
@@ -80,10 +140,53 @@
   margin: 0 15px;
 }
 
-#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer img {
-  width: 30px;
-  height: 30px;
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer a {
+  height: 20px;
+}
+
+#quizHome .quizRecentlyCreatedContainer div .eachQuizContainer a img {
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
+}
+
+#quizHome .newUsersContainer {
+  margin-bottom: 50px;
+}
+
+#quizHome .newUsersContainer h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+#quizHome .newUsersContainer div.eachNewUserContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #ecf5ff;
+}
+
+#quizHome .newUsersContainer div.eachNewUserContainer:first-child {
+  padding-top: 0;
+}
+
+#quizHome .newUsersContainer div.eachNewUserContainer a {
+  height: 25px;
+}
+
+#quizHome .newUsersContainer div.eachNewUserContainer a img {
+  width: 25px;
+  border-radius: 50%;
+}
+
+#quizHome .newUsersContainer div.eachNewUserContainer p.newUserUsername {
+  font-size: 1.2rem;
 }
 
 .quizContainer {

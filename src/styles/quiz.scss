@@ -32,21 +32,74 @@
   }
 }
 
+@mixin h3Header() {
+  font-family: $fontHeader;
+  font-size: $fzMMedium;
+  margin-bottom: 20px;
+}
+
 #quizHome {
   font-size: $fzSSmall;
+  .testStartContainer {
+    margin-bottom: 50px;
+    .textContainer {
+      margin-bottom: 20px;
+      h3 {
+        font-family: $fontHeader;
+        font-size: $fzMMedium;
+      }
+      span {
+        font-size: $fzSSSmall;
+      }
+    }
+    .selectBtnsContainer {
+      button {
+        padding: 10px 20px;
+        margin: 0 10px 10px 0;
+        border-radius: 5px;
+        border: 1px solid white;
+        background: white;
+        cursor: pointer;
+        font-size: $fzSSmall;
+        transition: 0.3s;
+        &.selected {
+          background: $colorAccent2Lighter;
+          border: 1px solid $colorAccent2;
+        }
+      }
+    }
+    .startBtn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background: white;
+      width: 100%;
+      cursor: pointer;
+      font-size: $fzSmall;
+      transition: 0.3s;
+      &:hover {
+        background: $colorAccent1Lighter;
+      }
+      &.disable {
+        pointer-events: none;
+        opacity: 0.3;
+      }
+    }
+  }
   .quizRecentlyCreatedContainer {
-
+    margin-bottom: 50px;
+    h3 {
+      @include h3Header();
+    }
     div{
-      margin-top: 10px;
       .eachQuizContainer {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin: 10px 0;
-        padding: 10px 0;
+        align-items: end;
+        padding: 15px 0;
         border-bottom: 1px solid $colorAccent1Lighter;
         &:first-child {
-          margin-top: 0;
+          padding-top: 0;
         }
         .quizQuestionContainer {
           display: flex;
@@ -58,11 +111,40 @@
             margin: 0 15px;
           }
         }
+        a {
+          height: 20px;
+          img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+  .newUsersContainer {
+    margin-bottom: 50px;
+    h3 {
+      @include h3Header();
+    }
+    div.eachNewUserContainer {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid $colorAccent1Lighter;
+      &:first-child {
+        padding-top: 0;
+      }
+      a {
+        height: 25px;
         img {
-          width: 30px;
-          height: 30px;
+          width: 25px;
           border-radius: 50%;
         }
+      }
+      p.newUserUsername {
+        font-size: $fzSmall;
       }
     }
   }
