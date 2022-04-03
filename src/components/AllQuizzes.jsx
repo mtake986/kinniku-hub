@@ -1,11 +1,6 @@
 // ========== Import from third parties ==========
 import { useState, useEffect } from 'react';
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-} from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +12,7 @@ import { handleQuizDelete } from '../hooks/quizCRUD';
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
-
+  console.log(uid)
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
   // })
@@ -55,7 +50,10 @@ const AllQuizzes = ({ uid }) => {
 
           {quiz.user.uid && uid === quiz.user.uid ? (
             <div className='icons'>
-              <Link to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}>
+              <Link
+                to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
+                state={{ quiz: quiz }}
+              >
                 <i className='riEditBoxLine'>{riEditBoxLine}</i>
               </Link>
               <i

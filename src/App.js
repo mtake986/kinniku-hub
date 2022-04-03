@@ -48,6 +48,8 @@ function App() {
     return unsub;
   }, [])
 
+  console.log(currentUser.uid)
+
   return (
     <BrowserRouter>
       <Header currentUser={currentUser} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy, where } from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
@@ -18,9 +18,9 @@ const Test = ({currentUser}) => {
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
   const location = useLocation();
-  const selectedCategories = location.state;
+  const selectedCategories = location.state.selectedCategories;
 
-  console.log(`selectedCategories => `, selectedCategories.selectedCategories, "desu")
+  console.log(`selectedCategories => `, selectedCategories, "desu")
 
   // console.log(currentUser)
 
@@ -28,6 +28,11 @@ const Test = ({currentUser}) => {
     const collectionRef = collection(db, 'quizzes');
     // don't order by likes because onSnapshot listens real time updates so it's gonna make a bug. Order it by something never changes such as id and createAt.
     const q = query(collectionRef, orderBy("createdAt", "desc"));
+    for (let i = 0; i < selectedCategories.length; i++) {
+      const c = selectedCategories[i];
+      const categoriizedQ = query(q, where("category", "==", c))
+      console.log(c, "=>", categoriizedQ)
+    }
     const unsub = onSnapshot(q, {
       next: snapshot => {
         setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));

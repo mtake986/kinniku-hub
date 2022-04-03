@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import {updateDoc, getDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import {updateDoc, getDoc, doc, serverTimestamp, collection, addDoc } from 'firebase/firestore';
 
 import {db} from '../config/firebase';
 import { useState, useEffect } from 'react';
@@ -29,242 +29,262 @@ const quizSchema = Yup.object().shape({
     .max(4, 'type less than 5')
     .required('Required'),
   category: Yup.string().required('Required'),
-  createdAt: Yup.date(),
-  likes: Yup.number(),
 });
 
 const QuizEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const quiz = location.state.quiz;
+  // const {quiz} = location.state;
+  console.log(quiz)
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
-  const [q, setQuiz] = useState()
+  const [categories, setCategories] = useState([]);
+
 
   useEffect(() => {
-    const getData = async () => {
-      const snap = await getDoc(doc(db, 'quizzes', id));
-      const quiz = snap.data();
-      setQuiz(quiz)
+
+    const getQuizCategory = async () => {
+      const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data()['categories']);
+        setCategories(docSnap.data()['categories']);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+      // console.log("I got all categories!! Here they are: " + categories)
     };
-    getData();
-  }, [id]);
+    getQuizCategory();
+  }, []);
 
 
-  // if (!q) {
-  //   return "Loading quiz data..."
-  // } 
+  // initialValues={{
+  //   question: q["question"],
+  //   answers: q.answers,
+  //   correctAnswer: q.correctAnswer,
+  //   category: q.category,
+  //   createdAt: q.createdAt,
+  //   likes: q.likes,
+  // }}
+  // validateOnChange
+  // validationSchema={quizSchema}
+  // onSubmit={async (values) => {
+  //   console.log('111111111111111111111111')
+  //   const docRef = doc(db, 'quizzes', id);
+  //   const payload = {...values, updated: serverTimestamp() };
+  //   await updateDoc(docRef, payload);
+  //   navigate("/kinniku-quiz/all-quizzes")
+  // }}
+
+
 
   return (
     <div className='formikNewQuiz'>
-      {!q ? <Loading color={"#005bbb"} /> : (
-        <Formik
-          initialValues={{
-            question: q["question"],
-            answers: q.answers,
-            correctAnswer: q.correctAnswer,
-            category: q.category,
-            createdAt: q.createdAt,
-            likes: q.likes,
-          }}
-          validateOnChange
-          validationSchema={quizSchema}
-          onSubmit={async (values) => {
-            // same shape as initial values
-            const docRef = doc(db, 'quizzes', id);
-            const payload = {...values, updated: serverTimestamp() };
-            await updateDoc(docRef, payload);
-            // values["question"] = "";
-            // values["answers"] = ["", ""];
-            // values.correctAnswer = ""
-            // values.category = ""
-            // resetForm();
-            navigate("/kinniku-quiz/all-quizzes")
-          }}
-        >
-          {({ errors, touched, values, q }) => (
-            <Form>
-              <div style={labelInputContainer}>
-                <label htmlFor='question' style={label}>
-                  Question
-                </label>
-                <Field
-                  name='question'
-                  onFocus={() => {
-                    setFocused('question');
-                  }}
-                  onBlur={() => {
-                    setFocused('');
-                  }}
-                  style={focused === 'question' ? focusStyle : quizFormInputText}
-                />
-                {errors.question && touched.question ? (
-                  <div style={quizFormErrMsg}>{errors.question}</div>
-                ) : null}
-              </div>
 
-              <FieldArray
-                name='answers'
-                style={quizFormInputText}
-                render={arrayHelpers => (
-                  <div style={labelInputContainer}>
-                    <label htmlFor='answers1' style={label}>
-                      Answers
-                    </label>
-                    {errors.answers &&
-                    touched.answers &&
-                    errors.answers === 'Duplicate answers are not allowed' ? (
-                      <div style={quizFormErrMsg}>{errors.answers}</div>
-                    ) : null}
-                    {values.answers && values.answers.length > 0
-                      ? values.answers.map((answer, index) => (
-                          <div key={index} style={answerContainer}>
-                            <div style={indexAnswerIconContainer}>
-                              <span style={answerIndex}>{index + 1}</span>
-                              <Field
-                                name={`answers.${index}`}
-                                onFocus={() => {
-                                  switch (index) {
-                                    case 0:
-                                      return setFocused('a1');
-                                    case 1:
-                                      return setFocused('a2');
-                                    case 2:
-                                      return setFocused('a3');
-                                    case 3:
-                                      return setFocused('a4');
-                                    default:
-                                      return setFocused('');
-                                  }
-                                }}
-                                onBlur={() => {
-                                  switch (index) {
-                                    case 0:
-                                      return setFocused('');
-                                    case 1:
-                                      return setFocused('');
-                                    case 2:
-                                      return setFocused('');
-                                    case 3:
-                                      return setFocused('');
-                                    default:
-                                      return setFocused('');
-                                  }
-                                }}
-                                style={
-                                  focused === 'a1' && index === 0
-                                    ? focusStyle
-                                    : focused === 'a2' && index === 1
-                                    ? focusStyle
-                                    : focused === 'a3' && index === 2
-                                    ? focusStyle
-                                    : focused === 'a4' && index === 3
-                                    ? focusStyle
-                                    : quizFormInputText
-                                }
-                              />
-                              {values.answers.length >= 3 ? (
-                                <i
-                                  onClick={() => arrayHelpers.remove(index)}
-                                  style={removeIcon}
-                                >
-                                  {ioRemoveCircleSharp}
-                                </i>
-                              ) : (
-                                ''
-                              )}
-                            </div>
-                            {/* <div style={quizFormErrMsg}>
-                              <ErrorMessage name={`answers.${index}`} />
-                            </div> */}
-                            {errors.answers &&
-                            touched.answers &&
-                            errors.answers !==
-                              'Duplicate answers are not allowed' ? (
-                              <div style={quizFormErrMsg}>
-                                <ErrorMessage name={`answers.${index}`} />
-                              </div>
-                            ) : null}
-                          </div>
-                        ))
-                      : null}
-                    {values.answers.length <= 3 ? (
-                      <div
-                        // style={addHover ? moreAnswerIconHover : moreAnswerIcon}
-                        style={moreAnswerIcon}
-                        onClick={() => arrayHelpers.push('')}
-                        // onMouseEnter={() => setAddHover(true)}
-                        // onMouseLeave={() => setAddHover(false)}
-                      >
-                        Add
-                      </div>
-                    ) : null}
-                  </div>
-                )}
+      <Formik
+        initialValues={{
+          question: quiz.question,
+          answers: quiz.answers,
+          correctAnswer: quiz.correctAnswer,
+          category: quiz.category,
+        }}
+        validateOnChange
+        validationSchema={quizSchema}
+        onSubmit={async (values) => {
+          console.log('111111111111111111111111')
+          const docRef = doc(db, 'quizzes', id);
+          const payload = {...values, updated: serverTimestamp() };
+          await updateDoc(docRef, payload);
+          navigate("/kinniku-quiz/all-quizzes")
+        }}
+  
+      >
+        {({ errors, touched, values }) => (
+          <Form>
+            <div style={labelInputContainer}>
+              <label htmlFor='question' style={label}>
+                Question
+              </label>
+              <Field
+                name='question'
+                onFocus={() => {
+                  setFocused('question');
+                }}
+                onBlur={() => {
+                  setFocused('');
+                }}
+                style={focused === 'question' ? focusStyle : quizFormInputText}
               />
+              {errors.question && touched.question ? (
+                <div style={quizFormErrMsg}>{errors.question}</div>
+              ) : null}
+            </div>
 
-              <div style={labelInputContainer}>
-                <label htmlFor='correctAnswer' style={label}>
-                  Correct Answer
-                </label>
-                <Field
-                  min='1'
-                  max={values.answers.length}
-                  type='number'
-                  name='correctAnswer'
-                  onFocus={() => {
-                    setFocused('ca');
-                  }}
-                  onBlur={() => {
-                    setFocused('');
-                  }}
-                  style={focused === 'ca' ? focusStyle : quizFormInputText}
-                />
-                {errors.correctAnswer && touched.correctAnswer ? (
-                  <div style={quizFormErrMsg}>
-                    Only 1 ~ {values.answers.length} are allowed.
-                  </div>
-                ) : null}
-              </div>
+            <FieldArray
+              name='answers'
+              style={quizFormInputText}
+              render={arrayHelpers => (
+                <div style={labelInputContainer}>
+                  <label htmlFor='answers1' style={label}>
+                    Answers
+                  </label>
+                  {errors.answers &&
+                  touched.answers &&
+                  errors.answers === 'Duplicate answers are not allowed' ? (
+                    <div style={quizFormErrMsg}>{errors.answers}</div>
+                  ) : null}
+                  {values.answers && values.answers.length > 0
+                    ? values.answers.map((answer, index) => (
+                        <div key={index} style={answerContainer}>
+                          <div style={indexAnswerIconContainer}>
+                            <span style={answerIndex}>{index + 1}</span>
+                            <Field
+                              name={`answers.${index}`}
+                              onFocus={() => {
+                                switch (index) {
+                                  case 0:
+                                    return setFocused('a1');
+                                  case 1:
+                                    return setFocused('a2');
+                                  case 2:
+                                    return setFocused('a3');
+                                  case 3:
+                                    return setFocused('a4');
+                                  default:
+                                    return setFocused('');
+                                }
+                              }}
+                              onBlur={() => {
+                                switch (index) {
+                                  case 0:
+                                    return setFocused('');
+                                  case 1:
+                                    return setFocused('');
+                                  case 2:
+                                    return setFocused('');
+                                  case 3:
+                                    return setFocused('');
+                                  default:
+                                    return setFocused('');
+                                }
+                              }}
+                              style={
+                                focused === 'a1' && index === 0
+                                  ? focusStyle
+                                  : focused === 'a2' && index === 1
+                                  ? focusStyle
+                                  : focused === 'a3' && index === 2
+                                  ? focusStyle
+                                  : focused === 'a4' && index === 3
+                                  ? focusStyle
+                                  : quizFormInputText
+                              }
+                            />
+                            {values.answers.length >= 3 ? (
+                              <i
+                                onClick={() => arrayHelpers.remove(index)}
+                                style={removeIcon}
+                              >
+                                {ioRemoveCircleSharp}
+                              </i>
+                            ) : (
+                              ''
+                            )}
+                          </div>
+                          {/* <div style={quizFormErrMsg}>
+                            <ErrorMessage name={`answers.${index}`} />
+                          </div> */}
+                          {errors.answers &&
+                          touched.answers &&
+                          errors.answers !==
+                            'Duplicate answers are not allowed' ? (
+                            <div style={quizFormErrMsg}>
+                              <ErrorMessage name={`answers.${index}`} />
+                            </div>
+                          ) : null}
+                        </div>
+                      ))
+                    : null}
+                  {values.answers.length <= 3 ? (
+                    <div
+                      // style={addHover ? moreAnswerIconHover : moreAnswerIcon}
+                      style={moreAnswerIcon}
+                      onClick={() => arrayHelpers.push('')}
+                      // onMouseEnter={() => setAddHover(true)}
+                      // onMouseLeave={() => setAddHover(false)}
+                    >
+                      Add
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            />
 
-              <div style={labelInputContainer}>
-                <label style={label}>Category</label>
-                <Field
-                  as='select'
-                  name='category'
-                  onFocus={() => {
-                    setFocused('category');
-                  }}
-                  onBlur={() => {
-                    setFocused('');
-                  }}
-                  style={focused === 'category' ? focusStyle : quizFormInputText}
-                >
-                  <option value='' disabled>
-                    Select a category
-                  </option>
-                  <option value='Workout'>Workout</option>
-                  <option value='Muscle'>Muscle</option>
-                  <option value='Nutrition'>Nutrition</option>
-                  <option value='Other'>Other</option>
-                </Field>
-                {errors.category && touched.category ? (
-                  <div style={quizFormErrMsg}>{errors.category}</div>
-                ) : null}
-              </div>
+            <div style={labelInputContainer}>
+              <label htmlFor='correctAnswer' style={label}>
+                Correct Answer
+              </label>
+              <Field
+                min='1'
+                max={values.answers.length}
+                type='number'
+                name='correctAnswer'
+                onFocus={() => {
+                  setFocused('ca');
+                }}
+                onBlur={() => {
+                  setFocused('');
+                }}
+                style={focused === 'ca' ? focusStyle : quizFormInputText}
+              />
+              {errors.correctAnswer && touched.correctAnswer ? (
+                <div style={quizFormErrMsg}>
+                  Only 1 ~ {values.answers.length} are allowed.
+                </div>
+              ) : null}
+            </div>
 
-              <button
-                // disabled={!dirty && isValid}
-                type='submit'
-                style={submitBtnHover ? submitButtonHover : submitButton}
-                onMouseEnter={() => setSubmitBtnHover(true)}
-                onMouseLeave={() => setSubmitBtnHover(false)}
+            <div style={labelInputContainer}>
+              <label style={label}>Category</label>
+              <Field
+                as='select'
+                name='category'
+                onFocus={() => {
+                  setFocused('category');
+                }}
+                onBlur={() => {
+                  setFocused('');
+                }}
+                style={focused === 'category' ? focusStyle : quizFormInputText}
               >
-                Submit
-              </button>
-            </Form>
-          )}
-        </Formik>
-      )}
+                <option value='' disabled>
+                  Select a category
+                </option>
+                {categories.map((c) => (
+                  <option value={c}>{c}</option>
+                ))}
+              </Field>
+              {errors.category && touched.category ? (
+                <div style={quizFormErrMsg}>{errors.category}</div>
+              ) : null}
+            </div>
+
+            <button
+              // disabled={!dirty && isValid}
+              type='submit'
+              style={submitBtnHover ? submitButtonHover : submitButton}
+              onMouseEnter={() => setSubmitBtnHover(true)}
+              onMouseLeave={() => setSubmitBtnHover(false)}
+            >
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

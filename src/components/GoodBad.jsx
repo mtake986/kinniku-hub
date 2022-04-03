@@ -15,7 +15,7 @@ import { db } from '../config/firebase';
 const GoodBad = ({ quiz, currentUser }) => {
 
   let alreadyLiked = false;
-  console.log(currentUser, quiz)
+  // console.log(currentUser, quiz)
 
   if (currentUser !== "Anonymous" && quiz.whoLikes !== null && quiz.whoLikes.includes(currentUser.uid)) {
     alreadyLiked = true
