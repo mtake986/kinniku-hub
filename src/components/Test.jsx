@@ -125,6 +125,7 @@ const Test = ({currentUser}) => {
                     : 'quizAnswersContainer'
                 }
               >
+                
                 {quiz.answers.map((answer, answerIndex) => (
                   <li
                     key={answerIndex}

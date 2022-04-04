@@ -30,12 +30,6 @@ const AllQuizzes = ({ uid }) => {
       },
     });
     return 0;
-    // const unsub = onSnapshot(collectionRef, snapshot => {
-    //   setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    // });
-    // return unsub;
-    // getData(): run once
-    // onSnapshot(): listen for realtime updates
   }, []);
 
   return (

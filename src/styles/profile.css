@@ -1,6 +1,17 @@
+#profilePage {
+  max-width: 300px;
+  margin: 50px auto;
+}
+
 #profilePage div#userInfo {
+  width: 300px;
+  border: 1px solid #005bbb;
+  background: #ecf5ff;
+  margin: 0 auto;
   text-align: center;
-  padding: 30px;
+  padding: 50px 30px;
+  border-radius: 5px;
+  margin-bottom: 30px;
 }
 
 #profilePage div#userInfo img {
@@ -17,8 +28,25 @@
 }
 
 #profilePage div#userInfo .email {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: "Cormorant Garmand", serif;
+}
+
+#profilePage .contributionContainer {
+  text-align: center;
+}
+
+#profilePage .contributionContainer .ctrTxt {
+  font-weight: bold;
+  font-size: 1.8rem;
+  padding: 10px 30px;
+  border-bottom: 1px solid #e6e6e6;
+  display: inline-block;
+}
+
+#profilePage .contributionContainer .make {
+  font-size: 1.2rem;
+  padding: 10px 0;
 }
 
 #profilePage #logOutBtn {
