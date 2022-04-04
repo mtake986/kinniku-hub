@@ -17,9 +17,10 @@ a {
 
 main {
   position: relative;
+  min-height: 100vh;
 }
 
-#bodyContainer {
+main #bodyContainer {
   /* background-color: #eee; */
   padding: 50px 50px 200px;
   max-width: 700px;
@@ -27,12 +28,12 @@ main {
   font-size: 2rem;
 }
 
-footer {
+main footer {
   font-size: 0.8rem;
   background: #ecf5ff;
-  width: 100%;
   text-align: center;
   padding: 5px 0;
+  width: 100%;
   position: absolute;
   bottom: 0;
 }

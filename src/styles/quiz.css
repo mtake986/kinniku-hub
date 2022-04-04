@@ -417,7 +417,7 @@
 
 .allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex, .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
   margin-right: 5px;
-  width: 30px;
+  min-width: 30px;
 }
 
 .allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion, .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
@@ -432,6 +432,21 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
+}
+
+.allQuizzes .eachQuizContainer div.icons a, .quizzes .eachQuizContainer div.icons a {
+  height: 20px;
+}
+
+.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine, .quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
+  color: #005bbb;
+  margin-right: 10px;
+}
+
+.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine, .quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
+  height: 20px;
+  width: 20px;
+  color: red;
 }
 
 .quizResultWindow {
