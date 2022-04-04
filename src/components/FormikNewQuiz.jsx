@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
 import {db} from '../config/firebase';
 import { ioRemoveCircleSharp } from '../icons/icons';
 import Snackbar from './Snackbar';
@@ -37,8 +37,29 @@ export const FormikNewQuiz = ({ user }) => {
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const snackbarRef = useRef(null);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const getQuizCategory = async () => {
+      const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data()['categories']);
+        setCategories(docSnap.data()['categories']);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+      // console.log("I got all categories!! Here they are: " + categories)
+    };
+    getQuizCategory();
+
+    return 0;
+  }, [])
 
   console.log(user)
+  console.log("categories: ", categories);
 
   return (
     <div className='formikNewQuiz'>
@@ -62,6 +83,7 @@ export const FormikNewQuiz = ({ user }) => {
           const payload = {...values, user};
           console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
+          
           snackbarRef.current.show()
           resetForm();
         }}
@@ -107,6 +129,7 @@ export const FormikNewQuiz = ({ user }) => {
                             <span style={answerIndex}>{index + 1}</span>
                             <Field
                               name={`answers.${index}`}
+                              key={`answers.${index}`}
                               onFocus={() => {
                                 switch (index) {
                                   case 0:
@@ -155,7 +178,7 @@ export const FormikNewQuiz = ({ user }) => {
                                 {ioRemoveCircleSharp}
                               </i>
                             ) : (
-                              ''
+                              null
                             )}
                           </div>
                           {/* <div style={quizFormErrMsg}>
@@ -227,10 +250,9 @@ export const FormikNewQuiz = ({ user }) => {
                 <option value='' disabled>
                   Select a category
                 </option>
-                <option value='Workout'>Workout</option>
-                <option value='Muscle'>Muscle</option>
-                <option value='Nutrition'>Nutrition</option>
-                <option value='Other'>Other</option>
+                {categories.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
               </Field>
               {errors.category && touched.category ? (
                 <div style={quizFormErrMsg}>{errors.category}</div>

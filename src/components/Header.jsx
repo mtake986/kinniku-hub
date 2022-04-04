@@ -14,6 +14,7 @@ const Header = ({ currentUser }) => {
         {/* <Link to="/">Home</Link> */}
         <Link to='/kinniku-quiz/home'>Home</Link>
         <Link to='/kinniku-quiz/new'>New</Link>
+        <Link to='/kinniku-quiz/all-quizzes'>All</Link>
 
         {/* <span onClick={signInWithGoogle}>Sign in</span> */}
         {currentUser.photoURL ? (

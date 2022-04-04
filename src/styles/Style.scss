@@ -16,19 +16,24 @@ a {
   text-decoration: none;
   font-family: $fontAccent;
 }
-
-#main {
-  /* background-color: #eee; */
-  padding: 30px;
-  max-width: 600px;
-  width: 100%;
-  margin: 30px auto;
-  font-size: 2rem;
+main {
+  position: relative;
+  min-height: 100vh;
+  #bodyContainer {
+    /* background-color: #eee; */
+    padding: 50px 50px 200px;
+    max-width: 700px;
+    width: 100%;
+    font-size: 2rem;
+  }
+  footer {
+    font-size: $fzSSSmall;
+    background: $colorAccent1Lighter;
+    text-align: center;
+    padding: 5px 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}

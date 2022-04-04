@@ -1,11 +1,6 @@
 // ========== Import from third parties ==========
 import { useState, useEffect } from 'react';
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-} from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +12,7 @@ import { handleQuizDelete } from '../hooks/quizCRUD';
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
-
+  console.log(uid);
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
   // })
@@ -34,7 +29,7 @@ const AllQuizzes = ({ uid }) => {
         console.error('quizes listener failed: ', err);
       },
     });
-    return unsub;
+    return 0;
     // const unsub = onSnapshot(collectionRef, snapshot => {
     //   setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     // });
@@ -45,7 +40,11 @@ const AllQuizzes = ({ uid }) => {
 
   return (
     <div className='allQuizzes'>
-      {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+      {quizzes.length === 0 && (
+        <div className="loading">
+          <Loading color={'#005bbb'} />
+        </div>
+      )}
       {quizzes.map((quiz, quizIndex) => (
         <div className='eachQuizContainer' key={quiz.id}>
           <div className='quizQuestionContainer'>
@@ -55,7 +54,10 @@ const AllQuizzes = ({ uid }) => {
 
           {quiz.user.uid && uid === quiz.user.uid ? (
             <div className='icons'>
-              <Link to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}>
+              <Link
+                to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
+                state={{ quiz: quiz }}
+              >
                 <i className='riEditBoxLine'>{riEditBoxLine}</i>
               </Link>
               <i
@@ -65,7 +67,7 @@ const AllQuizzes = ({ uid }) => {
                 {riDeleteBinLine}
               </i>
             </div>
-          ) : (
+          ) : quiz.user.uid && uid !== quiz.user.uid ? (
             <Link
               to={{ pathname: `/profile/${quiz.user.uid}` }}
               state={{ user: quiz.user }}
@@ -76,6 +78,8 @@ const AllQuizzes = ({ uid }) => {
                 referrerPolicy='no-referrer'
               />
             </Link>
+          ) : (
+            null
           )}
         </div>
       ))}

@@ -11,9 +11,13 @@ const QuizResultWindow = ({usersCorrectAnswers, points, quizzes}) => {
       <h3>Your score is {Math.round(points/quizzes.length*1000) / 10}%</h3>
       <p className="quizResutlText">You aced {points} out of {quizzes.length}. </p>
       </div>
-      {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
+      {quizzes.length === 0 && (
+        <div className="loading">
+          <Loading color={'#005bbb'} />
+        </div>
+      )}
       {quizzes.map((quiz, quizIndex) => (
-        <div className="eachQuizContainer" key={quiz.id}>
+        <div className="eachQuizContainer" key={quizIndex}>
           <div className="quizQuestionContainer">
             <span className="quizIndex">{quizIndex+1}.</span>
             <p className="quizQuestion">{quiz.question}</p>
