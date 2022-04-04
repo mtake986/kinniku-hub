@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { collection, onSnapshot, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
@@ -13,13 +13,17 @@ import { biCircle, biPlus } from '../icons/icons';
 const Test = ({currentUser}) => {
   const [quizzes, setQuizzes] = useState([]);
   // const [clickedAnswers, setClickedAnswers] = useState([]);
-  const [currentQIndex, setCurrentQIndex] = useState(0);
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
   const location = useLocation();
   const selectedCategories = location.state.selectedCategories;
   const [time, setTime] = useState(10);
+  const testStopBtnRef = useRef();
+  const [testStopBtnClicked, setTestStopBtnClicked] = useState(false);
+  const [answeredQuizzes, setAnsweredQuizzes] = useState("")
+
 
   console.log(`selectedCategories => `, selectedCategories, "desu")
 
@@ -29,10 +33,10 @@ const Test = ({currentUser}) => {
     // todo: Get new quizzes
     const getQuizzesFromPassedCategories = async () => {
       const collectionRef = collection(db, 'quizzes');
-
+      const q = query(collectionRef, orderBy('likes', 'desc'), limit(10));
       let tempQuizzes = [];
       if (selectedCategories.includes("all")) {
-        const querySnapshot = await getDocs(collectionRef);
+        const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
@@ -80,20 +84,28 @@ const Test = ({currentUser}) => {
     } else {
       e.target.className = await 'selected incorrectAnswerClicked';
     }
+
+    // add this quiz into answeredQuizzes
+    if (answeredQuizzes === "") {
+      setAnsweredQuizzes([quiz])
+    } else if (answeredQuizzes !== "") {
+      setAnsweredQuizzes([...answeredQuizzes, quiz])
+    }
+    console.log(answeredQuizzes);
   };
 
   const goNextQuiz = () => {
-    if (currentQIndex !== quizzes.length) {
-      setCurrentQIndex(prevState => prevState + 1);
+    if (currentQuizIndex !== quizzes.length) {
+      setCurrentQuizIndex(prevState => prevState + 1);
     }
     setClickedAnswerIndex();
   };
   
   const goPrevQuiz = () => {
-    if (currentQIndex !== 0) {
-      setCurrentQIndex(prevState => prevState - 1);
+    if (currentQuizIndex !== 0) {
+      setCurrentQuizIndex(prevState => prevState - 1);
     } else {
-      setCurrentQIndex(currentQIndex);
+      setCurrentQuizIndex(currentQuizIndex);
     }
     setClickedAnswerIndex();
   };
@@ -105,8 +117,8 @@ const Test = ({currentUser}) => {
           <Loading color={'#005bbb'} />
         </div>
       )}
-      {quizzes.map((quiz, quizIndex) => {
-        if (quizIndex === currentQIndex) {
+      {testStopBtnClicked === false && quizzes.map((quiz, quizIndex) => {
+        if (quizIndex === currentQuizIndex) {
           return (
             <div key={quiz.id} className='quiz'>
               <div className='quizHeader'>
@@ -148,7 +160,7 @@ const Test = ({currentUser}) => {
                 ))}
               </ul>
               <div className='quizFooter'>
-                {quizIndex !== 0 ? (
+                {/* {quizIndex !== 0 ? (
                   <GoPrevQuizBtn
                     goPrevQuiz={goPrevQuiz}
                     text='Prev'
@@ -160,7 +172,10 @@ const Test = ({currentUser}) => {
                     text='Prev'
                     disable='disable'
                   />
-                )}
+                )} */}
+                <button className='testStopBtn' onClick={() => {setTestStopBtnClicked(true)}}>
+                  <span>Stop</span>
+                </button>
                 <GoodBad quiz={quiz} currentUser={currentUser} />
                 {quizIndex + 1 === quizzes.length ? (
                     <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
@@ -173,11 +188,11 @@ const Test = ({currentUser}) => {
           );
         }
       })}
-      {quizzes.length !== 0 && currentQIndex >= quizzes.length ? (
+      {(testStopBtnClicked === true) || (quizzes.length !== 0 && currentQuizIndex >= quizzes.length) ? (
         <QuizResultWindow
           usersCorrectAnswers={usersCorrectAnswers}
           points={points}
-          quizzes={quizzes}
+          answeredQuizzes={answeredQuizzes}
         />
       ) : (
         null
