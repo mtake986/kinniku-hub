@@ -16,19 +16,24 @@ a {
   text-decoration: none;
   font-family: $fontAccent;
 }
+main {
+  position: relative;
+}
 
-#main {
+#bodyContainer {
   /* background-color: #eee; */
-  padding: 30px 30px 200px;
-  max-width: 600px;
+  padding: 50px 50px 200px;
+  max-width: 700px;
   width: 100%;
-  margin: 30px auto;
   font-size: 2rem;
 }
 
 footer {
-  position: fixed;
+  font-size: $fzSSSmall;
+  background: $colorAccent1Lighter;
+  width: 100%;
+  text-align: center;
+  padding: 5px 0;
+  position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
 }

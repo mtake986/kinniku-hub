@@ -1,5 +1,5 @@
 import { BsArrowRight, BsArrowLeft, BsEmojiDizzy, BsEmojiLaughing } from "react-icons/bs";
-import { RiEditBoxLine, RiDeleteBinLine, RiCheckFill } from "react-icons/ri";
+import { RiEditBoxLine, RiDeleteBinLine, RiCheckFill, RiUser5Line } from "react-icons/ri";
 import { IoRemoveCircleOutline, IoAddCircleOutline, IoRemoveCircleSharp } from "react-icons/io5";
 import { BiCircle, BiPlus } from "react-icons/bi";
 
@@ -15,5 +15,6 @@ export const ioAddCircleOutline =  <IoAddCircleOutline />
 export const biCircle =  <BiCircle />
 export const biPlus =  <BiPlus />
 export const riCheckFill =  <RiCheckFill />
+export const riUser5Line =  <RiUser5Line />
 
 

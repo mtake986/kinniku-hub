@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, query, orderBy, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
@@ -19,29 +19,43 @@ const Test = ({currentUser}) => {
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
   const location = useLocation();
   const selectedCategories = location.state.selectedCategories;
+  const [time, setTime] = useState(10);
 
   console.log(`selectedCategories => `, selectedCategories, "desu")
 
   // console.log(currentUser)
 
   useEffect(() => {
-    const collectionRef = collection(db, 'quizzes');
-    // don't order by likes because onSnapshot listens real time updates so it's gonna make a bug. Order it by something never changes such as id and createAt.
-    const q = query(collectionRef, orderBy("createdAt", "desc"));
-    for (let i = 0; i < selectedCategories.length; i++) {
-      const c = selectedCategories[i];
-      const categoriizedQ = query(q, where("category", "==", c))
-      console.log(c, "=>", categoriizedQ)
-    }
-    const unsub = onSnapshot(q, {
-      next: snapshot => {
-        setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-      },
-      error: err => {
-        console.error('quizes listener failed: ', err);
-      },
-    });
-    return unsub;
+    // todo: Get new quizzes
+    const getQuizzesFromPassedCategories = async () => {
+      const collectionRef = collection(db, 'quizzes');
+
+      let tempQuizzes = [];
+      if (selectedCategories.includes("all")) {
+        const querySnapshot = await getDocs(collectionRef);
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          tempQuizzes.push(doc.data());
+        });
+      } else {
+        for (let i = 0; i < selectedCategories.length; i++) {
+          const c = selectedCategories[i];
+          const q = query(collectionRef, where("category", "==", c))
+          console.log(c, "=>", q)
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            tempQuizzes.push(doc.data());
+          });
+        }
+      }
+      setQuizzes(tempQuizzes);
+      console.log(quizzes)
+    };
+    getQuizzesFromPassedCategories();
+
   }, []);
 
   // console.log(quizzes)
@@ -109,7 +123,7 @@ const Test = ({currentUser}) => {
               >
                 {quiz.answers.map((answer, answerIndex) => (
                   <li
-                    key={answer}
+                    key={answerIndex}
                     onClick={e => {
                       handleJudge(e, answer, quiz, answerIndex, quizIndex);
                     }}
@@ -162,7 +176,7 @@ const Test = ({currentUser}) => {
           quizzes={quizzes}
         />
       ) : (
-        ''
+        null
       )}
     </div>
   );

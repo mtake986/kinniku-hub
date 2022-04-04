@@ -48,12 +48,11 @@ function App() {
     return unsub;
   }, [])
 
-  console.log(currentUser.uid)
 
   return (
     <BrowserRouter>
       <Header currentUser={currentUser} />
-      <div id="main">
+      <div id="bodyContainer">
         <Routes>
           {/* <Route path="/" element={<QuizHeader />} /> */}
           {/* <Route path="about" element={<About />}/> */}

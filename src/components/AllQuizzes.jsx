@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
 import { handleQuizDelete } from '../hooks/quizCRUD';
+import { riUser5Line } from '../icons/icons';
 
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
-  console.log(uid)
+  console.log(uid);
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
   // })
@@ -63,7 +64,7 @@ const AllQuizzes = ({ uid }) => {
                 {riDeleteBinLine}
               </i>
             </div>
-          ) : (
+          ) : quiz.user.uid && uid !== quiz.user.uid ? (
             <Link
               to={{ pathname: `/profile/${quiz.user.uid}` }}
               state={{ user: quiz.user }}
@@ -74,6 +75,8 @@ const AllQuizzes = ({ uid }) => {
                 referrerPolicy='no-referrer'
               />
             </Link>
+          ) : (
+            null
           )}
         </div>
       ))}

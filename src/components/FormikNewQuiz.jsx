@@ -54,6 +54,8 @@ export const FormikNewQuiz = ({ user }) => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
+
+    return 0;
   }, [])
 
   console.log(user)
@@ -126,6 +128,7 @@ export const FormikNewQuiz = ({ user }) => {
                             <span style={answerIndex}>{index + 1}</span>
                             <Field
                               name={`answers.${index}`}
+                              key={`answers.${index}`}
                               onFocus={() => {
                                 switch (index) {
                                   case 0:
@@ -174,7 +177,7 @@ export const FormikNewQuiz = ({ user }) => {
                                 {ioRemoveCircleSharp}
                               </i>
                             ) : (
-                              ''
+                              null
                             )}
                           </div>
                           {/* <div style={quizFormErrMsg}>

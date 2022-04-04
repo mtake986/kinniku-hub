@@ -42,7 +42,6 @@ const QuizEdit = () => {
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const [categories, setCategories] = useState([]);
 
-
   useEffect(() => {
 
     const getQuizCategory = async () => {
@@ -61,27 +60,6 @@ const QuizEdit = () => {
     getQuizCategory();
   }, []);
 
-
-  // initialValues={{
-  //   question: q["question"],
-  //   answers: q.answers,
-  //   correctAnswer: q.correctAnswer,
-  //   category: q.category,
-  //   createdAt: q.createdAt,
-  //   likes: q.likes,
-  // }}
-  // validateOnChange
-  // validationSchema={quizSchema}
-  // onSubmit={async (values) => {
-  //   console.log('111111111111111111111111')
-  //   const docRef = doc(db, 'quizzes', id);
-  //   const payload = {...values, updated: serverTimestamp() };
-  //   await updateDoc(docRef, payload);
-  //   navigate("/kinniku-quiz/all-quizzes")
-  // }}
-
-
-
   return (
     <div className='formikNewQuiz'>
 
@@ -95,7 +73,6 @@ const QuizEdit = () => {
         validateOnChange
         validationSchema={quizSchema}
         onSubmit={async (values) => {
-          console.log('111111111111111111111111')
           const docRef = doc(db, 'quizzes', id);
           const payload = {...values, updated: serverTimestamp() };
           await updateDoc(docRef, payload);

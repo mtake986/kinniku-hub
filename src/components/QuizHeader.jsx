@@ -7,7 +7,7 @@ const QuizHeader = () => {
       <nav className="nav">
         <div className="left">
           {/* <Link to="/kinniku-quiz/test">Test</Link> */}
-          <Link to="/kinniku-quiz/all-quizzes">All</Link>
+          {/* <Link to="/kinniku-quiz/all-quizzes">All</Link> */}
         </div>
         <div className="right">
           <Link to="/kinniku-quiz/new">New</Link>

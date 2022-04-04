@@ -10,9 +10,9 @@
     .left {
       a {
         margin-right: 10px;
-        transition: .3s;
+        transition: 0.3s;
         &:hover {
-          opacity: .7;
+          opacity: 0.7;
         }
       }
     }
@@ -23,9 +23,9 @@
         color: $colorAccent1;
         padding: 5px 20px;
         border-radius: 5px;
-        transition: .3s;
+        transition: 0.3s;
         &:hover {
-          opacity: .7;
+          opacity: 0.7;
         }
       }
     }
@@ -41,7 +41,7 @@
 #quizHome {
   font-size: $fzSSmall;
   .testStartContainer {
-    margin-bottom: 50px;
+    margin-bottom: 70px;
     .textContainer {
       margin-bottom: 20px;
       h3 {
@@ -53,6 +53,17 @@
       }
     }
     .selectBtnsContainer {
+      button.all {
+        display: block;
+        &.selected {
+          background: $colorAccent2Lighter;
+          border: 1px solid $colorAccent2;
+        }
+        &.othersSelected {
+          pointer-events: none;
+          opacity: 0.3;
+        }
+      }
       button {
         padding: 10px 20px;
         margin: 0 10px 10px 0;
@@ -65,6 +76,10 @@
         &.selected {
           background: $colorAccent2Lighter;
           border: 1px solid $colorAccent2;
+        }
+        &.allSelected {
+          pointer-events: none;
+          opacity: 0.3;
         }
       }
     }
@@ -87,43 +102,43 @@
     }
   }
   .quizRecentlyCreatedContainer {
-    margin-bottom: 50px;
+    margin-bottom: 70px;
     h3 {
       @include h3Header();
     }
-    div{
-      .eachQuizContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        padding: 15px 0;
-        border-bottom: 1px solid $colorAccent1Lighter;
-        &:first-child {
-          padding-top: 0;
-        }
-        .quizQuestionContainer {
-          display: flex;
-          align-items: center;
-          .quizIndex {
-            margin-right: 15px;
-          }
-          .quizQuestion {
-            margin: 0 15px;
-          }
-        }
-        a {
-          height: 20px;
-          img {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-          }
-        }
-      }
-    }
+    // div {
+    //   .eachQuizContainer {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: center;
+    //     padding: 15px 0;
+    //     border-bottom: 1px solid $colorAccent1Lighter;
+    //     &:first-child {
+    //       padding-top: 0;
+    //     }
+    //     .quizQuestionContainer {
+    //       display: flex;
+    //       align-items: center;
+    //       .quizIndex {
+    //         margin-right: 15px;
+    //       }
+    //       .quizQuestion {
+    //         margin: 0 15px;
+    //       }
+    //     }
+    //     a {
+    //       height: 20px;
+    //       img {
+    //         width: 20px;
+    //         height: 20px;
+    //         border-radius: 50%;
+    //       }
+    //     }
+    //   }
+    // }
   }
   .newUsersContainer {
-    margin-bottom: 50px;
+    margin-bottom: 70px;
     h3 {
       @include h3Header();
     }
@@ -178,7 +193,7 @@
       &.answerDefined {
         li {
           pointer-events: none;
-          opacity: .3;
+          opacity: 0.3;
         }
         li.incorrectAnswerClicked {
           opacity: 1;
@@ -204,7 +219,6 @@
               height: 20px;
             }
           }
-
         }
         list-style: none;
         margin: 20px 0;
@@ -317,55 +331,35 @@
 // styles for the page to create a new quiz are embedded in the same component
 // }
 
-.allQuizzes {
+.allQuizzes, .quizzes {
   font-size: $fzSmall;
   .eachQuizContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
-    padding: 10px 0;
+    padding: 15px 0;
     border-bottom: 1px solid $colorAccent1Lighter;
     &:first-child {
-      margin-top: 0;
+      padding-top: 0;
     }
     .quizQuestionContainer {
       display: flex;
       align-items: center;
       .quizIndex {
-        margin-right: 15px;
+        margin-right: 5px;
+        width: 30px;
       }
       .quizQuestion {
-        margin: 0 15px;
+        margin: 0 15px 0 5px;
       }
     }
-    div.icons {
-      display: flex;
-      gap: 10px;
-      i.riEditBoxLine {
-        color: $colorAccent1;
-        font-size: $fzSmall;
-        transition: .3s;
-        cursor: pointer;
-        &:hover { 
-          opacity: .7;
-        }
+    a {
+      height: 25px;
+      img {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
       }
-      i.riDeleteBinLine {
-        color: $colorGoodBtn;
-        font-size: $fzSmall;
-        transform: none;
-        transition: .3s;
-        cursor: pointer;
-        &:hover { 
-          opacity: .7;
-        }
-      }
-    }
-    img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
     }
   }
 }
@@ -382,7 +376,6 @@
     }
     p {
       font-size: $fzSmall;
-
     }
   }
   .eachQuizContainer {

@@ -63,7 +63,7 @@ export const signInWithGoogle = () => {
           }
           addUser();
         } else {
-          console.log('This user has been already registered!! So glad he keep using this app!!')
+          console.log('This user has been already registered!! So glad he/she keeps using this app!!')
         }
       }
       checkUserExists();

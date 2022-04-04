@@ -13,7 +13,7 @@ const QuizResultWindow = ({usersCorrectAnswers, points, quizzes}) => {
       </div>
       {quizzes.length === 0 ? <Loading color={"#005bbb"} /> : ""}
       {quizzes.map((quiz, quizIndex) => (
-        <div className="eachQuizContainer" key={quiz.id}>
+        <div className="eachQuizContainer" key={quizIndex}>
           <div className="quizQuestionContainer">
             <span className="quizIndex">{quizIndex+1}.</span>
             <p className="quizQuestion">{quiz.question}</p>
