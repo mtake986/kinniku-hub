@@ -36,6 +36,10 @@
   opacity: 0.7;
 }
 
+.loading {
+  padding: 30px;
+}
+
 #quizHome {
   font-size: 1rem;
 }
@@ -57,21 +61,21 @@
   font-size: 0.8rem;
 }
 
-#quizHome .testStartContainer .selectBtnsContainer button.all {
+#quizHome .testStartContainer .btnsContainer button.all {
   display: block;
 }
 
-#quizHome .testStartContainer .selectBtnsContainer button.all.selected {
+#quizHome .testStartContainer .btnsContainer button.all.selected {
   background: #fff9c8;
   border: 1px solid #ffd500;
 }
 
-#quizHome .testStartContainer .selectBtnsContainer button.all.othersSelected {
+#quizHome .testStartContainer .btnsContainer button.all.othersSelected {
   pointer-events: none;
   opacity: 0.3;
 }
 
-#quizHome .testStartContainer .selectBtnsContainer button {
+#quizHome .testStartContainer .btnsContainer button {
   padding: 10px 20px;
   margin: 0 10px 10px 0;
   border-radius: 5px;
@@ -83,35 +87,38 @@
   transition: 0.3s;
 }
 
-#quizHome .testStartContainer .selectBtnsContainer button.selected {
+#quizHome .testStartContainer .btnsContainer button.selected {
   background: #fff9c8;
   border: 1px solid #ffd500;
 }
 
-#quizHome .testStartContainer .selectBtnsContainer button.allSelected {
+#quizHome .testStartContainer .btnsContainer button.allSelected {
   pointer-events: none;
   opacity: 0.3;
 }
 
-#quizHome .testStartContainer .startBtn {
+#quizHome .testStartContainer a.startBtn {
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
   background: white;
-  width: 100%;
   cursor: pointer;
   font-size: 1.2rem;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  display: block;
+  text-align: center;
 }
 
-#quizHome .testStartContainer .startBtn:hover {
+#quizHome .testStartContainer a.startBtn:hover {
   background: #ecf5ff;
 }
 
-#quizHome .testStartContainer .startBtn.disable {
+#quizHome .testStartContainer a.startBtn.disable {
   pointer-events: none;
   opacity: 0.3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 #quizHome .quizRecentlyCreatedContainer {
@@ -436,14 +443,16 @@
 
 .allQuizzes .eachQuizContainer div.icons a, .quizzes .eachQuizContainer div.icons a {
   height: 20px;
-}
-
-.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine, .quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
-  color: #005bbb;
   margin-right: 10px;
 }
 
+.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine, .quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
+  cursor: pointer;
+  color: #005bbb;
+}
+
 .allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine, .quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
+  cursor: pointer;
   height: 20px;
   width: 20px;
   color: red;

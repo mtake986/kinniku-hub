@@ -4,21 +4,18 @@ import { Link } from 'react-router-dom';
 const QuizHomeStartBtn = ({ selectedCategories }) => {
   return (
     <Link
-    to={{ pathname: `/kinniku-quiz/test` }}
-    state={{ selectedCategories: selectedCategories }}
+      to={{ pathname: `/kinniku-quiz/test` }}
+      state={{ selectedCategories: selectedCategories }}
+      className={
+        selectedCategories.length === 0 ? 'disable startBtn' : 'startBtn'
+      }
+      onClick={() => console.log(selectedCategories)}
     >
-      <button
-        className={
-          selectedCategories.length === 0 ? 'disable startBtn' : 'startBtn'
-        }
-        onClick={() => console.log(selectedCategories)}
-      >
       {selectedCategories.length === 0
         ? 'Select one or more categories!!'
         : 'Start'
       }
-    </button>
-  </Link>
+    </Link>
   );
 };
 

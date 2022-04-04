@@ -83,6 +83,7 @@ export const FormikNewQuiz = ({ user }) => {
           const payload = {...values, user};
           console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
+          
           snackbarRef.current.show()
           resetForm();
         }}
@@ -250,7 +251,7 @@ export const FormikNewQuiz = ({ user }) => {
                   Select a category
                 </option>
                 {categories.map((c) => (
-                  <option value={c}>{c}</option>
+                  <option key={c} value={c}>{c}</option>
                 ))}
               </Field>
               {errors.category && touched.category ? (

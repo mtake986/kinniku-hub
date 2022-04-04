@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { ioRemoveCircleSharp } from '../icons/icons';
-import Loading from 'react-simple-loading';
 
 Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
   return this.test('unique', message, function (list) {

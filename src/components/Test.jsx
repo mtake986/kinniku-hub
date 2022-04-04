@@ -36,7 +36,7 @@ const Test = ({currentUser}) => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
-          tempQuizzes.push(doc.data());
+          tempQuizzes.push({ ...doc.data(), id: doc.id });
         });
       } else {
         for (let i = 0; i < selectedCategories.length; i++) {
@@ -47,7 +47,7 @@ const Test = ({currentUser}) => {
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-            tempQuizzes.push(doc.data());
+            tempQuizzes.push({ ...doc.data(), id: doc.id });
           });
         }
       }
@@ -100,7 +100,11 @@ const Test = ({currentUser}) => {
 
   return (
     <div className='quizContainer'>
-      {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+      {quizzes.length === 0 && (
+        <div className="loading">
+          <Loading color={'#005bbb'} />
+        </div>
+      )}
       {quizzes.map((quiz, quizIndex) => {
         if (quizIndex === currentQIndex) {
           return (
@@ -156,7 +160,6 @@ const Test = ({currentUser}) => {
                     disable='disable'
                   />
                 )}
-
                 <GoodBad quiz={quiz} currentUser={currentUser} />
                 {quizIndex + 1 === quizzes.length ? (
                     <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />

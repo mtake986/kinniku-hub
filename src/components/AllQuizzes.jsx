@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
 import { handleQuizDelete } from '../hooks/quizCRUD';
-import { riUser5Line } from '../icons/icons';
 
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
@@ -30,7 +29,7 @@ const AllQuizzes = ({ uid }) => {
         console.error('quizes listener failed: ', err);
       },
     });
-    return unsub;
+    return 0;
     // const unsub = onSnapshot(collectionRef, snapshot => {
     //   setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     // });
@@ -41,7 +40,11 @@ const AllQuizzes = ({ uid }) => {
 
   return (
     <div className='allQuizzes'>
-      {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+      {quizzes.length === 0 && (
+        <div className="loading">
+          <Loading color={'#005bbb'} />
+        </div>
+      )}
       {quizzes.map((quiz, quizIndex) => (
         <div className='eachQuizContainer' key={quiz.id}>
           <div className='quizQuestionContainer'>

@@ -52,7 +52,7 @@ const GoodBad = ({ quiz, currentUser }) => {
             ? 'likesCounterContainer checked'
             : 'likesCounterContainer'
         }
-        onClick={() => handleLikes(quiz)}
+        onClick={() => handleLikes()}
       >
         <span className='heartIcon'>
           {goodClicked ? <FaHeart /> : <FaRegHeart />}{' '}

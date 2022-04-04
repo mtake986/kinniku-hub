@@ -102,7 +102,7 @@ const QuizHome = () => {
         <div className='textContainer'>
           <h3>Wanna Start A Test??</h3>
         </div>
-        <div className='selectBtnsContainer'>
+        <div className='btnsContainer'>
           <button
             className={
               selectedCategories.includes('all')
@@ -116,7 +116,11 @@ const QuizHome = () => {
           >
             All
           </button>
-          {categories.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+            {categories.length === 0 && (
+              <div className="loading">
+                <Loading color={'#005bbb'} />
+              </div>
+            )}
           {categories.map(c => (
             <button
               className={
@@ -139,7 +143,11 @@ const QuizHome = () => {
       <div className='quizRecentlyCreatedContainer'>
         <h3>Quizzes Recently Created</h3>
         <div className='quizzes'>
-          {quizzes.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+          {quizzes.length === 0 && (
+            <div className="loading">
+              <Loading color={'#005bbb'} />
+            </div>
+          )}
           {quizzes.map((quiz, quizIndex) => (
             <div className='eachQuizContainer' key={quiz.id}>
               <div className='quizQuestionContainer'>
@@ -167,7 +175,11 @@ const QuizHome = () => {
       <div className='newUsersContainer'>
         <h3>Newbies</h3>
         <div className='newUsers'>
-          {newUsers.length === 0 ? <Loading color={'#005bbb'} /> : ''}
+          {newUsers.length === 0 && (
+            <div className="loading">
+              <Loading color={'#005bbb'} />
+            </div>
+          )}
           {newUsers.map((user, userIndex) => (
             <div className='eachNewUserContainer' key={user.uid}>
               <Link
