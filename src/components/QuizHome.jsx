@@ -80,19 +80,27 @@ const QuizHome = () => {
   }, []);
 
   const selectCategory = e => {
-    if (selectedCategories.length !== 0) {
-      console.log('not empty');
+    if (e.target.value === 'all') {
       if (selectedCategories.includes(e.target.value)) {
         console.log('includes this value');
         let filtered = selectedCategories.filter(n => n !== e.target.value);
         setSelectedCategories(filtered);
       } else {
-        setSelectedCategories([...selectedCategories, e.target.value]);
+        setSelectedCategories(['all']);
       }
-    } else if (e.target.value === 'all') {
-      setSelectedCategories(['all']);
     } else {
-      setSelectedCategories([e.target.value]);
+      if (selectedCategories.length !== 0) {
+        console.log('not empty', selectedCategories);
+        if (selectedCategories.includes(e.target.value)) {
+          console.log('includes this value');
+          let filtered = selectedCategories.filter(n => n !== e.target.value);
+          setSelectedCategories(filtered);
+        } else {
+          setSelectedCategories([...selectedCategories, e.target.value]);
+        }
+      } else {
+        setSelectedCategories([e.target.value]);
+      }
     }
   };
 
@@ -107,8 +115,6 @@ const QuizHome = () => {
             className={
               selectedCategories.includes('all')
                 ? 'all selected'
-                : selectedCategories.length !== 0
-                ? 'all othersSelected'
                 : 'all'
             }
             onClick={e => selectCategory(e)}
