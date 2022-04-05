@@ -349,6 +349,28 @@
   margin-right: 15px;
 }
 
+.quizContainer .quiz .quizFooter button.testStopBtn {
+  padding: 10px 18px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  font-size: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.quizContainer .quiz .quizFooter button.testStopBtn:hover {
+  background: #ffe164;
+}
+
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn {
   padding: 10px 18px;
   border-radius: 5px;
@@ -384,11 +406,6 @@
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn .bsArrowLeft {
   height: 20px;
   margin-right: 10px;
-}
-
-.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn.prevBtn {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .allQuizzes, .quizzes {

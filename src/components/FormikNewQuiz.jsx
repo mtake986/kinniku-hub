@@ -83,7 +83,6 @@ export const FormikNewQuiz = ({ user }) => {
           const payload = {...values, user};
           console.log(`values => ${values}`);
           await addDoc(quizCollectionRef, payload);
-          
           snackbarRef.current.show()
           resetForm();
         }}

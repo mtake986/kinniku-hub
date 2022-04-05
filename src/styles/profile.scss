@@ -1,10 +1,17 @@
 @import 'Variables';
 
 #profilePage {
+  max-width: 300px;
+  margin: 50px auto;
   div#userInfo {
-    // border: 1px solid #000;
+    width: 300px;
+    border: 1px solid $colorAccent1;
+    background: $colorAccent1Lighter;
+    margin: 0 auto;
     text-align: center;
-    padding: 30px;
+    padding: 50px 30px;
+    border-radius: 5px;
+    margin-bottom: 30px;
     img {
       border-radius: 50%;
       width: 150px;
@@ -17,8 +24,22 @@
       font-family: $fontHeader;
     }
     .email {
-      font-size: $fzSmall;
+      font-size: $fzSSmall;
       font-family: $fontHeader;
+    }
+  }
+  .contributionContainer {
+    text-align: center;
+    .ctrTxt {
+      font-weight: bold;
+      font-size: $fzMMedium;
+      padding: 10px 30px;
+      border-bottom: 1px solid rgb(230, 230, 230);
+      display: inline-block;
+    }
+    .make {
+      font-size: $fzSmall;
+      padding: 10px 0;
     }
   }
   #logOutBtn {
