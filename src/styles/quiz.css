@@ -1,38 +1,23 @@
-#quizHeader nav {
-  margin: 20px 0 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.fixedNewQuizBtn {
+  position: absolute;
+  top: 50px;
+  right: 0px;
   font-size: 1.5rem;
+  width: 80px;
 }
 
-#quizHeader nav .left a {
-  margin-right: 10px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-#quizHeader nav .left a:hover {
-  opacity: 0.7;
-}
-
-#quizHeader nav .right a {
+.fixedNewQuizBtn a {
   border: 1px solid #005bbb;
   background: #ecf5ff;
   color: #005bbb;
-  padding: 5px 20px;
+  padding: 5px 15px;
   border-radius: 5px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  width: 80px;
 }
 
-#quizHeader nav .right a:hover {
+.fixedNewQuizBtn a:hover {
   opacity: 0.7;
 }
 
@@ -241,7 +226,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 75px;
+  height: 80px;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {
@@ -408,11 +393,13 @@
   margin-right: 10px;
 }
 
-.allQuizzes, .quizzes {
+.allQuizzes,
+.quizzes {
   font-size: 1.2rem;
 }
 
-.allQuizzes .eachQuizContainer, .quizzes .eachQuizContainer {
+.allQuizzes .eachQuizContainer,
+.quizzes .eachQuizContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -427,11 +414,13 @@
   font-size: 1rem;
 }
 
-.allQuizzes .eachQuizContainer:first-child, .quizzes .eachQuizContainer:first-child {
+.allQuizzes .eachQuizContainer:first-child,
+.quizzes .eachQuizContainer:first-child {
   padding-top: 0;
 }
 
-.allQuizzes .eachQuizContainer .quizQuestionContainer, .quizzes .eachQuizContainer .quizQuestionContainer {
+.allQuizzes .eachQuizContainer .quizQuestionContainer,
+.quizzes .eachQuizContainer .quizQuestionContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -440,56 +429,80 @@
           align-items: center;
 }
 
-.allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex, .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
+.allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex,
+.quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
   margin-right: 5px;
   min-width: 30px;
 }
 
-.allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion, .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
+.allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
   margin: 0 15px 0 5px;
   overflow: scroll;
 }
 
-.allQuizzes .eachQuizContainer a, .quizzes .eachQuizContainer a {
+.allQuizzes .eachQuizContainer a,
+.quizzes .eachQuizContainer a {
   height: 25px;
 }
 
-.allQuizzes .eachQuizContainer a img, .quizzes .eachQuizContainer a img {
+.allQuizzes .eachQuizContainer a img,
+.quizzes .eachQuizContainer a img {
   width: 25px;
   height: 25px;
   border-radius: 50%;
 }
 
-.allQuizzes .eachQuizContainer div.icons, .quizzes .eachQuizContainer div.icons {
+.allQuizzes .eachQuizContainer div.icons,
+.quizzes .eachQuizContainer div.icons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.allQuizzes .eachQuizContainer div.icons a, .quizzes .eachQuizContainer div.icons a {
+.allQuizzes .eachQuizContainer div.icons a,
+.quizzes .eachQuizContainer div.icons a {
   height: 20px;
   margin-right: 10px;
 }
 
-.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine, .quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
+.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine,
+.quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
   cursor: pointer;
   color: #005bbb;
 }
 
-.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine, .quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
+.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine,
+.quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
   cursor: pointer;
   height: 20px;
   width: 20px;
   color: red;
 }
 
-.allQuizzes .searchContainer, .quizzes .searchContainer {
+.allQuizzes .searchContainer,
+.quizzes .searchContainer {
   margin-bottom: 20px;
 }
 
-.allQuizzes .searchContainer select, .quizzes .searchContainer select {
+.allQuizzes .searchContainer .inputs,
+.quizzes .searchContainer .inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 50px;
+}
+
+.allQuizzes .searchContainer .inputs select,
+.quizzes .searchContainer .inputs select {
+  width: 175px;
+  height: 45px;
   display: block;
-  width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -499,15 +512,40 @@
   font-size: 1rem;
   padding: 10px 15px;
   margin-top: 5px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.allQuizzes .searchContainer .inputs select:focus,
+.quizzes .searchContainer .inputs select:focus {
+  outline: none;
+}
+
+.allQuizzes .searchContainer .inputs select.notDefaultValue,
+.quizzes .searchContainer .inputs select.notDefaultValue {
+  background: #ecf5ff;
+}
+
+.allQuizzes .searchContainer .inputs input.searchTagInput,
+.quizzes .searchContainer .inputs input.searchTagInput {
+  height: 45px;
+  width: 175px;
+  border: none;
+  border-bottom: 1px solid #c8c8c8;
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  margin-top: 5px;
   -webkit-transition: .3s;
   transition: .3s;
 }
 
-.allQuizzes .searchContainer select:focus, .quizzes .searchContainer select:focus {
+.allQuizzes .searchContainer .inputs input.searchTagInput:focus,
+.quizzes .searchContainer .inputs input.searchTagInput:focus {
   outline: none;
 }
 
-.allQuizzes .searchContainer select.notDefaultValue, .quizzes .searchContainer select.notDefaultValue {
+.allQuizzes .searchContainer .inputs input.searchTagInput.notDefaultValue,
+.quizzes .searchContainer .inputs input.searchTagInput.notDefaultValue {
   background: #ecf5ff;
 }
 

@@ -27,7 +27,7 @@ const quizSchema = Yup.object().shape({
     .max(4, 'type less than 5')
     .required('Required'),
   category: Yup.string().required('Required'),
-  answers: Yup.array()
+  tags: Yup.array()
     .of(Yup.string().max(20, 'Maximum of 20 letters!').required('Required'))
     .unique('Duplicate tags are not allowed')
     .max(3, `Maximum of 3 tags`),
@@ -37,7 +37,7 @@ const quizSchema = Yup.object().shape({
     .of(Yup.string()),
 });
 
-export const FormikNewQuiz = ({ user }) => {
+export const QuizNewFormik = ({ user }) => {
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const snackbarRef = useRef(null);
@@ -66,7 +66,8 @@ export const FormikNewQuiz = ({ user }) => {
   console.log("categories: ", categories);
 
   return (
-    <div className='formikNewQuiz'>
+    <div className='quizNewFormk'>
+      {/* <div className="pageTtl">New</div> */}
       <Snackbar type='success' msg='Successfully Stored!!' ref={snackbarRef} />
 
       <Formik
@@ -94,7 +95,7 @@ export const FormikNewQuiz = ({ user }) => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <div style={labelInputContainer}>
+            <div style={topLabelInputContainer}>
               <label htmlFor='question' style={label}>
                 Question
               </label>
@@ -367,7 +368,7 @@ export const FormikNewQuiz = ({ user }) => {
               onMouseEnter={() => setSubmitBtnHover(true)}
               onMouseLeave={() => setSubmitBtnHover(false)}
             >
-              Submit
+              Create
             </button>
           </Form>
         )}
@@ -376,7 +377,12 @@ export const FormikNewQuiz = ({ user }) => {
   );
 };
 
+
 // ========== Styles =========
+const topLabelInputContainer = {
+  background: '',
+  marginTop: "-15px",
+};
 const labelInputContainer = {
   background: '',
   margin: '30px 0',
@@ -499,4 +505,4 @@ const submitButtonHover = {
   fontFamily: "'Cormorant Garamond', serif",
 };
 
-export default FormikNewQuiz;
+export default QuizNewFormik;

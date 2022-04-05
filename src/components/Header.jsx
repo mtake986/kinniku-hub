@@ -1,6 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
 
-import '../styles/Header.css';
 import { signInWithGoogle } from '../config/firebase';
 
 const Header = ({ currentUser }) => {
@@ -12,7 +11,7 @@ const Header = ({ currentUser }) => {
   let activeClassName = 'underline';
 
   return (
-    <div id='appHeader'>
+    <header id='appHeader'>
       <div id='logo'>
         <Link to='/kinniku-quiz/home'>K!nN!ku Hub</Link>
       </div>
@@ -60,7 +59,7 @@ const Header = ({ currentUser }) => {
           </button>
         )}
       </nav>
-    </div>
+    </header>
   );
 };
 
