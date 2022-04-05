@@ -1,6 +1,14 @@
 // ========== Import from third parties ==========
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  doc,
+  getDoc,
+  where,
+} from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
@@ -12,30 +20,83 @@ import { handleQuizDelete } from '../hooks/quizCRUD';
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
-  console.log(uid);
+  const [searchByCategory, setSearchByCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
   // })
 
   useEffect(() => {
+
     const collectionRef = collection(db, 'quizzes');
-    const q = query(collectionRef, orderBy('createdAt', 'desc'));
-    const unsub = onSnapshot(q, {
-      next: snapshot => {
-        setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-      },
-      error: err => {
-        // don't forget error handling! e.g. update component with an error message
-        console.error('quizes listener failed: ', err);
-      },
-    });
-    return 0;
-  }, []);
+    if (searchByCategory !== '') {
+      const q = query(collectionRef, orderBy('createdAt', 'desc'), where("category", "==", searchByCategory));
+      const unsub = onSnapshot(q, {
+        next: snapshot => {
+          setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        },
+        error: err => {
+          // don't forget error handling! e.g. update component with an error message
+          console.error('quizes listener failed: ', err);
+        },
+      });
+    } else {
+      const unsub = onSnapshot(collectionRef, {
+        next: snapshot => {
+          setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        },
+        error: err => {
+          // don't forget error handling! e.g. update component with an error message
+          console.error('quizes listener failed: ', err);
+        },
+      });
+    }
+
+    const getQuizCategory = async () => {
+      const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data()['categories']);
+        setCategories(docSnap.data()['categories']);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+      // console.log("I got all categories!! Here they are: " + categories)
+    };
+    getQuizCategory();
+
+  }, [searchByCategory]);
+
+  const handleSearchBar = async e => {
+    await setSearchByCategory(e.target.value);
+    console.log(searchByCategory);
+  };
 
   return (
     <div className='allQuizzes'>
+      <div className='searchContainer'>
+        <select
+          name='category'
+          onChange={handleSearchBar}
+          className={
+            searchByCategory !== '' 
+              ? 'categorySearch notDefaultValue'
+              : 'categorySearch'
+          }
+        >
+          <option value=''>Select a category</option>
+          {categories.map(c => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </div>
       {quizzes.length === 0 && (
-        <div className="loading">
+        <div className='loading'>
           <Loading color={'#005bbb'} />
         </div>
       )}
@@ -72,9 +133,7 @@ const AllQuizzes = ({ uid }) => {
                 referrerPolicy='no-referrer'
               />
             </Link>
-          ) : (
-            null
-          )}
+          ) : null}
         </div>
       ))}
     </div>

@@ -357,6 +357,7 @@
     align-items: center;
     padding: 15px 0;
     border-bottom: 1px solid $colorAccent1Lighter;
+    font-size: $fzSSmall;
     &:first-child {
       padding-top: 0;
     }
@@ -369,8 +370,7 @@
       }
       .quizQuestion {
         margin: 0 15px 0 5px;
-        max-width: 400px;
-        overflow: hidden;
+        overflow: scroll;
       }
     }
     a {
@@ -396,6 +396,25 @@
         height: 20px;
         width: 20px;
         color: red;
+      }
+    }
+  }
+  .searchContainer {
+    select {
+      display: block;
+      width: 100%;
+      flex-direction: column;
+      border: none;
+      border-bottom: 1px solid rgb(200, 200, 200);
+      font-size: $fzSSmall;
+      padding: 10px 15px;
+      margin-top: 5px;
+      transition: .3s;
+      &:focus {
+        outline: none;
+      }
+      &.notDefaultValue {
+        background: $colorAccent1Lighter;
       }
     }
   }
