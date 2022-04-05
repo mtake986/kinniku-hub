@@ -55,7 +55,7 @@ export const FormikNewQuiz = ({ user }) => {
     };
     getQuizCategory();
 
-    return 0;
+    return;
   }, [])
 
   console.log(user)

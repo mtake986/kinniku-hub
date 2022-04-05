@@ -1,60 +1,44 @@
 #profilePage {
-  max-width: 300px;
+  max-width: 400px;
   margin: 50px auto;
 }
 
-#profilePage div#userInfo {
-  width: 300px;
+#profilePage .userCard {
   border: 1px solid #005bbb;
   background: #ecf5ff;
-  margin: 0 auto;
-  text-align: center;
   padding: 50px 30px;
-  border-radius: 5px;
   margin-bottom: 30px;
+  border-radius: 5px;
 }
 
-#profilePage div#userInfo img {
+#profilePage .userCard div.userInfo {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#profilePage .userCard div.userInfo img {
   border-radius: 50%;
   width: 150px;
   text-align: center;
   margin-bottom: 20px;
 }
 
-#profilePage div#userInfo .username {
+#profilePage .userCard div.userInfo .username {
   color: #005bbb;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: "Cormorant Garmand", serif;
 }
 
-#profilePage div#userInfo .email {
+#profilePage .userCard div.userInfo .email {
   font-size: 1rem;
   font-family: "Cormorant Garmand", serif;
 }
 
-#profilePage .contributionContainer {
-  text-align: center;
-}
-
-#profilePage .contributionContainer .ctrTxt {
-  font-weight: bold;
-  font-size: 1.8rem;
-  padding: 10px 30px;
-  border-bottom: 1px solid #e6e6e6;
-  display: inline-block;
-}
-
-#profilePage .contributionContainer .make {
-  font-size: 1.2rem;
-  padding: 10px 0;
-}
-
-#profilePage #logOutBtn {
-  margin: 0 auto;
+#profilePage .userCard #logOutBtn {
+  margin: 20px auto 0;
   padding: 10px 18px;
   border-radius: 5px;
   border: none;
-  background: white;
   font-size: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -66,9 +50,31 @@
   font-size: 1rem;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  background: #ecf5ff;
 }
 
-#profilePage #logOutBtn:hover {
-  background: #ecf5ff;
+#profilePage .userCard #logOutBtn:hover {
+  color: #005bbb;
+}
+
+#profilePage .contributionContainer {
+  text-align: center;
+}
+
+#profilePage .contributionContainer .ctrTxt {
+  font-weight: bold;
+  font-size: 1.8rem;
+  padding: 15px 30px;
+  border-bottom: 1px solid #e6e6e6;
+  display: inline-block;
+}
+
+#profilePage .contributionContainer ul {
+  list-style: none;
+}
+
+#profilePage .contributionContainer ul li.make {
+  font-size: 1.2rem;
+  padding: 15px 0;
 }
 /*# sourceMappingURL=profile.css.map */

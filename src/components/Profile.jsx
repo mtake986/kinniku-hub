@@ -43,24 +43,29 @@ const Profile = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div id='profilePage'>
-      <div id='userInfo'>
-        <img
-          src={user.photoURL}
-          alt='Profile Picture'
-          referrerPolicy='no-referrer'
-        />
-        <h4 className='username'>{user.username}</h4>
-        <h5 className='email'>{user.email}</h5>
+      <div className="userCard">
+        <div className='userInfo'>
+          <img
+            src={user.photoURL}
+            alt='Profile Picture'
+            referrerPolicy='no-referrer'
+          />
+          <h4 className='username'>{user.username}</h4>
+          <h5 className='email'>{user.email}</h5>
+        </div>
+        {user.uid === currentUser.uid && (
+          <button id='logOutBtn' onClick={handleSignOut}>
+            Logout
+          </button>
+        )}
       </div>
+
       <div className="contributionContainer">
         <h4 className="ctrTxt">Contribution</h4>
-        <h5 className="make">Make: <span>{numberOfQuizzes}</span></h5>
+        <ul>
+          <li className="make">Make: <span>{numberOfQuizzes}</span></li>
+        </ul>
       </div>
-      {user.uid === currentUser.uid && (
-        <button id='logOutBtn' onClick={handleSignOut}>
-          Logout
-        </button>
-      )}
     </div>
   );
 };

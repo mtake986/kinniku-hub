@@ -1,31 +1,48 @@
 @import 'Variables';
 
 #profilePage {
-  max-width: 300px;
+  max-width: 400px;
   margin: 50px auto;
-  div#userInfo {
-    width: 300px;
+  .userCard {
     border: 1px solid $colorAccent1;
     background: $colorAccent1Lighter;
-    margin: 0 auto;
-    text-align: center;
     padding: 50px 30px;
-    border-radius: 5px;
     margin-bottom: 30px;
-    img {
-      border-radius: 50%;
-      width: 150px;
+    border-radius: 5px;
+    div.userInfo {
+      margin: 0 auto;
       text-align: center;
-      margin-bottom: 20px;
+      img {
+        border-radius: 50%;
+        width: 150px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .username {
+        color: $colorAccent1;
+        font-size: $fzSmall;
+        font-family: $fontHeader;
+      }
+      .email {
+        font-size: $fzSSmall;
+        font-family: $fontHeader;
+      }
     }
-    .username {
-      color: $colorAccent1;
-      font-size: $fzMedium;
-      font-family: $fontHeader;
-    }
-    .email {
+    #logOutBtn {
+      margin: 20px auto 0;
+      padding: 10px 18px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
       font-size: $fzSSmall;
-      font-family: $fontHeader;
+      transition: 0.3s;
+      background: $colorAccent1Lighter;
+      &:hover {
+        color: $colorAccent1;
+      }
     }
   }
   .contributionContainer {
@@ -33,29 +50,19 @@
     .ctrTxt {
       font-weight: bold;
       font-size: $fzMMedium;
-      padding: 10px 30px;
+      padding: 15px 30px;
       border-bottom: 1px solid rgb(230, 230, 230);
       display: inline-block;
     }
-    .make {
-      font-size: $fzSmall;
-      padding: 10px 0;
-    }
-  }
-  #logOutBtn {
-    margin: 0 auto;
-    padding: 10px 18px;
-    border-radius: 5px;
-    border: none;
-    background: white;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: $fzSSmall;
-    transition: 0.3s;
-    &:hover {
-      background: $colorAccent1Lighter;
+    ul {
+      list-style: none;
+      li {
+        &.make {
+          font-size: $fzSmall;
+          padding: 15px 0;
+        }
+
+      }
     }
   }
 

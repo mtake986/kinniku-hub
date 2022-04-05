@@ -446,6 +446,8 @@
 
 .allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion, .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
   margin: 0 15px 0 5px;
+  max-width: 400px;
+  overflow: hidden;
 }
 
 .allQuizzes .eachQuizContainer a, .quizzes .eachQuizContainer a {
@@ -456,6 +458,12 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
+}
+
+.allQuizzes .eachQuizContainer div.icons, .quizzes .eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .allQuizzes .eachQuizContainer div.icons a, .quizzes .eachQuizContainer div.icons a {

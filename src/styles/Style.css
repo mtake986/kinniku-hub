@@ -26,6 +26,7 @@ main #bodyContainer {
   max-width: 700px;
   width: 100%;
   font-size: 2rem;
+  margin: 0 auto;
 }
 
 main footer {

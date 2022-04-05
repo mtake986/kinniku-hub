@@ -1,9 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import '../styles/Header.css';
 import { signInWithGoogle } from '../config/firebase';
 
 const Header = ({ currentUser }) => {
+  let activeStyle = {
+    pointerEvents: "none",
+    opacity: ".5",
+  };
+
+  let activeClassName = 'underline';
+
   return (
     <div id='appHeader'>
       <div id='logo'>
@@ -12,9 +19,26 @@ const Header = ({ currentUser }) => {
       <nav id='appNav'>
         {/* instead of <a href="/"> */}
         {/* <Link to="/">Home</Link> */}
-        <Link to='/kinniku-quiz/home'>Home</Link>
-        <Link to='/kinniku-quiz/new'>New</Link>
-        <Link to='/kinniku-quiz/all-quizzes'>All</Link>
+        <NavLink
+          to='kinniku-quiz/home'
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to='kinniku-quiz/new'
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          New
+        </NavLink>
+        <NavLink
+          to='kinniku-quiz/all-quizzes'
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          All
+        </NavLink>
+        {/* <Link to='kinniku-quiz/new'>New</Link>
+        <Link to='kinniku-quiz/all-quizzes'>All</Link> */}
 
         {/* <span onClick={signInWithGoogle}>Sign in</span> */}
         {currentUser.photoURL ? (

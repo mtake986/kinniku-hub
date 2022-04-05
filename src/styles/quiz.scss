@@ -369,6 +369,8 @@
       }
       .quizQuestion {
         margin: 0 15px 0 5px;
+        max-width: 400px;
+        overflow: hidden;
       }
     }
     a {
@@ -380,6 +382,7 @@
       }
     }
     div.icons {
+      display: flex;
       a {
         height: 20px;
         margin-right: 10px;
