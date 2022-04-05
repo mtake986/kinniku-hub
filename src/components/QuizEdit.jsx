@@ -1,7 +1,14 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import {updateDoc, getDoc, doc, serverTimestamp, collection, addDoc } from 'firebase/firestore';
+import {
+  updateDoc,
+  getDoc,
+  doc,
+  serverTimestamp,
+  collection,
+  addDoc,
+} from 'firebase/firestore';
 
-import {db} from '../config/firebase';
+import { db } from '../config/firebase';
 import { useState, useEffect } from 'react';
 
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
@@ -16,11 +23,11 @@ Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
 
 const quizSchema = Yup.object().shape({
   question: Yup.string()
-    .min(10, 'Too Short!')
-    .max(100, 'Too Long!')
+    .min(10, 'Minimum of 10 letters!')
+    .max(200, 'Maximum of 200 letters!')
     .required('Required'),
   answers: Yup.array()
-    .of(Yup.string().max(50, 'Too Long!').required('Required'))
+    .of(Yup.string().max(50, 'Maximum of 50 letters!').required('Required'))
     .unique('Duplicate answers are not allowed')
     .min(2, `Minimum of 2 answers`),
   correctAnswer: Yup.number('only numbers are allowed')
@@ -28,6 +35,13 @@ const quizSchema = Yup.object().shape({
     .max(4, 'type less than 5')
     .required('Required'),
   category: Yup.string().required('Required'),
+  answers: Yup.array()
+    .of(Yup.string().max(20, 'Maximum of 20 letters!').required('Required'))
+    .unique('Duplicate tags are not allowed')
+    .max(3, `Maximum of 3 tags`),
+  createdAt: Yup.date(),
+  likes: Yup.number(),
+  whoLikes: Yup.array().of(Yup.string()),
 });
 
 const QuizEdit = () => {
@@ -36,17 +50,16 @@ const QuizEdit = () => {
   const location = useLocation();
   const quiz = location.state.quiz;
   // const {quiz} = location.state;
-  console.log(quiz)
+  console.log(quiz);
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-
     const getQuizCategory = async () => {
       const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
       const docSnap = await getDoc(docRef);
-  
+
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data()['categories']);
         setCategories(docSnap.data()['categories']);
@@ -61,23 +74,22 @@ const QuizEdit = () => {
 
   return (
     <div className='formikNewQuiz'>
-
       <Formik
         initialValues={{
           question: quiz.question,
           answers: quiz.answers,
           correctAnswer: quiz.correctAnswer,
           category: quiz.category,
+          tags: quiz.tags,
         }}
         validateOnChange
         validationSchema={quizSchema}
-        onSubmit={async (values) => {
+        onSubmit={async values => {
           const docRef = doc(db, 'quizzes', id);
-          const payload = {...values, updated: serverTimestamp() };
+          const payload = { ...values, updated: serverTimestamp() };
           await updateDoc(docRef, payload);
-          navigate("/kinniku-quiz/all-quizzes")
+          navigate('/kinniku-quiz/all-quizzes');
         }}
-  
       >
         {({ errors, touched, values }) => (
           <Form>
@@ -240,7 +252,7 @@ const QuizEdit = () => {
                 <option value='' disabled>
                   Select a category
                 </option>
-                {categories.map((c) => (
+                {categories.map(c => (
                   <option value={c}>{c}</option>
                 ))}
               </Field>
@@ -249,6 +261,98 @@ const QuizEdit = () => {
               ) : null}
             </div>
 
+            <FieldArray
+              name='tags'
+              style={quizFormInputText}
+              render={arrayHelpers => (
+                <div style={labelInputContainer}>
+                  <label style={label}>Tags</label>
+                  {errors.tags &&
+                  touched.tags &&
+                  errors.tags === 'Duplicate tags are not allowed' ? (
+                    <div style={quizFormErrMsg}>{errors.tags}</div>
+                  ) : null}
+                  {values.tags && values.tags.length > 0
+                    ? values.tags.map((tag, index) => (
+                        <div key={index} style={answerContainer}>
+                          <div style={indexAnswerIconContainer}>
+                            {/* <span style={answerIndex}>{index + 1}</span> */}
+                            <Field
+                              name={`tags.${index}`}
+                              key={`tags.${index}`}
+                              onFocus={() => {
+                                switch (index) {
+                                  case 0:
+                                    return setFocused('t1');
+                                  case 1:
+                                    return setFocused('t2');
+                                  case 2:
+                                    return setFocused('t3');
+                                  default:
+                                    return setFocused('');
+                                }
+                              }}
+                              onBlur={() => {
+                                switch (index) {
+                                  case 0:
+                                    return setFocused('');
+                                  case 1:
+                                    return setFocused('');
+                                  case 2:
+                                    return setFocused('');
+                                  case 3:
+                                    return setFocused('');
+                                  default:
+                                    return setFocused('');
+                                }
+                              }}
+                              style={
+                                focused === 't1' && index === 0
+                                  ? focusStyle
+                                  : focused === 't2' && index === 1
+                                  ? focusStyle
+                                  : focused === 't3' && index === 2
+                                  ? focusStyle
+                                  : quizFormInputText
+                              }
+                            />
+                            {values.tags.length >= 1 ? (
+                              <i
+                                onClick={() => arrayHelpers.remove(index)}
+                                style={removeIcon}
+                              >
+                                {ioRemoveCircleSharp}
+                              </i>
+                            ) : null}
+                          </div>
+                          {/* <div style={quizFormErrMsg}>
+                            <ErrorMessage name={`answers.${index}`} />
+                          </div> */}
+                          {errors.tags &&
+                          touched.tags &&
+                          errors.tags !== 'Duplicate tags are not allowed' ? (
+                            <div style={quizFormErrMsg}>
+                              <ErrorMessage name={`tags.${index}`} />
+                            </div>
+                          ) : null}
+                        </div>
+                      ))
+                    : null}
+                  {!values.tags || values.tags.length <= 2 ? (
+                    <div
+                      // style={addHover ? moreAnswerIconHover : moreAnswerIcon}
+                      style={moreAnswerIcon}
+                      onClick={() => arrayHelpers.push('')}
+                      // onMouseEnter={() => setAddHover(true)}
+                      // onMouseLeave={() => setAddHover(false)}
+                    >
+                      Add
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            />
+
             <button
               // disabled={!dirty && isValid}
               type='submit'
@@ -256,7 +360,7 @@ const QuizEdit = () => {
               onMouseEnter={() => setSubmitBtnHover(true)}
               onMouseLeave={() => setSubmitBtnHover(false)}
             >
-              Submit
+              Update
             </button>
           </Form>
         )}
@@ -288,6 +392,7 @@ const quizFormInputText = {
   marginTop: '5px',
   transition: '.3s',
 };
+
 const focusStyle = {
   display: 'block',
   width: '100%',
@@ -324,13 +429,13 @@ const indexAnswerIconContainer = {
 
 const answerIndex = {
   position: 'absolute',
-  top: '-4px',
-  left: '-4px',
+  top: '-5px',
+  left: '-5px',
   fontSize: '1rem',
 };
 const removeIcon = {
   position: 'absolute',
-  top: '0px',
+  top: '-5px',
   right: '-8px',
   fontSize: '1.2rem',
   color: 'red',
@@ -343,7 +448,7 @@ const moreAnswerIcon = {
   fontFamily: "'Cormorant Garamond', serif",
   color: '#005bbb',
   padding: '5px 10px',
-  marginTop: "20px",
+  marginTop: '20px',
   cursor: 'pointer',
   transition: '.3s',
   textAlign: 'center',
@@ -388,6 +493,5 @@ const submitButtonHover = {
   fontSize: '1.5rem',
   fontFamily: "'Cormorant Garamond', serif",
 };
-
 
 export default QuizEdit;

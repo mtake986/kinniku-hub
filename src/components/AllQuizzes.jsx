@@ -70,8 +70,8 @@ const AllQuizzes = ({ uid }) => {
 
   }, [searchByCategory]);
 
-  const handleSearchBar = async e => {
-    await setSearchByCategory(e.target.value);
+  const handleSearchBar = e => {
+    setSearchByCategory(e.target.value);
     console.log(searchByCategory);
   };
 
