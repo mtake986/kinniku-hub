@@ -483,6 +483,10 @@
   color: red;
 }
 
+.allQuizzes .searchContainer, .quizzes .searchContainer {
+  margin-bottom: 20px;
+}
+
 .allQuizzes .searchContainer select, .quizzes .searchContainer select {
   display: block;
   width: 100%;

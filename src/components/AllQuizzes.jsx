@@ -78,6 +78,7 @@ const AllQuizzes = ({ uid }) => {
   return (
     <div className='allQuizzes'>
       <div className='searchContainer'>
+        <span>Filter</span>
         <select
           name='category'
           onChange={handleSearchBar}
@@ -87,7 +88,7 @@ const AllQuizzes = ({ uid }) => {
               : 'categorySearch'
           }
         >
-          <option value=''>Select a category</option>
+          <option value=''>All</option>
           {categories.map(c => (
             <option key={c} value={c}>
               {c}
