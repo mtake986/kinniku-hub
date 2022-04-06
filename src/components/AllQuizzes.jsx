@@ -107,6 +107,7 @@ const AllQuizzes = ({ uid }) => {
     console.log(searchByTag);
   };
 
+  console.log(`searchByCategory: `, searchByCategory);
   return (
     <div className='allQuizzes'>
       <div className='searchContainer'>
