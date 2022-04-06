@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import { collection, onSnapshot, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { collection, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
 import {db} from '../config/firebase';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
-import GoPrevQuizBtn from './GoPrevQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
 import { biCircle, biPlus } from '../icons/icons';
 
@@ -19,13 +18,11 @@ const Test = ({currentUser}) => {
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
   const location = useLocation();
   const selectedCategories = location.state.selectedCategories;
-  const [time, setTime] = useState(10);
-  const testStopBtnRef = useRef();
   const [testStopBtnClicked, setTestStopBtnClicked] = useState(false);
   const [answeredQuizzes, setAnsweredQuizzes] = useState("")
 
 
-  console.log(`selectedCategories => `, selectedCategories, "desu")
+  // console.log(`selectedCategories => `, selectedCategories, "desu")
 
   // console.log(currentUser)
 
@@ -39,28 +36,27 @@ const Test = ({currentUser}) => {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          // console.log(doc.id, " => ", doc.data());
           tempQuizzes.push({ ...doc.data(), id: doc.id });
         });
       } else {
         for (let i = 0; i < selectedCategories.length; i++) {
           const c = selectedCategories[i];
           const q = query(collectionRef, where("category", "==", c))
-          console.log(c, "=>", q)
+          // console.log(c, "=>", q)
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            console.log(doc.id, " => ", doc.data());
             // dont forget to add id, refer onSnapshot in QuizHome
             tempQuizzes.push({ ...doc.data(), id: doc.id });
           });
         }
       }
       setQuizzes(tempQuizzes);
-      console.log(quizzes)
+      // console.log(quizzes)
     };
     getQuizzesFromPassedCategories();
 
-  }, []);
+  }, [selectedCategories]);
 
   // console.log(quizzes)
 
@@ -101,14 +97,14 @@ const Test = ({currentUser}) => {
     setClickedAnswerIndex();
   };
   
-  const goPrevQuiz = () => {
-    if (currentQuizIndex !== 0) {
-      setCurrentQuizIndex(prevState => prevState - 1);
-    } else {
-      setCurrentQuizIndex(currentQuizIndex);
-    }
-    setClickedAnswerIndex();
-  };
+  // const goPrevQuiz = () => {
+  //   if (currentQuizIndex !== 0) {
+  //     setCurrentQuizIndex(prevState => prevState - 1);
+  //   } else {
+  //     setCurrentQuizIndex(currentQuizIndex);
+  //   }
+  //   setClickedAnswerIndex();
+  // };
 
   return (
     <div className='quizContainer'>
@@ -186,6 +182,8 @@ const Test = ({currentUser}) => {
               </div>
             </div>
           );
+        } else {
+          return null;
         }
       })}
       {(testStopBtnClicked === true) || (quizzes.length !== 0 && currentQuizIndex >= quizzes.length) ? (

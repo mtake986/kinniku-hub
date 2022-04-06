@@ -31,6 +31,21 @@ const AllQuizzes = ({ uid }) => {
   // })
 
   useEffect(() => {
+    const getQuizCategory = async () => {
+      const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data()['categories']);
+        setCategories(docSnap.data()['categories']);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+      // console.log("I got all categories!! Here they are: " + categories)
+    };
+    getQuizCategory();
+
     const collectionRef = collection(db, 'quizzes');
     console.log("searchByTag: ", searchByTag, " | searchByCategory:", searchByCategory )
     if (searchByCategory !== '' || searchByTag !== '') {
@@ -52,6 +67,7 @@ const AllQuizzes = ({ uid }) => {
             console.error('quizes listener failed: ', err);
           },
         });
+        return unsub;
       }
       if (searchByTag !== '') {
         console.log(`searchByTag is not empty:`, searchByTag)
@@ -69,6 +85,7 @@ const AllQuizzes = ({ uid }) => {
             console.error('quizes listener failed: ', err);
           },
         });
+        return unsub;
       }
     } else {
       const unsub = onSnapshot(collectionRef, {
@@ -80,22 +97,9 @@ const AllQuizzes = ({ uid }) => {
           console.error('quizes listener failed: ', err);
         },
       });
+      return unsub;
     }
 
-    const getQuizCategory = async () => {
-      const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        console.log('Document data:', docSnap.data()['categories']);
-        setCategories(docSnap.data()['categories']);
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-      }
-      // console.log("I got all categories!! Here they are: " + categories)
-    };
-    getQuizCategory();
   }, [searchByCategory, searchByTag]);
 
   const handleSearchByCategory = e => {
@@ -158,7 +162,7 @@ const AllQuizzes = ({ uid }) => {
             >
               <img
                 src={quiz.user.photoURL}
-                alt='Profile Picture'
+                alt={quiz.user.username}
                 referrerPolicy='no-referrer'
               />
             </Link>

@@ -4,8 +4,6 @@ import {
   getDoc,
   doc,
   serverTimestamp,
-  collection,
-  addDoc,
 } from 'firebase/firestore';
 
 import { db } from '../config/firebase';
