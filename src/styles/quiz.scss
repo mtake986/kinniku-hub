@@ -1,33 +1,21 @@
 @import 'Variables';
 
-#quizHeader {
-  nav {
-    margin: 20px 0 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: $fzMedium;
-    .left {
-      a {
-        margin-right: 10px;
-        transition: 0.3s;
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-    }
-    .right {
-      a {
-        border: 1px solid $colorAccent1;
-        background: $colorAccent1Lighter;
-        color: $colorAccent1;
-        padding: 5px 20px;
-        border-radius: 5px;
-        transition: 0.3s;
-        &:hover {
-          opacity: 0.7;
-        }
-      }
+.fixedNewQuizBtn {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  font-size: $fzMedium;
+  width: 80px;
+  a {
+    border: 1px solid $colorAccent1;
+    background: $colorAccent1Lighter;
+    color: $colorAccent1;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 80px;
+    &:hover {
+      opacity: 0.7;
     }
   }
 }
@@ -86,7 +74,6 @@
           opacity: 0.3;
         }
       }
-
     }
     a.startBtn {
       padding: 10px 20px;
@@ -236,7 +223,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 75px;
+        height: 80px;
         &:hover {
           background: $colorAccent2Light;
         }
@@ -345,11 +332,8 @@
   }
 }
 
-// .formikNewQuiz {
-// styles for the page to create a new quiz are embedded in the same component
-// }
-
-.allQuizzes, .quizzes {
+.allQuizzes,
+.quizzes {
   font-size: $fzSmall;
   .eachQuizContainer {
     display: flex;
@@ -401,21 +385,44 @@
   }
   .searchContainer {
     margin-bottom: 20px;
-    select {
-      display: block;
-      width: 100%;
-      flex-direction: column;
-      border: none;
-      border-bottom: 1px solid rgb(200, 200, 200);
-      font-size: $fzSSmall;
-      padding: 10px 15px;
-      margin-top: 5px;
-      transition: .3s;
-      &:focus {
-        outline: none;
+    .inputs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 50px;
+      select {
+        width: 175px;
+        height: 45px;
+        display: block;
+        flex-direction: column;
+        border: none;
+        border-bottom: 1px solid rgb(200, 200, 200);
+        font-size: $fzSSmall;
+        padding: 10px 15px;
+        margin-top: 5px;
+        transition: 0.3s;
+        &:focus {
+          outline: none;
+        }
+        &.notDefaultValue {
+          background: $colorAccent1Lighter;
+        }
       }
-      &.notDefaultValue {
-        background: $colorAccent1Lighter;
+      input.searchTagInput {
+        height: 45px;
+        width: 175px;
+        border: none;
+        border-bottom: 1px solid rgb(200, 200, 200);
+        font-size: 1.2rem;
+        padding: 10px 15px;
+        margin-top: 5px;
+        transition: .3s;
+        &:focus {
+          outline: none;
+        }
+        &.notDefaultValue {
+          background: $colorAccent1Lighter;
+        }
       }
     }
   }

@@ -15,21 +15,101 @@ a {
   font-family: "Ubuntu", sans-serif;
 }
 
-main {
+main#root {
   position: relative;
   min-height: 100vh;
 }
 
-main #bodyContainer {
+main#root header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background: #005bbb;
+}
+
+main#root header #logo a {
+  color: #ffd500;
+  font-size: 2.5rem;
+  font-family: "Caveat", cursive;
+}
+
+main#root header #appNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+
+main#root header #appNav a {
+  color: #fff;
+  font-size: 1rem;
+  display: inline-block;
+  padding: 3px 5px;
+  -webkit-transition: .3s;
+  transition: .3s;
+  margin-right: 5px;
+}
+
+main#root header #appNav a:hover {
+  opacity: .7;
+}
+
+main#root header #appNav span.imgLink {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+main#root header #appNav span.imgLink a {
+  margin: 0;
+  padding: 0;
+}
+
+main#root header #appNav span.imgLink a img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+main#root header #appNav #signInBtn {
+  margin-left: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: #fff9c8;
+}
+
+main#root header #appNav #signInBtn:hover {
+  background: #ecf5ff;
+}
+
+main#root #bodyContainer {
   /* background-color: #eee; */
-  padding: 50px 50px 200px;
+  padding: 100px 50px 200px;
   max-width: 700px;
   width: 100%;
   font-size: 2rem;
   margin: 0 auto;
+  position: relative;
 }
 
-main footer {
+main#root footer {
   font-size: 0.8rem;
   background: #ecf5ff;
   text-align: center;

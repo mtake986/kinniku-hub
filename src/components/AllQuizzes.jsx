@@ -16,31 +16,60 @@ import { Link } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
 import { handleQuizDelete } from '../hooks/quizCRUD';
+import SearchByTag from '../components/SearchByTag';
+import SearchByCategory from '../components/SearchByCategory';
 
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
-  const [searchByCategory, setSearchByCategory] = useState("");
+  const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
+  const [searchByTag, setSearchByTag] = useState('');
 
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
   // })
 
   useEffect(() => {
-
     const collectionRef = collection(db, 'quizzes');
-    if (searchByCategory !== '') {
-      const q = query(collectionRef, orderBy('createdAt', 'desc'), where("category", "==", searchByCategory));
-      const unsub = onSnapshot(q, {
-        next: snapshot => {
-          setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-        },
-        error: err => {
-          // don't forget error handling! e.g. update component with an error message
-          console.error('quizes listener failed: ', err);
-        },
-      });
+    console.log("searchByTag: ", searchByTag, " | searchByCategory:", searchByCategory )
+    if (searchByCategory !== '' || searchByTag !== '') {
+      let qCategory;
+      let qTag;
+      if (searchByCategory !== '') {
+        console.log(`searchByCategory is not empty:`, searchByCategory)
+        qCategory = query(
+          collectionRef,
+          orderBy('createdAt', 'desc'),
+          where('category', '==', searchByCategory)
+        );
+        const unsub = onSnapshot(qCategory, {
+          next: snapshot => {
+            setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+          },
+          error: err => {
+            // don't forget error handling! e.g. update component with an error message
+            console.error('quizes listener failed: ', err);
+          },
+        });
+      }
+      if (searchByTag !== '') {
+        console.log(`searchByTag is not empty:`, searchByTag)
+        qTag = query(
+          collectionRef,
+          orderBy('createdAt', 'desc'),
+          where('tags', 'array-contains', searchByTag)
+        );
+        const unsub = onSnapshot(qTag, {
+          next: snapshot => {
+            setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+          },
+          error: err => {
+            // don't forget error handling! e.g. update component with an error message
+            console.error('quizes listener failed: ', err);
+          },
+        });
+      }
     } else {
       const unsub = onSnapshot(collectionRef, {
         next: snapshot => {
@@ -67,34 +96,33 @@ const AllQuizzes = ({ uid }) => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
+  }, [searchByCategory, searchByTag]);
 
-  }, [searchByCategory]);
-
-  const handleSearchBar = async e => {
-    await setSearchByCategory(e.target.value);
+  const handleSearchByCategory = e => {
+    setSearchByCategory(e.target.value);
     console.log(searchByCategory);
   };
+  const handleSearchByTag = e => {
+    setSearchByTag(e.target.value);
+    console.log(searchByTag);
+  };
 
+  console.log(`searchByCategory: `, searchByCategory);
   return (
     <div className='allQuizzes'>
       <div className='searchContainer'>
         <span>Filter</span>
-        <select
-          name='category'
-          onChange={handleSearchBar}
-          className={
-            searchByCategory !== '' 
-              ? 'categorySearch notDefaultValue'
-              : 'categorySearch'
-          }
-        >
-          <option value=''>All</option>
-          {categories.map(c => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
+        <div className='inputs'>
+          <SearchByCategory
+            handleSearchByCategory={handleSearchByCategory}
+            searchByCategory={searchByCategory}
+            categories={categories}
+          />
+          <SearchByTag
+            handleSearchByTag={handleSearchByTag}
+            searchByTag={searchByTag}
+          />
+        </div>
       </div>
       {quizzes.length === 0 && (
         <div className='loading'>

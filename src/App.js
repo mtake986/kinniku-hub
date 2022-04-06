@@ -11,14 +11,14 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import Test from "./components/Test";
-import QuizHeader from "./components/QuizHeader";
+import FixedNewQuizBtn from "./components/FixedNewQuizBtn";
 import QuizEdit from "./components/QuizEdit";
 // import About from "./components/About";
 import ErrorPage from "./components/ErrorPage";
 import Profile from "./components/Profile";
 import QuizHome from "./components/QuizHome";
 import AllQuizzes from "./components/AllQuizzes";
-import FormikNewQuiz from "./components/FormikNewQuiz";
+import QuizNewFormik from "./components/QuizNewFormik";
 import { auth, db } from './config/firebase';
 
 
@@ -56,7 +56,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<QuizHeader />} /> */}
           {/* <Route path="about" element={<About />}/> */}
-          <Route path="kinniku-quiz/" element={<QuizHeader />} >
+          <Route path="kinniku-quiz/" element={<FixedNewQuizBtn />} >
             <Route
               path="home"
               element={<QuizHome />}
@@ -64,7 +64,7 @@ function App() {
             <Route
               path="new"
               element={
-                <FormikNewQuiz
+                <QuizNewFormik
                   user={currentUser}
                 />
               }

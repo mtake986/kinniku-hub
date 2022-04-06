@@ -15,11 +15,11 @@ Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
 
 const quizSchema = Yup.object().shape({
   question: Yup.string()
-    .min(10, 'Too Short!')
-    .max(100, 'Too Long!')
+    .min(10, 'Minimum of 10 letters!')
+    .max(200, 'Maximum of 200 letters!')
     .required('Required'),
   answers: Yup.array()
-    .of(Yup.string().max(50, 'Too Long!').required('Required'))
+    .of(Yup.string().max(50, 'Maximum of 50 letters!').required('Required'))
     .unique('Duplicate answers are not allowed')
     .min(2, `Minimum of 2 answers`),
   correctAnswer: Yup.number('only numbers are allowed')
@@ -27,13 +27,17 @@ const quizSchema = Yup.object().shape({
     .max(4, 'type less than 5')
     .required('Required'),
   category: Yup.string().required('Required'),
+  tags: Yup.array()
+    .of(Yup.string().max(20, 'Maximum of 20 letters!').required('Required'))
+    .unique('Duplicate tags are not allowed')
+    .max(3, `Maximum of 3 tags`),
   createdAt: Yup.date(),
   likes: Yup.number(),
   whoLikes: Yup.array()
-  .of(Yup.string())
+    .of(Yup.string()),
 });
 
-export const FormikNewQuiz = ({ user }) => {
+export const QuizNewFormik = ({ user }) => {
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const snackbarRef = useRef(null);
@@ -62,7 +66,8 @@ export const FormikNewQuiz = ({ user }) => {
   console.log("categories: ", categories);
 
   return (
-    <div className='formikNewQuiz'>
+    <div className='quizNewFormk'>
+      {/* <div className="pageTtl">New</div> */}
       <Snackbar type='success' msg='Successfully Stored!!' ref={snackbarRef} />
 
       <Formik
@@ -74,6 +79,7 @@ export const FormikNewQuiz = ({ user }) => {
           createdAt: new Date(),
           likes: 0,
           whoLikes: [],
+          tags: [],
         }}
         validateOnChange
         validationSchema={quizSchema}
@@ -89,7 +95,7 @@ export const FormikNewQuiz = ({ user }) => {
       >
         {({ errors, touched, values }) => (
           <Form>
-            <div style={labelInputContainer}>
+            <div style={topLabelInputContainer}>
               <label htmlFor='question' style={label}>
                 Question
               </label>
@@ -258,6 +264,103 @@ export const FormikNewQuiz = ({ user }) => {
               ) : null}
             </div>
 
+            <FieldArray
+              name='tags'
+              style={quizFormInputText}
+              render={arrayHelpers => (
+                <div style={labelInputContainer}>
+                  <label style={label}>
+                    Tags
+                  </label>
+                  {errors.tags &&
+                  touched.tags &&
+                  errors.tags === 'Duplicate tags are not allowed' ? (
+                    <div style={quizFormErrMsg}>{errors.tags}</div>
+                  ) : null}
+                  {values.tags && values.tags.length > 0
+                    ? values.tags.map((tag, index) => (
+                        <div key={index} style={answerContainer}>
+                          <div style={indexAnswerIconContainer}>
+                            {/* <span style={answerIndex}>{index + 1}</span> */}
+                            <Field
+                              name={`tags.${index}`}
+                              key={`tags.${index}`}
+                              onFocus={() => {
+                                switch (index) {
+                                  case 0:
+                                    return setFocused('t1');
+                                  case 1:
+                                    return setFocused('t2');
+                                  case 2:
+                                    return setFocused('t3');
+                                  default:
+                                    return setFocused('');
+                                }
+                              }}
+                              onBlur={() => {
+                                switch (index) {
+                                  case 0:
+                                    return setFocused('');
+                                  case 1:
+                                    return setFocused('');
+                                  case 2:
+                                    return setFocused('');
+                                  case 3:
+                                    return setFocused('');
+                                  default:
+                                    return setFocused('');
+                                }
+                              }}
+                              style={
+                                focused === 't1' && index === 0
+                                  ? focusStyle
+                                  : focused === 't2' && index === 1
+                                  ? focusStyle
+                                  : focused === 't3' && index === 2
+                                  ? focusStyle
+                                  : quizFormInputText
+                              }
+                            />
+                            {values.tags.length >= 1 ? (
+                              <i
+                                onClick={() => arrayHelpers.remove(index)}
+                                style={removeIcon}
+                              >
+                                {ioRemoveCircleSharp}
+                              </i>
+                            ) : (
+                              null
+                            )}
+                          </div>
+                          {/* <div style={quizFormErrMsg}>
+                            <ErrorMessage name={`answers.${index}`} />
+                          </div> */}
+                          {errors.tags &&
+                          touched.tags &&
+                          errors.tags !==
+                            'Duplicate tags are not allowed' ? (
+                            <div style={quizFormErrMsg}>
+                              <ErrorMessage name={`tags.${index}`} />
+                            </div>
+                          ) : null}
+                        </div>
+                      ))
+                    : null}
+                  {values.tags.length <= 2 ? (
+                    <div
+                      // style={addHover ? moreAnswerIconHover : moreAnswerIcon}
+                      style={moreAnswerIcon}
+                      onClick={() => arrayHelpers.push('')}
+                      // onMouseEnter={() => setAddHover(true)}
+                      // onMouseLeave={() => setAddHover(false)}
+                    >
+                      Add
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            />
+            
             <button
               // disabled={!dirty && isValid}
               type='submit'
@@ -265,7 +368,7 @@ export const FormikNewQuiz = ({ user }) => {
               onMouseEnter={() => setSubmitBtnHover(true)}
               onMouseLeave={() => setSubmitBtnHover(false)}
             >
-              Submit
+              Create
             </button>
           </Form>
         )}
@@ -274,15 +377,20 @@ export const FormikNewQuiz = ({ user }) => {
   );
 };
 
+
 // ========== Styles =========
+const topLabelInputContainer = {
+  background: '',
+  marginTop: "-15px",
+};
 const labelInputContainer = {
   background: '',
-  margin: '20px 0',
+  margin: '30px 0',
 };
 
 const label = {
   fontSize: '1.5rem',
-  margin: '10px 0 5px',
+  margin: '10px 0 0px',
   fontFamily: "'Cormorant Garamond', serif",
 };
 
@@ -327,19 +435,18 @@ const indexAnswerIconContainer = {
   marginTop: '20px',
   display: 'flex',
   alignItems: 'center',
-  gap: '10px',
   position: 'relative',
 };
 
 const answerIndex = {
   position: 'absolute',
-  top: '-4px',
-  left: '-4px',
+  top: '-5px',
+  left: '-5px',
   fontSize: '1rem',
 };
 const removeIcon = {
   position: 'absolute',
-  top: '0px',
+  top: '-5px',
   right: '-8px',
   fontSize: '1.2rem',
   color: 'red',
@@ -398,4 +505,4 @@ const submitButtonHover = {
   fontFamily: "'Cormorant Garamond', serif",
 };
 
-export default FormikNewQuiz;
+export default QuizNewFormik;
