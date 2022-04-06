@@ -167,7 +167,7 @@ const QuizHome = () => {
                 >
                   <img
                     src={quiz.user.photoURL}
-                    alt='Profile Picture'
+                    alt={quiz.user.username}
                     referrerPolicy='no-referrer'
                   />
                 </Link>
@@ -194,7 +194,7 @@ const QuizHome = () => {
               >
                 <img
                   src={user.photoURL}
-                  alt='Profile Picture'
+                  alt={user.username}
                   referrerPolicy='no-referrer'
                 />
               </Link>

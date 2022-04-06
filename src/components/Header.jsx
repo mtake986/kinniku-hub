@@ -7,9 +7,7 @@ const Header = ({ currentUser }) => {
     pointerEvents: "none",
     opacity: ".5",
   };
-
-  let activeClassName = 'underline';
-
+  
   return (
     <header id='appHeader'>
       <div id='logo'>

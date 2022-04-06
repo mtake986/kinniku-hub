@@ -1,13 +1,12 @@
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { auth, db } from '../config/firebase';
 import '../styles/profile.css';
 
 const Profile = ({ currentUser, setCurrentUser }) => {
-  const {uid} = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const {user} = location.state;
@@ -27,7 +26,7 @@ const Profile = ({ currentUser, setCurrentUser }) => {
       setNumberOfQuizzes(tempQuizzes.length);
     }
     getNumberOfQuizzesByThisUser()
-  }, [])
+  }, [user.username])
 
   const handleSignOut = () => {
     signOut(auth)
@@ -47,7 +46,7 @@ const Profile = ({ currentUser, setCurrentUser }) => {
         <div className='userInfo'>
           <img
             src={user.photoURL}
-            alt='Profile Picture'
+            alt={user.username}
             referrerPolicy='no-referrer'
           />
           <h4 className='username'>{user.username}</h4>

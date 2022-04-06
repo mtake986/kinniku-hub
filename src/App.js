@@ -2,7 +2,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 // Import files existing in this project
 import './styles/Style.css';
@@ -19,13 +18,13 @@ import Profile from "./components/Profile";
 import QuizHome from "./components/QuizHome";
 import AllQuizzes from "./components/AllQuizzes";
 import QuizNewFormik from "./components/QuizNewFormik";
-import { auth, db } from './config/firebase';
+import { auth } from './config/firebase';
 
 
 // Actual Coding
 function App() {
   const [currentUser, setCurrentUser] = useState("Anonymous");
-  const [quizzes, setQuizzes] = useState({});
+  // const [quizzes, setQuizzes] = useState({});
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -34,18 +33,18 @@ function App() {
       }
     })
 
-    const collectionRef = collection(db, 'quizzes');
-    const q = query(collectionRef, orderBy("createdAt", "desc"));
-    console.log(q)
-    const unsub = onSnapshot(q, {
-      next: snapshot => {
-        setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-      },
-      error: err => {
-        console.error('quizes listener failed: ', err);
-      },
-    });
-    return unsub;
+    // const collectionRef = collection(db, 'quizzes');
+    // const q = query(collectionRef, orderBy("createdAt", "desc"));
+    // console.log(q)
+    // const unsub = onSnapshot(q, {
+    //   next: snapshot => {
+    //     setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    //   },
+    //   error: err => {
+    //     console.error('quizes listener failed: ', err);
+    //   },
+    // });
+    // return unsub;
   }, [])
 
 
