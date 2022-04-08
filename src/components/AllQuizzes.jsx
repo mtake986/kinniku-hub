@@ -8,6 +8,9 @@ import {
   doc,
   getDoc,
   where,
+  startAfter,
+  limit,
+  getDocs,
 } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
@@ -47,12 +50,17 @@ const AllQuizzes = ({ uid }) => {
     getQuizCategory();
 
     const collectionRef = collection(db, 'quizzes');
-    console.log("searchByTag: ", searchByTag, " | searchByCategory:", searchByCategory )
+    console.log(
+      'searchByTag: ',
+      searchByTag,
+      ' | searchByCategory:',
+      searchByCategory
+    );
     if (searchByCategory !== '' || searchByTag !== '') {
       let qCategory;
       let qTag;
       if (searchByCategory !== '') {
-        console.log(`searchByCategory is not empty:`, searchByCategory)
+        console.log(`searchByCategory is not empty:`, searchByCategory);
         qCategory = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
@@ -60,7 +68,9 @@ const AllQuizzes = ({ uid }) => {
         );
         const unsub = onSnapshot(qCategory, {
           next: snapshot => {
-            setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            setQuizzes(
+              snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+            );
           },
           error: err => {
             // don't forget error handling! e.g. update component with an error message
@@ -70,7 +80,7 @@ const AllQuizzes = ({ uid }) => {
         return unsub;
       }
       if (searchByTag !== '') {
-        console.log(`searchByTag is not empty:`, searchByTag)
+        console.log(`searchByTag is not empty:`, searchByTag);
         qTag = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
@@ -78,7 +88,9 @@ const AllQuizzes = ({ uid }) => {
         );
         const unsub = onSnapshot(qTag, {
           next: snapshot => {
-            setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            setQuizzes(
+              snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+            );
           },
           error: err => {
             // don't forget error handling! e.g. update component with an error message
@@ -99,7 +111,6 @@ const AllQuizzes = ({ uid }) => {
       });
       return unsub;
     }
-
   }, [searchByCategory, searchByTag]);
 
   const handleSearchByCategory = e => {
