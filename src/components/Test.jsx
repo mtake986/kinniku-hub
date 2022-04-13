@@ -27,7 +27,7 @@ const Test = ({currentUser}) => {
   // console.log(currentUser)
 
   useEffect(() => {
-    // todo: Get new quizzes
+    // todo: Get quizzes
     const getQuizzesFromPassedCategories = async () => {
       const collectionRef = collection(db, 'quizzes');
       const q = query(collectionRef, orderBy('likes', 'desc'), limit(10));

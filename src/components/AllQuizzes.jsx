@@ -24,10 +24,11 @@ import SearchByCategory from '../components/SearchByCategory';
 
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
-  const [quizzes, setQuizzes] = useState([]);
+  const [quizzes, setQuizzes] = useState("");
   const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [searchByTag, setSearchByTag] = useState('');
+  const [searchByTagSubmitted, setSearchByTagSubmitted] = useState(false);
 
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
@@ -50,68 +51,60 @@ const AllQuizzes = ({ uid }) => {
     getQuizCategory();
 
     const collectionRef = collection(db, 'quizzes');
-    console.log(
-      'searchByTag: ',
-      searchByTag,
-      ' | searchByCategory:',
-      searchByCategory
-    );
-    if (searchByCategory !== '' || searchByTag !== '') {
-      let qCategory;
-      let qTag;
-      if (searchByCategory !== '') {
-        console.log(`searchByCategory is not empty:`, searchByCategory);
-        qCategory = query(
+    if (searchByCategory !== '') {
+      if (searchByTag !== '' && searchByTagSubmitted === true) {
+        console.log(`========== both inputs are not empty (category => tag):`, searchByCategory, searchByTag);
+        let q = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
-          where('category', '==', searchByCategory)
+          where('category', '==', searchByCategory), 
+          where('tags', 'array-contains', searchByTag)
         );
-        const unsub = onSnapshot(qCategory, {
-          next: snapshot => {
-            setQuizzes(
-              snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-            );
-          },
-          error: err => {
-            // don't forget error handling! e.g. update component with an error message
-            console.error('quizes listener failed: ', err);
-          },
-        });
-        return unsub;
+        getQuizzes(q);
+      } else {
+        console.log(`========== only CATEGORY is not empty:`, searchByCategory, searchByTag);
+        let q = query(
+          collectionRef,
+          orderBy('createdAt', 'desc'),
+          where('category', '==', searchByCategory), 
+        );
+        getQuizzes(q);
       }
-      if (searchByTag !== '') {
-        console.log(`searchByTag is not empty:`, searchByTag);
-        qTag = query(
+    } else if (searchByTagSubmitted === true) {
+      if (searchByCategory !== '') {
+        console.log(`========== both inputs are not empty (tag => category):`, searchByCategory, searchByTag);
+        let q = query(
+          collectionRef,
+          orderBy('createdAt', 'desc'),
+          where('category', '==', searchByCategory), 
+          where('tags', 'array-contains', searchByTag)
+        );
+        getQuizzes(q);
+      } else {
+        console.log(`========== only TAG is not empty:`, searchByCategory, searchByTag);
+        let q = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
           where('tags', 'array-contains', searchByTag)
         );
-        const unsub = onSnapshot(qTag, {
-          next: snapshot => {
-            setQuizzes(
-              snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-            );
-          },
-          error: err => {
-            // don't forget error handling! e.g. update component with an error message
-            console.error('quizes listener failed: ', err);
-          },
-        });
-        return unsub;
+        getQuizzes(q);
       }
     } else {
-      const unsub = onSnapshot(collectionRef, {
-        next: snapshot => {
-          setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-        },
-        error: err => {
-          // don't forget error handling! e.g. update component with an error message
-          console.error('quizes listener failed: ', err);
-        },
-      });
-      return unsub;
+      getQuizzes(collectionRef);
     }
-  }, [searchByCategory, searchByTag]);
+  }, [searchByCategory, searchByTagSubmitted]);
+
+  const getQuizzes = async (ref) => {
+    let tempQuizzes = [];
+    const querySnapshot = await getDocs(ref);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.id, " => ", doc.data());
+      tempQuizzes.push({ ...doc.data(), id: doc.id });
+    });
+    setQuizzes(tempQuizzes)
+    console.log(quizzes, 1234)
+  }
 
   const handleSearchByCategory = e => {
     setSearchByCategory(e.target.value);
@@ -120,9 +113,9 @@ const AllQuizzes = ({ uid }) => {
   const handleSearchByTag = e => {
     setSearchByTag(e.target.value);
     console.log(searchByTag);
+    setSearchByTagSubmitted(false)
   };
 
-  console.log(`searchByCategory: `, searchByCategory);
   return (
     <div className='allQuizzes'>
       <div className='searchContainer'>
@@ -136,50 +129,53 @@ const AllQuizzes = ({ uid }) => {
           <SearchByTag
             handleSearchByTag={handleSearchByTag}
             searchByTag={searchByTag}
+            searchByTagSubmitted={searchByTagSubmitted}
+            setSearchByTagSubmitted={setSearchByTagSubmitted}
           />
         </div>
       </div>
-      {quizzes.length === 0 && (
+      {quizzes === "" ? (
         <div className='loading'>
           <Loading color={'#005bbb'} />
         </div>
-      )}
-      {quizzes.map((quiz, quizIndex) => (
-        <div className='eachQuizContainer' key={quiz.id}>
-          <div className='quizQuestionContainer'>
-            <span className='quizIndex'>{quizIndex + 1}.</span>
-            <p className='quizQuestion'>{quiz.question}</p>
-          </div>
-
-          {quiz.user.uid && uid === quiz.user.uid ? (
-            <div className='icons'>
-              <Link
-                to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
-                state={{ quiz: quiz }}
-              >
-                <i className='riEditBoxLine'>{riEditBoxLine}</i>
-              </Link>
-              <i
-                className='riDeleteBinLine'
-                onClick={() => handleQuizDelete(quiz.id)}
-              >
-                {riDeleteBinLine}
-              </i>
+      ) : (
+        quizzes.map((quiz, quizIndex) => (
+          <div className='eachQuizContainer' key={quiz.id}>
+            <div className='quizQuestionContainer'>
+              <span className='quizIndex'>{quizIndex + 1}.</span>
+              <p className='quizQuestion'>{quiz.question}</p>
             </div>
-          ) : quiz.user.uid && uid !== quiz.user.uid ? (
-            <Link
-              to={{ pathname: `/profile/${quiz.user.uid}` }}
-              state={{ user: quiz.user }}
-            >
-              <img
-                src={quiz.user.photoURL}
-                alt={quiz.user.username}
-                referrerPolicy='no-referrer'
-              />
-            </Link>
-          ) : null}
-        </div>
-      ))}
+  
+            {quiz.user.uid && uid === quiz.user.uid ? (
+              <div className='icons'>
+                <Link
+                  to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
+                  state={{ quiz: quiz }}
+                >
+                  <i className='riEditBoxLine'>{riEditBoxLine}</i>
+                </Link>
+                <i
+                  className='riDeleteBinLine'
+                  onClick={() => handleQuizDelete(quiz.id)}
+                >
+                  {riDeleteBinLine}
+                </i>
+              </div>
+            ) : quiz.user.uid && uid !== quiz.user.uid ? (
+              <Link
+                to={{ pathname: `/profile/${quiz.user.uid}` }}
+                state={{ user: quiz.user }}
+              >
+                <img
+                  src={quiz.user.photoURL}
+                  alt={quiz.user.username}
+                  referrerPolicy='no-referrer'
+                />
+              </Link>
+            ) : null}
+          </div>
+        ))
+      )}
     </div>
   );
 };

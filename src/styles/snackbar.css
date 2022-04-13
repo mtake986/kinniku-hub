@@ -5,7 +5,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   gap: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;

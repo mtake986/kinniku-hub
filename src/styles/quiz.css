@@ -500,8 +500,8 @@
 
 .allQuizzes .searchContainer .inputs select,
 .quizzes .searchContainer .inputs select {
-  width: 175px;
   height: 45px;
+  width: 160px;
   display: block;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -526,27 +526,53 @@
   background: #ecf5ff;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput,
-.quizzes .searchContainer .inputs input.searchTagInput {
+.allQuizzes .searchContainer .inputs .searchByTag,
+.quizzes .searchContainer .inputs .searchByTag {
+  position: relative;
+}
+
+.allQuizzes .searchContainer .inputs .searchByTag input.searchTagInput,
+.quizzes .searchContainer .inputs .searchByTag input.searchTagInput {
+  font-size: 1rem;
   height: 45px;
-  width: 175px;
+  width: 160px;
   border: none;
   border-bottom: 1px solid #c8c8c8;
-  font-size: 1.2rem;
-  padding: 10px 15px;
+  padding: 10px 45px 10px 15px;
   margin-top: 5px;
   -webkit-transition: .3s;
   transition: .3s;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput:focus,
-.quizzes .searchContainer .inputs input.searchTagInput:focus {
+.allQuizzes .searchContainer .inputs .searchByTag input.searchTagInput:focus,
+.quizzes .searchContainer .inputs .searchByTag input.searchTagInput:focus {
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput.notDefaultValue,
-.quizzes .searchContainer .inputs input.searchTagInput.notDefaultValue {
+.allQuizzes .searchContainer .inputs .searchByTag input.searchTagInput.searchByTagSubmitted,
+.quizzes .searchContainer .inputs .searchByTag input.searchTagInput.searchByTagSubmitted {
   background: #ecf5ff;
+}
+
+.allQuizzes .searchContainer .inputs .searchByTag i,
+.quizzes .searchContainer .inputs .searchByTag i {
+  height: 43px;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  padding: 10px;
+  -webkit-transform: translateY(-45%);
+          transform: translateY(-45%);
+  font-size: 1.2rem;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.allQuizzes .searchContainer .inputs .searchByTag i.noInputYet,
+.quizzes .searchContainer .inputs .searchByTag i.noInputYet {
+  pointer-events: none;
+  opacity: .3;
+  background: #f0f0f0;
 }
 
 .quizResultWindow {

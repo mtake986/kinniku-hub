@@ -15,7 +15,7 @@ import { ioRemoveCircleSharp } from '../icons/icons';
 
 Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
   return this.test('unique', message, function (list) {
-    return list.length === new Set(list.map(mapper)).size;
+    if (list) return list.length === new Set(list.map(mapper)).size;
   });
 });
 
@@ -48,7 +48,6 @@ const QuizEdit = () => {
   const location = useLocation();
   const quiz = location.state.quiz;
   // const {quiz} = location.state;
-  console.log(quiz);
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
   const [categories, setCategories] = useState([]);
