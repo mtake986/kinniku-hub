@@ -11,24 +11,25 @@ import {
   startAfter,
   limit,
   getDocs,
+  deleteDoc,
 } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
 import { db } from '../config/firebase';
-import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
-import { handleQuizDelete } from '../hooks/quizCRUD';
-import SearchByTag from '../components/SearchByTag';
-import SearchByCategory from '../components/SearchByCategory';
+import SearchByTag from './SearchByTag';
+import SearchByCategory from './SearchByCategory';
+import QuizzesList from './multiple/QuizzesList';
 
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {
-  const [quizzes, setQuizzes] = useState("");
+  const [quizzes, setQuizzes] = useState([]);
   const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [searchByTag, setSearchByTag] = useState('');
   const [searchByTagSubmitted, setSearchByTagSubmitted] = useState(false);
+  const [nowLoading, setNowLoading] = useState(true);
 
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
@@ -53,35 +54,51 @@ const AllQuizzes = ({ uid }) => {
     const collectionRef = collection(db, 'quizzes');
     if (searchByCategory !== '') {
       if (searchByTag !== '' && searchByTagSubmitted === true) {
-        console.log(`========== both inputs are not empty (category => tag):`, searchByCategory, searchByTag);
+        console.log(
+          `========== both inputs are not empty (category => tag):`,
+          searchByCategory,
+          searchByTag
+        );
         let q = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
-          where('category', '==', searchByCategory), 
+          where('category', '==', searchByCategory),
           where('tags', 'array-contains', searchByTag)
         );
         getQuizzes(q);
       } else {
-        console.log(`========== only CATEGORY is not empty:`, searchByCategory, searchByTag);
+        console.log(
+          `========== only CATEGORY is not empty:`,
+          searchByCategory,
+          searchByTag
+        );
         let q = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
-          where('category', '==', searchByCategory), 
+          where('category', '==', searchByCategory)
         );
         getQuizzes(q);
       }
     } else if (searchByTagSubmitted === true) {
       if (searchByCategory !== '') {
-        console.log(`========== both inputs are not empty (tag => category):`, searchByCategory, searchByTag);
+        console.log(
+          `========== both inputs are not empty (tag => category):`,
+          searchByCategory,
+          searchByTag
+        );
         let q = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
-          where('category', '==', searchByCategory), 
+          where('category', '==', searchByCategory),
           where('tags', 'array-contains', searchByTag)
         );
         getQuizzes(q);
       } else {
-        console.log(`========== only TAG is not empty:`, searchByCategory, searchByTag);
+        console.log(
+          `========== only TAG is not empty:`,
+          searchByCategory,
+          searchByTag
+        );
         let q = query(
           collectionRef,
           orderBy('createdAt', 'desc'),
@@ -94,16 +111,18 @@ const AllQuizzes = ({ uid }) => {
     }
   }, [searchByCategory, searchByTagSubmitted]);
 
-  const getQuizzes = async (ref) => {
-    let tempQuizzes = [];
-    const querySnapshot = await getDocs(ref);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
-      tempQuizzes.push({ ...doc.data(), id: doc.id });
+  const getQuizzes = async ref => {
+    const unsub = onSnapshot(ref, {
+      next: snapshot => {
+        setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        setNowLoading(false);
+      },
+      error: err => {
+        console.error('quizzes listener failed: ', err);
+      },
     });
-    setQuizzes(tempQuizzes)
-  }
+    return unsub;
+  };
 
   const handleSearchByCategory = e => {
     setSearchByCategory(e.target.value);
@@ -112,7 +131,7 @@ const AllQuizzes = ({ uid }) => {
   const handleSearchByTag = e => {
     setSearchByTag(e.target.value);
     console.log(searchByTag);
-    setSearchByTagSubmitted(false)
+    setSearchByTagSubmitted(false);
   };
 
   return (
@@ -133,48 +152,8 @@ const AllQuizzes = ({ uid }) => {
           />
         </div>
       </div>
-      {quizzes === "" ? (
-        <div className='loading'>
-          <Loading color={'#005bbb'} />
-        </div>
-      ) : (
-        quizzes.map((quiz, quizIndex) => (
-          <div className='eachQuizContainer' key={quiz.id}>
-            <div className='quizQuestionContainer'>
-              <span className='quizIndex'>{quizIndex + 1}.</span>
-              <p className='quizQuestion'>{quiz.question}</p>
-            </div>
-  
-            {quiz.user.uid && uid === quiz.user.uid ? (
-              <div className='icons'>
-                <Link
-                  to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
-                  state={{ quiz: quiz }}
-                >
-                  <i className='riEditBoxLine'>{riEditBoxLine}</i>
-                </Link>
-                <i
-                  className='riDeleteBinLine'
-                  onClick={() => handleQuizDelete(quiz.id)}
-                >
-                  {riDeleteBinLine}
-                </i>
-              </div>
-            ) : quiz.user.uid && uid !== quiz.user.uid ? (
-              <Link
-                to={{ pathname: `/profile/${quiz.user.uid}` }}
-                state={{ user: quiz.user }}
-              >
-                <img
-                  src={quiz.user.photoURL}
-                  alt={quiz.user.username}
-                  referrerPolicy='no-referrer'
-                />
-              </Link>
-            ) : null}
-          </div>
-        ))
-      )}
+      <QuizzesList list={quizzes} kind='allQuizzes' uid={uid} nowLoading={nowLoading} />
+      {/* todo: add nowLoading as a prop*/}
     </div>
   );
 };

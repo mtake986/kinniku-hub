@@ -53,14 +53,13 @@
   .contributionContainer {
     .LMQContainer {
       h3 {
-        @include ProfileH3Header();
+        @include h3Header();
       }
     }
     .MLQContainer {
       h3 {
-        @include ProfileH3Header();
+        @include h3Header();
       }
     }
   }
-
 }

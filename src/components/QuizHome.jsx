@@ -14,12 +14,15 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 import QuizHomeStartBtn from './QuizHomeStartBtn';
+import QuizzesList from './multiple/QuizzesList';
 
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [newUsers, setNewUsers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [QRCLoading, setQRCLoading] = useState(true);
+  const [newUsersLoading, setNewUsersLoading] = useState(true);
 
   useEffect(() => {
     // todo: Get new quizzes
@@ -30,6 +33,7 @@ const QuizHome = () => {
       const unsub = onSnapshot(q, {
         next: snapshot => {
           setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+          setQRCLoading(false);
         },
         error: err => {
           // don't forget error handling! e.g. update component with an error message
@@ -58,7 +62,7 @@ const QuizHome = () => {
         // console.log(tempNewUsers)
       });
       setNewUsers(tempNewUsers);
-      // console.log(newUsers)
+      setNewUsersLoading(false)
     };
     getNewUsers();
 
@@ -113,20 +117,18 @@ const QuizHome = () => {
         <div className='btnsContainer'>
           <button
             className={
-              selectedCategories.includes('all')
-                ? 'all selected'
-                : 'all'
+              selectedCategories.includes('all') ? 'all selected' : 'all'
             }
             onClick={e => selectCategory(e)}
             value='all'
           >
             All
           </button>
-            {categories.length === 0 && (
-              <div className="loading">
-                <Loading color={'#005bbb'} />
-              </div>
-            )}
+          {categories.length === 0 && (
+            <div className='loading'>
+              <Loading color={'#005bbb'} />
+            </div>
+          )}
           {categories.map(c => (
             <button
               className={
@@ -146,61 +148,36 @@ const QuizHome = () => {
         </div>
         <QuizHomeStartBtn selectedCategories={selectedCategories} />
       </div>
+
       <div className='quizRecentlyCreatedContainer'>
         <h3>Quizzes Recently Created</h3>
-        <div className='quizzes'>
-          {quizzes.length === 0 && (
-            <div className="loading">
-              <Loading color={'#005bbb'} />
-            </div>
-          )}
-          {quizzes.map((quiz, quizIndex) => (
-            <div className='eachQuizContainer' key={quiz.id}>
-              <div className='quizQuestionContainer'>
-                <span className='quizIndex'>{quizIndex + 1}.</span>
-                <p className='quizQuestion'>{quiz.question}</p>
-              </div>
-              {quiz.user.uid ?  (
-                <Link
-                  to={{ pathname: `/profile/${quiz.user.uid}` }}
-                  state={{ user: quiz.user }}
-                >
-                  <img
-                    src={quiz.user.photoURL}
-                    alt={quiz.user.username}
-                    referrerPolicy='no-referrer'
-                  />
-                </Link>
-              ) : (
-                null
-              )}
-            </div>
-          ))}
-        </div>
+        <QuizzesList list={quizzes} kind='tenRecentlyCreatedQuizzes' nowLoading={QRCLoading} />
       </div>
+
       <div className='newUsersContainer'>
         <h3>Newbies</h3>
         <div className='newUsers'>
-          {newUsers.length === 0 && (
-            <div className="loading">
+          {newUsersLoading ? (
+            <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
+          ) : (
+            newUsers.map((user, userIndex) => (
+              <div className='eachNewUserContainer' key={user.uid}>
+                <Link
+                  to={{ pathname: `/profile/${user.uid}` }}
+                  state={{ user: user }}
+                >
+                  <img
+                    src={user.photoURL}
+                    alt={user.username}
+                    referrerPolicy='no-referrer'
+                  />
+                </Link>
+                <p className='newUserUsername'>{user.username}</p>
+              </div>
+            ))
           )}
-          {newUsers.map((user, userIndex) => (
-            <div className='eachNewUserContainer' key={user.uid}>
-              <Link
-                to={{ pathname: `/profile/${user.uid}` }}
-                state={{ user: user }}
-              >
-                <img
-                  src={user.photoURL}
-                  alt={user.username}
-                  referrerPolicy='no-referrer'
-                />
-              </Link>
-              <p className='newUserUsername'>{user.username}</p>
-            </div>
-          ))}
         </div>
       </div>
     </div>
