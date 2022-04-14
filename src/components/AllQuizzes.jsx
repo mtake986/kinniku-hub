@@ -103,7 +103,6 @@ const AllQuizzes = ({ uid }) => {
       tempQuizzes.push({ ...doc.data(), id: doc.id });
     });
     setQuizzes(tempQuizzes)
-    console.log(quizzes, 1234)
   }
 
   const handleSearchByCategory = e => {

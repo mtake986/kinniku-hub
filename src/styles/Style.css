@@ -118,4 +118,84 @@ main#root footer {
   position: absolute;
   bottom: 0;
 }
+
+.eachQuizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #ecf5ff;
+  font-size: 1rem;
+}
+
+.eachQuizContainer:first-child {
+  padding: 0 0 15px 0;
+}
+
+.eachQuizContainer:first-child {
+  padding-top: 0;
+}
+
+.eachQuizContainer .quizQuestionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.eachQuizContainer .quizQuestionContainer .quizIndex {
+  margin-right: 5px;
+  min-width: 30px;
+}
+
+.eachQuizContainer .quizQuestionContainer .quizQuestion {
+  margin: 0 15px 0 5px;
+  overflow: scroll;
+}
+
+.eachQuizContainer a {
+  height: 25px;
+}
+
+.eachQuizContainer a img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.eachQuizContainer div.icons a {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.eachQuizContainer div.icons a i.riEditBoxLine {
+  cursor: pointer;
+  color: #005bbb;
+}
+
+.eachQuizContainer div.icons i.riDeleteBinLine {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  color: red;
+}
+
+.eachQuizContainer span.likes {
+  color: red;
+  font-weight: bold;
+}
 /*# sourceMappingURL=Style.css.map */

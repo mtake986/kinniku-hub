@@ -32,6 +32,11 @@
 #profilePage .userCard div.userInfo .email {
   font-size: 1rem;
   font-family: "Cormorant Garmand", serif;
+  margin-bottom: 5px;
+}
+
+#profilePage .userCard div.userInfo .numberOfQuizzes {
+  font-size: 0.8rem;
 }
 
 #profilePage .userCard #logOutBtn {
@@ -57,24 +62,19 @@
   color: #005bbb;
 }
 
-#profilePage .contributionContainer {
-  text-align: center;
-}
-
-#profilePage .contributionContainer .ctrTxt {
-  font-weight: bold;
+#profilePage .contributionContainer .LMQContainer h3 {
   font-size: 1.8rem;
-  padding: 15px 30px;
-  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 0 0 0;
+  margin-top: 50px;
   display: inline-block;
+  color: #005bbb;
 }
 
-#profilePage .contributionContainer ul {
-  list-style: none;
-}
-
-#profilePage .contributionContainer ul li.make {
-  font-size: 1.2rem;
-  padding: 15px 0;
+#profilePage .contributionContainer .MLQContainer h3 {
+  font-size: 1.8rem;
+  padding: 10px 0 0 0;
+  margin-top: 50px;
+  display: inline-block;
+  color: #005bbb;
 }
 /*# sourceMappingURL=profile.css.map */
