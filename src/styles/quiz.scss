@@ -1,4 +1,5 @@
 @import 'Variables';
+@import 'mixin';
 
 .fixedNewQuizBtn {
   position: absolute;
@@ -20,11 +21,6 @@
   }
 }
 
-@mixin h3Header() {
-  font-family: $fontHeader;
-  font-size: $fzMMedium;
-  margin-bottom: 20px;
-}
 
 .loading {
   padding: 30px;

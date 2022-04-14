@@ -101,6 +101,61 @@ main#root {
   }
 }
 
+.eachQuizContainer {
+  &:first-child {
+    padding: 0 0 15px 0;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid $colorAccent1Lighter;
+  font-size: $fzSSmall;
+  &:first-child {
+    padding-top: 0;
+  }
+  .quizQuestionContainer {
+    display: flex;
+    align-items: center;
+    .quizIndex {
+      margin-right: 5px;
+      min-width: 30px;
+    }
+    .quizQuestion {
+      margin: 0 15px 0 5px;
+      overflow: scroll;
+    }
+  }
+  a {
+    height: 25px;
+    img {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+    }
+  }
+  div.icons {
+    display: flex;
+    a {
+      height: 20px;
+      margin-right: 10px;
+      i.riEditBoxLine {
+        cursor: pointer;
+        color: $colorAccent1;
+      }
+    }
+    i.riDeleteBinLine {
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+      color: red;
+    }
+  }
+  span.likes {
+    color: red;
+    font-weight: bold;
+  }
+}
 // .pageTtl {
 //   font-size: $fzMMedium;
 //   font-weight: bold;

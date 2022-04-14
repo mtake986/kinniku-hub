@@ -1,4 +1,5 @@
 @import 'Variables';
+@import 'mixin';
 
 #profilePage {
   max-width: 400px;
@@ -26,6 +27,10 @@
       .email {
         font-size: $fzSSmall;
         font-family: $fontHeader;
+        margin-bottom: 5px;
+      }
+      .numberOfQuizzes {
+        font-size: $fzSSSmall;
       }
     }
     #logOutBtn {
@@ -46,22 +51,14 @@
     }
   }
   .contributionContainer {
-    text-align: center;
-    .ctrTxt {
-      font-weight: bold;
-      font-size: $fzMMedium;
-      padding: 15px 30px;
-      border-bottom: 1px solid rgb(230, 230, 230);
-      display: inline-block;
+    .LMQContainer {
+      h3 {
+        @include ProfileH3Header();
+      }
     }
-    ul {
-      list-style: none;
-      li {
-        &.make {
-          font-size: $fzSmall;
-          padding: 15px 0;
-        }
-
+    .MLQContainer {
+      h3 {
+        @include ProfileH3Header();
       }
     }
   }
