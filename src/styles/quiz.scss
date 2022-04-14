@@ -31,10 +31,8 @@
   .testStartContainer {
     margin-bottom: 70px;
     .textContainer {
-      margin-bottom: 20px;
       h3 {
-        font-family: $fontHeader;
-        font-size: $fzMMedium;
+        @include h3Header();
       }
       span {
         font-size: $fzSSSmall;
@@ -96,36 +94,6 @@
     h3 {
       @include h3Header();
     }
-    // div {
-    //   .eachQuizContainer {
-    //     display: flex;
-    //     justify-content: space-between;
-    //     align-items: center;
-    //     padding: 15px 0;
-    //     border-bottom: 1px solid $colorAccent1Lighter;
-    //     &:first-child {
-    //       padding-top: 0;
-    //     }
-    //     .quizQuestionContainer {
-    //       display: flex;
-    //       align-items: center;
-    //       .quizIndex {
-    //         margin-right: 15px;
-    //       }
-    //       .quizQuestion {
-    //         margin: 0 15px;
-    //       }
-    //     }
-    //     a {
-    //       height: 20px;
-    //       img {
-    //         width: 20px;
-    //         height: 20px;
-    //         border-radius: 50%;
-    //       }
-    //     }
-    //   }
-    // }
   }
   .newUsersContainer {
     margin-bottom: 70px;
@@ -328,64 +296,15 @@
   }
 }
 
-.allQuizzes,
-.quizzes {
+.allQuizzes {
   font-size: $fzSmall;
-  .eachQuizContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid $colorAccent1Lighter;
-    font-size: $fzSSmall;
-    &:first-child {
-      padding-top: 0;
-    }
-    .quizQuestionContainer {
-      display: flex;
-      align-items: center;
-      .quizIndex {
-        margin-right: 5px;
-        min-width: 30px;
-      }
-      .quizQuestion {
-        margin: 0 15px 0 5px;
-        overflow: scroll;
-      }
-    }
-    a {
-      height: 25px;
-      img {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-      }
-    }
-    div.icons {
-      display: flex;
-      a {
-        height: 20px;
-        margin-right: 10px;
-        i.riEditBoxLine {
-          cursor: pointer;
-          color: $colorAccent1;
-        }
-      }
-      i.riDeleteBinLine {
-        cursor: pointer;
-        height: 20px;
-        width: 20px;
-        color: red;
-      }
-    }
-  }
   .searchContainer {
     margin-bottom: 20px;
     .inputs {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 50px;
+      gap: 20px;
       select {
         height: 45px;
         width: 160px;
@@ -441,6 +360,55 @@
       }
     }
   }
+  .eachQuizContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid $colorAccent1Lighter;
+    font-size: $fzSSmall;
+    &:first-child {
+      padding-top: 0;
+    }
+    .quizQuestionContainer {
+      display: flex;
+      align-items: center;
+      .quizIndex {
+        margin-right: 5px;
+        min-width: 30px;
+      }
+      .quizQuestion {
+        margin: 0 15px 0 5px;
+        overflow: scroll;
+      }
+    }
+    a {
+      height: 25px;
+      img {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+      }
+    }
+    div.icons {
+      display: flex;
+      a {
+        height: 20px;
+        margin-right: 10px;
+        i.riEditBoxLine {
+          cursor: pointer;
+          color: $colorAccent1;
+        }
+      }
+      i.riDeleteBinLine {
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+        color: red;
+      }
+    }
+  }
+
 }
 
 .quizResultWindow {
@@ -451,44 +419,10 @@
     font-size: $fzMMedium;
     margin-bottom: 30px;
     h3 {
-      font-weight: bold;
+      @include h3Header();
     }
     p {
       font-size: $fzSmall;
-    }
-  }
-  .eachQuizContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-    padding: 10px 0;
-    border-bottom: 1px solid $colorAccent1Lighter;
-    &:first-child {
-      margin-top: 0;
-    }
-    .quizQuestionContainer {
-      display: flex;
-      align-items: center;
-      .quizIndex {
-        margin-right: 15px;
-      }
-      .quizQuestion {
-        margin: 0 15px;
-      }
-    }
-    div.icons {
-      display: flex;
-      .biCircle {
-        color: $colorAccent1;
-        height: 20px;
-      }
-      .biPlus {
-        transform: rotate(225deg) translate(-2px, -2px);
-        font-size: $fzMedium;
-        height: 20px;
-        color: red;
-      }
     }
   }
 }

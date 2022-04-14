@@ -134,14 +134,6 @@ main#root footer {
   font-size: 1rem;
 }
 
-.eachQuizContainer:first-child {
-  padding: 0 0 15px 0;
-}
-
-.eachQuizContainer:first-child {
-  padding-top: 0;
-}
-
 .eachQuizContainer .quizQuestionContainer {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -197,5 +189,24 @@ main#root footer {
 .eachQuizContainer span.likes {
   color: red;
   font-weight: bold;
+}
+
+.eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.eachQuizContainer div.icons .biCircle {
+  color: #005bbb;
+  height: 20px;
+}
+
+.eachQuizContainer div.icons .biPlus {
+  -webkit-transform: rotate(225deg) translate(-2px, -2px);
+          transform: rotate(225deg) translate(-2px, -2px);
+  font-size: 1.5rem;
+  height: 20px;
+  color: red;
 }
 /*# sourceMappingURL=Style.css.map */
