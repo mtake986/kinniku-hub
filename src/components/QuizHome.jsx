@@ -99,6 +99,8 @@ const QuizHome = () => {
           console.log('includes this value');
           let filtered = selectedCategories.filter(n => n !== e.target.value);
           setSelectedCategories(filtered);
+        } else if (selectedCategories.includes("all")) {
+          setSelectedCategories([e.target.value]);
         } else {
           setSelectedCategories([...selectedCategories, e.target.value]);
         }
