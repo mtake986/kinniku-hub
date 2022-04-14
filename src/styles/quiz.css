@@ -21,10 +21,6 @@
   opacity: 0.7;
 }
 
-.loading {
-  padding: 30px;
-}
-
 #quizHome {
   font-size: 1rem;
 }
@@ -54,11 +50,6 @@
   border: 1px solid #ffd500;
 }
 
-#quizHome .testStartContainer .btnsContainer button.all.othersSelected {
-  pointer-events: none;
-  opacity: 0.3;
-}
-
 #quizHome .testStartContainer .btnsContainer button {
   padding: 10px 20px;
   margin: 0 10px 10px 0;
@@ -74,11 +65,6 @@
 #quizHome .testStartContainer .btnsContainer button.selected {
   background: #fff9c8;
   border: 1px solid #ffd500;
-}
-
-#quizHome .testStartContainer .btnsContainer button.allSelected {
-  pointer-events: none;
-  opacity: 0.3;
 }
 
 #quizHome .testStartContainer a.startBtn {
@@ -482,77 +468,6 @@
   pointer-events: none;
   opacity: .3;
   background: #f0f0f0;
-}
-
-.allQuizzes .eachQuizContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid #ecf5ff;
-  font-size: 1rem;
-}
-
-.allQuizzes .eachQuizContainer:first-child {
-  padding-top: 0;
-}
-
-.allQuizzes .eachQuizContainer .quizQuestionContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
-  margin-right: 5px;
-  min-width: 30px;
-}
-
-.allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
-  margin: 0 15px 0 5px;
-  overflow: scroll;
-}
-
-.allQuizzes .eachQuizContainer a {
-  height: 25px;
-}
-
-.allQuizzes .eachQuizContainer a img {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-}
-
-.allQuizzes .eachQuizContainer div.icons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.allQuizzes .eachQuizContainer div.icons a {
-  height: 20px;
-  margin-right: 10px;
-}
-
-.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine {
-  cursor: pointer;
-  color: #005bbb;
-}
-
-.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine {
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
-  color: red;
 }
 
 .quizResultWindow {
