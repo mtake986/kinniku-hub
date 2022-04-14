@@ -20,7 +20,7 @@ const Test = ({currentUser}) => {
   const selectedCategories = location.state.selectedCategories;
   const [testStopBtnClicked, setTestStopBtnClicked] = useState(false);
   const [answeredQuizzes, setAnsweredQuizzes] = useState("")
-
+  const [nowLoading, setNowLoading] = useState(true)
 
   // console.log(`selectedCategories => `, selectedCategories, "desu")
 
@@ -43,7 +43,6 @@ const Test = ({currentUser}) => {
         for (let i = 0; i < selectedCategories.length; i++) {
           const c = selectedCategories[i];
           const q = query(collectionRef, where("category", "==", c))
-          // console.log(c, "=>", q)
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // dont forget to add id, refer onSnapshot in QuizHome
@@ -52,13 +51,12 @@ const Test = ({currentUser}) => {
         }
       }
       setQuizzes(tempQuizzes);
-      // console.log(quizzes)
+      setNowLoading(false);
     };
     getQuizzesFromPassedCategories();
 
   }, [selectedCategories]);
 
-  // console.log(quizzes)
 
   const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
     // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.
@@ -108,84 +106,90 @@ const Test = ({currentUser}) => {
 
   return (
     <div className='quizContainer'>
-      {quizzes.length === 0 && (
+      {nowLoading ? (
         <div className="loading">
           <Loading color={'#005bbb'} />
         </div>
+      ) : (
+        quizzes.length === 0 && (
+          <div>No Quiz from the Categories</div>
+        )
       )}
-      {testStopBtnClicked === false && quizzes.map((quiz, quizIndex) => {
-        if (quizIndex === currentQuizIndex) {
-          return (
-            <div key={quiz.id} className='quiz'>
-              <div className='quizHeader'>
-                <span className='createdBy'>Created by: {quiz.user.username ? quiz.user.username : "Anonymous"}</span>
-                <span className='quizNumber'>
-                  {quizIndex + 1}/{quizzes.length}
-                </span>
-              </div>
-              <div className='quizQuestionContainer'>
-                <p className='quizQuestionText'>{quiz.question}</p>
-              </div>
-              <ul
-                className={
-                  clickedAnswerIndex
-                    ? 'quizAnswersContainer answerDefined'
-                    : 'quizAnswersContainer'
-                }
-              >
-                
-                {quiz.answers.map((answer, answerIndex) => (
-                  <li
-                    key={answerIndex}
-                    onClick={e => {
-                      handleJudge(e, answer, quiz, answerIndex, quizIndex);
-                    }}
-                    className={
-                      clickedAnswerIndex &&
-                      answerIndex + 1 === clickedAnswerIndex
-                        ? 'selected'
-                        : null
-                    }
-                  >
-                    <span className='answer'>{answer}</span>
-                    <div className='correctIncorrectIcons'>
-                      <span className='correctIcon'>{biCircle}</span>
-                      <span className='incorrectIcon'>{biPlus}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className='quizFooter'>
-                {/* {quizIndex !== 0 ? (
-                  <GoPrevQuizBtn
-                    goPrevQuiz={goPrevQuiz}
-                    text='Prev'
-                    disable=''
-                  />
-                ) : (
-                  <GoPrevQuizBtn
-                    goPrevQuiz={goPrevQuiz}
-                    text='Prev'
-                    disable='disable'
-                  />
-                )} */}
-                <button className='testStopBtn' onClick={() => {setTestStopBtnClicked(true)}}>
-                  <span>Stop</span>
-                </button>
-                <GoodBad quiz={quiz} currentUser={currentUser} />
-                {quizIndex + 1 === quizzes.length ? (
-                    <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
+      {testStopBtnClicked === false && (
+        quizzes.map((quiz, quizIndex) => {
+          if (quizIndex === currentQuizIndex) {
+            return (
+              <div key={quiz.id} className='quiz'>
+                <div className='quizHeader'>
+                  <span className='createdBy'>Created by: {quiz.user.username ? quiz.user.username : "Anonymous"}</span>
+                  <span className='quizNumber'>
+                    {quizIndex + 1}/{quizzes.length}
+                  </span>
+                </div>
+                <div className='quizQuestionContainer'>
+                  <p className='quizQuestionText'>{quiz.question}</p>
+                </div>
+                <ul
+                  className={
+                    clickedAnswerIndex
+                      ? 'quizAnswersContainer answerDefined'
+                      : 'quizAnswersContainer'
+                  }
+                >
+                  
+                  {quiz.answers.map((answer, answerIndex) => (
+                    <li
+                      key={answerIndex}
+                      onClick={e => {
+                        handleJudge(e, answer, quiz, answerIndex, quizIndex);
+                      }}
+                      className={
+                        clickedAnswerIndex &&
+                        answerIndex + 1 === clickedAnswerIndex
+                          ? 'selected'
+                          : null
+                      }
+                    >
+                      <span className='answer'>{answer}</span>
+                      <div className='correctIncorrectIcons'>
+                        <span className='correctIcon'>{biCircle}</span>
+                        <span className='incorrectIcon'>{biPlus}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className='quizFooter'>
+                  {/* {quizIndex !== 0 ? (
+                    <GoPrevQuizBtn
+                      goPrevQuiz={goPrevQuiz}
+                      text='Prev'
+                      disable=''
+                    />
                   ) : (
-                    <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
-                  )
-                }
+                    <GoPrevQuizBtn
+                      goPrevQuiz={goPrevQuiz}
+                      text='Prev'
+                      disable='disable'
+                    />
+                  )} */}
+                  <button className='testStopBtn' onClick={() => {setTestStopBtnClicked(true)}}>
+                    <span>Stop</span>
+                  </button>
+                  <GoodBad quiz={quiz} currentUser={currentUser} />
+                  {quizIndex + 1 === quizzes.length ? (
+                      <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
+                    ) : (
+                      <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
+                    )
+                  }
+                </div>
               </div>
-            </div>
-          );
-        } else {
-          return null;
-        }
-      })}
+            );
+          } else {
+            return null;
+          }
+        })
+      )}
       {(testStopBtnClicked === true) || (quizzes.length !== 0 && currentQuizIndex >= quizzes.length) ? (
         <QuizResultWindow
           usersCorrectAnswers={usersCorrectAnswers}
