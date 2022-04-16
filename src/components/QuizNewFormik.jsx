@@ -87,7 +87,7 @@ export const QuizNewFormik = ({ user }) => {
           // same shape as initial values
           const quizCollectionRef = collection(db, 'quizzes');
           const payload = {...values, user};
-          console.log(`values => ${values}`);
+          console.log(`values => `, values);
           await addDoc(quizCollectionRef, payload);
           snackbarRef.current.show()
           resetForm();
