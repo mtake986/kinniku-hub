@@ -1,12 +1,7 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import {
-  updateDoc,
-  getDoc,
-  doc,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { updateDoc, getDoc, doc, serverTimestamp } from 'firebase/firestore';
 
-import { db } from '../config/firebase';
+import { db } from '../config/firebase.config';
 import { useState, useEffect } from 'react';
 
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
@@ -369,7 +364,7 @@ const QuizEdit = () => {
 // ========== Styles =========
 const topLabelInputContainer = {
   background: '',
-  marginTop: "-15px",
+  marginTop: '-15px',
 };
 const labelInputContainer = {
   background: '',

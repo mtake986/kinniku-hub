@@ -9,7 +9,7 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { db } from '../config/firebase';
+import { db } from '../config/firebase.config';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
@@ -62,7 +62,7 @@ const QuizHome = () => {
         // console.log(tempNewUsers)
       });
       setNewUsers(tempNewUsers);
-      setNewUsersLoading(false)
+      setNewUsersLoading(false);
     };
     getNewUsers();
 
@@ -99,7 +99,7 @@ const QuizHome = () => {
           console.log('includes this value');
           let filtered = selectedCategories.filter(n => n !== e.target.value);
           setSelectedCategories(filtered);
-        } else if (selectedCategories.includes("all")) {
+        } else if (selectedCategories.includes('all')) {
           setSelectedCategories([e.target.value]);
         } else {
           setSelectedCategories([...selectedCategories, e.target.value]);
@@ -153,7 +153,11 @@ const QuizHome = () => {
 
       <div className='quizRecentlyCreatedContainer'>
         <h3>Quizzes Recently Created</h3>
-        <QuizzesList list={quizzes} kind='tenRecentlyCreatedQuizzes' nowLoading={QRCLoading} />
+        <QuizzesList
+          list={quizzes}
+          kind='tenRecentlyCreatedQuizzes'
+          nowLoading={QRCLoading}
+        />
       </div>
 
       <div className='newUsersContainer'>

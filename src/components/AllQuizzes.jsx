@@ -17,7 +17,7 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
-import { db } from '../config/firebase';
+import { db } from '../config/firebase.config';
 import SearchByTag from './SearchByTag';
 import SearchByCategory from './SearchByCategory';
 import QuizzesList from './multiple/QuizzesList';
@@ -152,7 +152,12 @@ const AllQuizzes = ({ uid }) => {
           />
         </div>
       </div>
-      <QuizzesList list={quizzes} kind='allQuizzes' uid={uid} nowLoading={nowLoading} />
+      <QuizzesList
+        list={quizzes}
+        kind='allQuizzes'
+        uid={uid}
+        nowLoading={nowLoading}
+      />
       {/* todo: add nowLoading as a prop*/}
     </div>
   );

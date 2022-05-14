@@ -39,3 +39,42 @@ $fontLogo: 'Caveat', cursive;
 $fontText: 'Open Sans', sans-serif;
 $fontHeader: 'Cormorant Garmand', serif;
 $fontAccent: 'Ubuntu', sans-serif;
+
+// ========== RspDsgn ==========
+$sm: 425px;
+$md: 768px;
+$lg: 1024px;
+$lg-pc: 1400px;
+$more-than-mobile: 426px;
+$more-than-tablet: 769px;
+
+@mixin mobile{
+  @media screen and (max-width: $sm){
+    @content;
+  }
+}
+@mixin tablet{
+  @media screen and (max-width: $md){
+    @content;
+  }
+}
+@mixin pc{
+  @media screen and (max-width: $lg){
+    @content;
+  }
+}
+@mixin lg-pc{
+  @media screen and (max-width: $lg-pc){
+    @content;
+  }
+}
+@mixin more-than-mobile{
+  @media screen and (min-width: $more-than-mobile){
+    @content;
+  }
+}
+@mixin more-than-tablet{
+  @media screen and (min-width: $more-than-tablet){
+    @content;
+  }
+}

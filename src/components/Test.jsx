@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
-import { collection, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  orderBy,
+  where,
+  limit,
+  getDocs,
+} from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
-import {db} from '../config/firebase';
+import { db } from '../config/firebase.config';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
 import { biCircle, biPlus } from '../icons/icons';
 
-const Test = ({currentUser}) => {
+const Test = ({ currentUser }) => {
   const [quizzes, setQuizzes] = useState([]);
   // const [clickedAnswers, setClickedAnswers] = useState([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -19,8 +26,8 @@ const Test = ({currentUser}) => {
   const location = useLocation();
   const selectedCategories = location.state.selectedCategories;
   const [testStopBtnClicked, setTestStopBtnClicked] = useState(false);
-  const [answeredQuizzes, setAnsweredQuizzes] = useState("")
-  const [nowLoading, setNowLoading] = useState(true)
+  const [answeredQuizzes, setAnsweredQuizzes] = useState('');
+  const [nowLoading, setNowLoading] = useState(true);
 
   // console.log(`selectedCategories => `, selectedCategories, "desu")
 
@@ -32,9 +39,9 @@ const Test = ({currentUser}) => {
       const collectionRef = collection(db, 'quizzes');
       const q = query(collectionRef, orderBy('likes', 'desc'), limit(10));
       let tempQuizzes = [];
-      if (selectedCategories.includes("all")) {
+      if (selectedCategories.includes('all')) {
         const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach(doc => {
           // doc.data() is never undefined for query doc snapshots
           // console.log(doc.id, " => ", doc.data());
           tempQuizzes.push({ ...doc.data(), id: doc.id });
@@ -42,9 +49,9 @@ const Test = ({currentUser}) => {
       } else {
         for (let i = 0; i < selectedCategories.length; i++) {
           const c = selectedCategories[i];
-          const q = query(collectionRef, where("category", "==", c))
+          const q = query(collectionRef, where('category', '==', c));
           const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
+          querySnapshot.forEach(doc => {
             // dont forget to add id, refer onSnapshot in QuizHome
             tempQuizzes.push({ ...doc.data(), id: doc.id });
           });
@@ -54,9 +61,7 @@ const Test = ({currentUser}) => {
       setNowLoading(false);
     };
     getQuizzesFromPassedCategories();
-
   }, [selectedCategories]);
-
 
   const handleJudge = async (e, answer, quiz, answerIndex, quizIndex) => {
     // It may be unnecessary to add 1. I jsut thought users don't like index 0 for answer/quiz 1.
@@ -80,10 +85,10 @@ const Test = ({currentUser}) => {
     }
 
     // add this quiz into answeredQuizzes
-    if (answeredQuizzes === "") {
-      setAnsweredQuizzes([quiz])
-    } else if (answeredQuizzes !== "") {
-      setAnsweredQuizzes([...answeredQuizzes, quiz])
+    if (answeredQuizzes === '') {
+      setAnsweredQuizzes([quiz]);
+    } else if (answeredQuizzes !== '') {
+      setAnsweredQuizzes([...answeredQuizzes, quiz]);
     }
     console.log(answeredQuizzes);
   };
@@ -94,7 +99,7 @@ const Test = ({currentUser}) => {
     }
     setClickedAnswerIndex();
   };
-  
+
   // const goPrevQuiz = () => {
   //   if (currentQuizIndex !== 0) {
   //     setCurrentQuizIndex(prevState => prevState - 1);
@@ -107,21 +112,22 @@ const Test = ({currentUser}) => {
   return (
     <div className='quizContainer'>
       {nowLoading ? (
-        <div className="loading">
+        <div className='loading'>
           <Loading color={'#005bbb'} />
         </div>
       ) : (
-        quizzes.length === 0 && (
-          <div>No Quiz from the Categories</div>
-        )
+        quizzes.length === 0 && <div>No Quiz from the Categories</div>
       )}
-      {testStopBtnClicked === false && (
+      {testStopBtnClicked === false &&
         quizzes.map((quiz, quizIndex) => {
           if (quizIndex === currentQuizIndex) {
             return (
               <div key={quiz.id} className='quiz'>
                 <div className='quizHeader'>
-                  <span className='createdBy'>Created by: {quiz.user.username ? quiz.user.username : "Anonymous"}</span>
+                  <span className='createdBy'>
+                    Created by:{' '}
+                    {quiz.user.username ? quiz.user.username : 'Anonymous'}
+                  </span>
                   <span className='quizNumber'>
                     {quizIndex + 1}/{quizzes.length}
                   </span>
@@ -136,7 +142,6 @@ const Test = ({currentUser}) => {
                       : 'quizAnswersContainer'
                   }
                 >
-                  
                   {quiz.answers.map((answer, answerIndex) => (
                     <li
                       key={answerIndex}
@@ -172,33 +177,43 @@ const Test = ({currentUser}) => {
                       disable='disable'
                     />
                   )} */}
-                  <button className='testStopBtn' onClick={() => {setTestStopBtnClicked(true)}}>
+                  <button
+                    className='testStopBtn'
+                    onClick={() => {
+                      setTestStopBtnClicked(true);
+                    }}
+                  >
                     <span>Stop</span>
                   </button>
                   <GoodBad quiz={quiz} currentUser={currentUser} />
                   {quizIndex + 1 === quizzes.length ? (
-                      <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
-                    ) : (
-                      <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
-                    )
-                  }
+                    <GoNextQuizBtn
+                      goNextQuiz={goNextQuiz}
+                      text='Result'
+                      clickedAnswerIndex={clickedAnswerIndex ? true : false}
+                    />
+                  ) : (
+                    <GoNextQuizBtn
+                      goNextQuiz={goNextQuiz}
+                      text='Next'
+                      clickedAnswerIndex={clickedAnswerIndex ? true : false}
+                    />
+                  )}
                 </div>
               </div>
             );
           } else {
             return null;
           }
-        })
-      )}
-      {(testStopBtnClicked === true) || (quizzes.length !== 0 && currentQuizIndex >= quizzes.length) ? (
+        })}
+      {testStopBtnClicked === true ||
+      (quizzes.length !== 0 && currentQuizIndex >= quizzes.length) ? (
         <QuizResultWindow
           usersCorrectAnswers={usersCorrectAnswers}
           points={points}
           answeredQuizzes={answeredQuizzes}
         />
-      ) : (
-        null
-      )}
+      ) : null}
     </div>
   );
 };

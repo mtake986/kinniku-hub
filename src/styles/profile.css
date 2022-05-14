@@ -65,7 +65,7 @@
 #profilePage .contributionContainer .LMQContainer h3 {
   font-size: 1.8rem;
   padding: 10px 0 0 0;
-  margin-top: 50px;
+  margin-bottom: 20px;
   display: inline-block;
   font-family: "Cormorant Garmand", serif;
 }
@@ -73,7 +73,7 @@
 #profilePage .contributionContainer .MLQContainer h3 {
   font-size: 1.8rem;
   padding: 10px 0 0 0;
-  margin-top: 50px;
+  margin-bottom: 20px;
   display: inline-block;
   font-family: "Cormorant Garmand", serif;
 }

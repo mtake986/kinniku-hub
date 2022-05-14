@@ -18,7 +18,7 @@ import Profile from "./components/Profile";
 import QuizHome from "./components/QuizHome";
 import AllQuizzes from "./components/AllQuizzes";
 import QuizNewFormik from "./components/QuizNewFormik";
-import { auth } from './config/firebase';
+import { auth } from './config/firebase.config';
 
 
 // Actual Coding

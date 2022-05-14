@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 
-import {db} from '../config/firebase';
+import { db } from '../config/firebase.config';
 
-export const GetAllQuizzes = ({quizzes, setQuizzes}) => {
+export const GetAllQuizzes = ({ quizzes, setQuizzes }) => {
 
   useEffect(() => {
     const collectionRef = collection(db, 'quizzes');

@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
-import { auth, db } from '../config/firebase';
+import { auth, db } from '../config/firebase.config';
 import '../styles/profile.css';
 import QuizzesList from './multiple/QuizzesList';
 

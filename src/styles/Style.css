@@ -1,3 +1,9 @@
+@media screen and (max-width: 768px) {
+  main#root {
+    background: red;
+  }
+}
+
 *,
 *::after,
 *::before {
@@ -62,7 +68,7 @@ main#root header #appNav a {
 }
 
 main#root header #appNav a:hover {
-  opacity: .7;
+  text-decoration: underline;
 }
 
 main#root header #appNav span.imgLink {

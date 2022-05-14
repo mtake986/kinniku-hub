@@ -1,13 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 
-import { signInWithGoogle } from '../config/firebase';
+import { signInWithGoogle } from '../config/firebase.config';
 
 const Header = ({ currentUser }) => {
   let activeStyle = {
-    pointerEvents: "none",
-    opacity: ".5",
+    pointerEvents: 'none',
+    opacity: '.7',
   };
-  
+
   return (
     <header id='appHeader'>
       <div id='logo'>

@@ -11,7 +11,7 @@ import {
 } from '../../icons/icons';
 
 // ========== Import from inside this project ==========
-import { db } from '../../config/firebase';
+import { db } from '../../config/firebase.config';
 import NoQuiz from '../NoQuiz';
 
 const QuizzesList = ({ list, kind, uid, nowLoading, usersCorrectAnswers }) => {
@@ -41,76 +41,72 @@ const QuizzesList = ({ list, kind, uid, nowLoading, usersCorrectAnswers }) => {
     }
   };
 
-  return (
-    nowLoading ? (
-      <div className='loading'>
-        <Loading color={'#005bbb'} />
-      </div>
-    ) : (
-      list.length > 0 ? (
-        list.map((quiz, quizIndex) => (
-          <div className='eachQuizContainer' key={quiz.id}>
-            <div className='quizQuestionContainer'>
-              <span className='quizIndex'>{quizIndex + 1}.</span>
-              <p className='quizQuestion'>{quiz.question}</p>
-            </div>
-            {MLQs && <span className='likes'>{quiz.likes}</span>}
-            {allQuizzes &&
-              (quiz.user.uid && uid === quiz.user.uid ? (
-                <div className='icons'>
-                  <Link
-                    to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
-                    state={{ quiz: quiz }}
-                  >
-                    <i className='riEditBoxLine'>{riEditBoxLine}</i>
-                  </Link>
-                  <i
-                    className='riDeleteBinLine'
-                    onClick={() => handleQuizDelete(quiz.id)}
-                  >
-                    {riDeleteBinLine}
-                  </i>
-                </div>
-              ) : quiz.user.uid && uid !== quiz.user.uid ? (
-                <Link
-                  to={{ pathname: `/profile/${quiz.user.uid}` }}
-                  state={{ user: quiz.user }}
-                >
-                  <img
-                    src={quiz.user.photoURL}
-                    alt={quiz.user.username}
-                    referrerPolicy='no-referrer'
-                  />
-                </Link>
-              ) : null)}
-            {answeredQuizzes && (
-              <div className='icons'>
-                {usersCorrectAnswers.includes(quizIndex + 1) ? (
-                  <i className='biCircle'>{biCircle}</i>
-                ) : (
-                  <i className='biPlus'>{biPlus}</i>
-                )}
-              </div>
-            )}
-            {tenRecentlyCreatedQuizzes && quiz.user.uid && (
+  return nowLoading ? (
+    <div className='loading'>
+      <Loading color={'#005bbb'} />
+    </div>
+  ) : list.length > 0 ? (
+    list.map((quiz, quizIndex) => (
+      <div className='eachQuizContainer' key={quiz.id}>
+        <div className='quizQuestionContainer'>
+          <span className='quizIndex'>{quizIndex + 1}.</span>
+          <p className='quizQuestion'>{quiz.question}</p>
+        </div>
+        {MLQs && <span className='likes'>{quiz.likes}</span>}
+        {allQuizzes &&
+          (quiz.user.uid && uid === quiz.user.uid ? (
+            <div className='icons'>
               <Link
-                to={{ pathname: `/profile/${quiz.user.uid}` }}
-                state={{ user: quiz.user }}
+                to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
+                state={{ quiz: quiz }}
               >
-                <img
-                  src={quiz.user.photoURL}
-                  alt={quiz.user.username}
-                  referrerPolicy='no-referrer'
-                />
+                <i className='riEditBoxLine'>{riEditBoxLine}</i>
               </Link>
+              <i
+                className='riDeleteBinLine'
+                onClick={() => handleQuizDelete(quiz.id)}
+              >
+                {riDeleteBinLine}
+              </i>
+            </div>
+          ) : quiz.user.uid && uid !== quiz.user.uid ? (
+            <Link
+              to={{ pathname: `/profile/${quiz.user.uid}` }}
+              state={{ user: quiz.user }}
+            >
+              <img
+                src={quiz.user.photoURL}
+                alt={quiz.user.username}
+                referrerPolicy='no-referrer'
+              />
+            </Link>
+          ) : null)}
+        {answeredQuizzes && (
+          <div className='icons'>
+            {usersCorrectAnswers.includes(quizIndex + 1) ? (
+              <i className='biCircle'>{biCircle}</i>
+            ) : (
+              <i className='biPlus'>{biPlus}</i>
             )}
           </div>
-        ))
-      ) : (
-        <NoQuiz />
-      )
-    )
-  )
+        )}
+        {tenRecentlyCreatedQuizzes && quiz.user.uid && (
+          <Link
+            to={{ pathname: `/profile/${quiz.user.uid}` }}
+            state={{ user: quiz.user }}
+          >
+            <img
+              src={quiz.user.photoURL}
+              alt={quiz.user.username}
+              referrerPolicy='no-referrer'
+            />
+          </Link>
+        )}
+      </div>
+    ))
+  ) : (
+    <NoQuiz />
+  );
 };
 
 export default QuizzesList;
