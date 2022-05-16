@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 
 import { signInWithGoogle } from '../config/firebase';
-
+import { faRegUserCircle } from '../icons/icons';
 const Header = ({ currentUser }) => {
   let activeStyle = {
     pointerEvents: "none",
@@ -52,9 +52,9 @@ const Header = ({ currentUser }) => {
             </Link>
           </span>
         ) : (
-          <button id='signInBtn' onClick={signInWithGoogle}>
-            Login
-          </button>
+          <div id='signInBtn' onClick={signInWithGoogle}>
+            {faRegUserCircle}
+          </div>
         )}
       </nav>
     </header>

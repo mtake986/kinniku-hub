@@ -8,9 +8,6 @@ import {
   doc,
   getDoc,
   where,
-  startAfter,
-  limit,
-  getDocs,
 } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
@@ -111,12 +108,13 @@ const AllQuizzes = ({ uid }) => {
       });
       return unsub;
     }
-  }, [searchByCategory, searchByTag]);
+  }, []);
 
   const handleSearchByCategory = e => {
     setSearchByCategory(e.target.value);
     console.log(searchByCategory);
   };
+
   const handleSearchByTag = e => {
     setSearchByTag(e.target.value);
     console.log(searchByTag);
@@ -138,6 +136,15 @@ const AllQuizzes = ({ uid }) => {
             searchByTag={searchByTag}
           />
         </div>
+        {(searchByCategory === '' && searchByTag === '') ? (
+          <button className="disabled submitBtn">
+            Fill in at least one field
+          </button>
+        ) : (
+          <button className="submitBtn">
+            Filter
+          </button>
+        )}
       </div>
       {quizzes.length === 0 && (
         <div className='loading'>

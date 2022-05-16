@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchByTag = ({ handleSearchByTag, searchByTag }) => {
   return (
-    <div className='searchByTag'>
+    <div className='searchByTagContainer'>
       <input
         onChange={handleSearchByTag}
         type='text'

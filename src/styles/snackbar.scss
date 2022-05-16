@@ -14,22 +14,22 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: $fzSmall;
+  font-size: $faS;
   border: 1px solid $colorAccent3Light;
   background: $colorAccent3Lighter;
   color: $colorAccent3;
-  font-size: $fzSSmall;
+  font-size: $faSS;
   div.icon {
     height: 20px;
     width: 20px;
-    font-size: $fzSmall;
+    font-size: $faS;
   }
   div.msg {
     font-weight: bold;
   }
   &#show {
     visibility: visible;
-    animation: fadeIn .5s, fadeOut .5s 2.5s;
+    animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
     display: flex;
   }
   &#hide {

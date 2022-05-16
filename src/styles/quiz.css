@@ -51,7 +51,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.all.selected {
-  background: #fff9c8;
+  background: #ffec8d;
   border: 1px solid #ffd500;
 }
 
@@ -73,7 +73,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.selected {
-  background: #fff9c8;
+  background: #ffec8d;
   border: 1px solid #ffd500;
 }
 
@@ -214,7 +214,7 @@
   list-style: none;
   margin: 20px 0;
   padding: 20px;
-  background: #fff9c8;
+  background: #ffec8d;
   font-size: 1.5rem;
   cursor: pointer;
   display: -webkit-box;
@@ -241,7 +241,7 @@
 
 .quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
   outline: 3px solid #ffd500;
-  background-color: #fff9c8;
+  background-color: #ffec8d;
   opacity: 1;
 }
 
@@ -253,7 +253,7 @@
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li:hover {
-  background: #ffe164;
+  background: #ffe668;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked {
@@ -353,7 +353,7 @@
 }
 
 .quizContainer .quiz .quizFooter button.testStopBtn:hover {
-  background: #ffe164;
+  background: #ffe668;
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn {
@@ -483,6 +483,7 @@
 .allQuizzes .searchContainer,
 .quizzes .searchContainer {
   margin-bottom: 20px;
+  font-size: 1rem;
 }
 
 .allQuizzes .searchContainer .inputs,
@@ -500,16 +501,10 @@
 
 .allQuizzes .searchContainer .inputs select,
 .quizzes .searchContainer .inputs select {
-  width: 175px;
-  height: 45px;
+  width: 150px;
   display: block;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   border: none;
   border-bottom: 1px solid #c8c8c8;
-  font-size: 1rem;
   padding: 10px 15px;
   margin-top: 5px;
   -webkit-transition: 0.3s;
@@ -523,30 +518,67 @@
 
 .allQuizzes .searchContainer .inputs select.notDefaultValue,
 .quizzes .searchContainer .inputs select.notDefaultValue {
-  background: #ecf5ff;
+  background: #ffec8d;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput,
-.quizzes .searchContainer .inputs input.searchTagInput {
-  height: 45px;
-  width: 175px;
+.allQuizzes .searchContainer .inputs .searchByTagContainer,
+.quizzes .searchContainer .inputs .searchByTagContainer {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput {
+  width: 150px;
   border: none;
   border-bottom: 1px solid #c8c8c8;
-  font-size: 1.2rem;
   padding: 10px 15px;
   margin-top: 5px;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput:focus,
-.quizzes .searchContainer .inputs input.searchTagInput:focus {
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput:focus,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput:focus {
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput.notDefaultValue,
-.quizzes .searchContainer .inputs input.searchTagInput.notDefaultValue {
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefaultValue,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefaultValue {
+  background: #ffec8d;
+}
+
+.allQuizzes .searchContainer .submitBtn,
+.quizzes .searchContainer .submitBtn {
+  padding: 10px 18px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: #ecf5ff;
+  width: 100%;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: none;
+  font-size: 1.5rem;
+  font-family: Cormorant Garamond, serif;
+}
+
+.allQuizzes .searchContainer .submitBtn:hover,
+.quizzes .searchContainer .submitBtn:hover {
   background: #ecf5ff;
+}
+
+.allQuizzes .searchContainer .submitBtn.disabled,
+.quizzes .searchContainer .submitBtn.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .quizResultWindow {
