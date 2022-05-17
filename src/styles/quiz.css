@@ -496,7 +496,7 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 50px;
+  gap: 30px;
 }
 
 .allQuizzes .searchContainer .inputs select,

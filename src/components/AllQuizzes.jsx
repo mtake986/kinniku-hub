@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   where,
+  getDocs,
 } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
@@ -47,67 +48,23 @@ const AllQuizzes = ({ uid }) => {
     getQuizCategory();
 
     const collectionRef = collection(db, 'quizzes');
-    console.log(
-      'searchByTag: ',
-      searchByTag,
-      ' | searchByCategory:',
-      searchByCategory
-    );
-    if (searchByCategory !== '' || searchByTag !== '') {
-      let qCategory;
-      let qTag;
-      if (searchByCategory !== '') {
-        console.log(`searchByCategory is not empty:`, searchByCategory);
-        qCategory = query(
-          collectionRef,
-          orderBy('createdAt', 'desc'),
-          where('category', '==', searchByCategory)
-        );
-        const unsub = onSnapshot(qCategory, {
-          next: snapshot => {
-            setQuizzes(
-              snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-            );
-          },
-          error: err => {
-            // don't forget error handling! e.g. update component with an error message
-            console.error('quizes listener failed: ', err);
-          },
-        });
-        return unsub;
-      }
-      if (searchByTag !== '') {
-        console.log(`searchByTag is not empty:`, searchByTag);
-        qTag = query(
-          collectionRef,
-          orderBy('createdAt', 'desc'),
-          where('tags', 'array-contains', searchByTag)
-        );
-        const unsub = onSnapshot(qTag, {
-          next: snapshot => {
-            setQuizzes(
-              snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-            );
-          },
-          error: err => {
-            // don't forget error handling! e.g. update component with an error message
-            console.error('quizes listener failed: ', err);
-          },
-        });
-        return unsub;
-      }
-    } else {
-      const unsub = onSnapshot(collectionRef, {
-        next: snapshot => {
-          setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-        },
-        error: err => {
-          // don't forget error handling! e.g. update component with an error message
-          console.error('quizes listener failed: ', err);
-        },
-      });
-      return unsub;
+    const getQuizzes = async () => {
+      const snapshot = await getDocs(collectionRef)
+      setQuizzes(snapshot.docs.map((doc) => doc.data()));
     }
+    getQuizzes();
+
+    // const unsub = onSnapshot(collectionRef, {
+    //   next: snapshot => {
+    //     setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    //   },
+    //   error: err => {
+    //     // don't forget error handling! e.g. update component with an error message
+    //     console.error('quizes listener failed: ', err);
+    //   },
+    // });
+    // return unsub;
+
   }, []);
 
   const handleSearchByCategory = e => {
@@ -120,7 +77,46 @@ const AllQuizzes = ({ uid }) => {
     console.log(searchByTag);
   };
 
-  console.log(`searchByCategory: `, searchByCategory);
+  const handleFilter = e => {
+    e.preventDefault();
+    const collectionRef = collection(db, 'quizzes');
+    console.log(
+      'searchByCategory: ',searchByCategory,
+      ' | searchByTag: ',searchByTag,
+    );
+
+    if (searchByCategory !== '' & searchByTag !== '') {
+      console.log("both filled")
+      const getQuizzes = async () => {
+        const q = query(collectionRef, where("category", "==", searchByCategory), where("tags", "array-contains", searchByTag));
+
+        const snapshot = await getDocs(q)
+        setQuizzes(snapshot.docs.map((doc) => doc.data()));
+      }
+      getQuizzes();
+    } else if  (searchByCategory !== '') {
+      console.log("category filled")
+      const getQuizzes = async () => {
+        const q = query(collectionRef, where("category", "==", searchByCategory));
+        const snapshot = await getDocs(q)
+        setQuizzes(snapshot.docs.map((doc) => doc.data()));
+      }
+      getQuizzes();
+    } else if (searchByTag !== '') {
+      console.log("tag filled")
+      const getQuizzes = async () => {
+        const q = query(collectionRef, where("tags", "array-contains", searchByTag));
+        const snapshot = await getDocs(q)
+        setQuizzes(snapshot.docs.map((doc) => doc.data()));
+      }
+      getQuizzes();
+    } else {
+      // When both are empty, uneble to click the button, so unnecessary
+      console.log("nothing filled")
+    }
+  }
+
+
   return (
     <div className='allQuizzes'>
       <div className='searchContainer'>
@@ -141,7 +137,7 @@ const AllQuizzes = ({ uid }) => {
             Fill in at least one field
           </button>
         ) : (
-          <button className="submitBtn">
+          <button className="submitBtn" onClick={handleFilter}>
             Filter
           </button>
         )}
@@ -152,7 +148,7 @@ const AllQuizzes = ({ uid }) => {
         </div>
       )}
       {quizzes.map((quiz, quizIndex) => (
-        <div className='eachQuizContainer' key={quiz.id}>
+        <div className='eachQuizContainer' key={quiz.index}>
           <div className='quizQuestionContainer'>
             <span className='quizIndex'>{quizIndex + 1}.</span>
             <p className='quizQuestion'>{quiz.question}</p>
