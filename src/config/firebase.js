@@ -4,7 +4,6 @@ import { initializeApp } from "firebase/app";
 import { addDoc, getDocs, getFirestore } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { collection } from "firebase/firestore";
-
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,7 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const db = getFirestore();
-
 
 export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();

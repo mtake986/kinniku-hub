@@ -4,7 +4,7 @@
   position: absolute;
   top: 50px;
   right: 0px;
-  font-size: $fzMedium;
+  font-size: $fzM;
   width: 80px;
   a {
     border: 1px solid $colorAccent1;
@@ -22,7 +22,7 @@
 
 @mixin h3Header() {
   font-family: $fontHeader;
-  font-size: $fzMMedium;
+  font-size: $fzMM;
   margin-bottom: 20px;
 }
 
@@ -31,17 +31,17 @@
 }
 
 #quizHome {
-  font-size: $fzSSmall;
+  font-size: $fzM;
   .testStartContainer {
     margin-bottom: 70px;
     .textContainer {
       margin-bottom: 20px;
       h3 {
         font-family: $fontHeader;
-        font-size: $fzMMedium;
+        font-size: $fzMM;
       }
       span {
-        font-size: $fzSSSmall;
+        font-size: $fzSSS;
       }
     }
     .btnsContainer {
@@ -63,7 +63,7 @@
         border: 1px solid white;
         background: white;
         cursor: pointer;
-        font-size: $fzSSmall;
+        font-size: $fzSS;
         transition: 0.3s;
         &.selected {
           background: $colorAccent2Lighter;
@@ -81,7 +81,7 @@
       border: none;
       background: white;
       cursor: pointer;
-      font-size: $fzSmall;
+      font-size: $fzS;
       transition: 0.3s;
       display: block;
       text-align: center;
@@ -153,7 +153,7 @@
         }
       }
       p.newUserUsername {
-        font-size: $fzSmall;
+        font-size: $fzS;
       }
     }
   }
@@ -171,12 +171,12 @@
       margin: 10px 0;
       span.quizNumber,
       span.createdBy {
-        font-size: $fzSSSmall;
+        font-size: $fzSSS;
       }
     }
     .quizQuestionContainer {
       p.quizQuestionText {
-        font-size: $fzMMedium;
+        font-size: $fzMM;
         font-weight: 400;
         display: flex;
         flex-wrap: wrap;
@@ -194,66 +194,57 @@
         }
       }
       li {
-        &.selected {
-          &.correctAnswerClicked {
-            outline: 3px solid $colorAccent1;
-            background-color: $colorAccent1Lighter;
-            opacity: 1;
-            span {
-              font-weight: bold;
-            }
-          }
-          &.incorrectAnswerClicked {
-            outline: 3px solid $colorAccent2;
-            background-color: $colorAccent2Lighter;
-            opacity: 1;
-            div {
-              transform: rotate(225deg) translate(-15px, 10px);
-              font-size: $fzMMMedium;
-              height: 20px;
-            }
-          }
-        }
         list-style: none;
         margin: 20px 0;
         padding: 20px;
         background: $colorAccent2Lighter;
-        font-size: $fzMedium;
+        font-size: $fzM;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 80px;
         &:hover {
-          background: $colorAccent2Light;
+          background: $colorAccent2Lighter;
         }
-        &.correctAnswerClicked {
-          pointer-events: none;
-          background: $colorAccent1Lighter;
-          div.correctIncorrectIcons {
-            .correctIcon {
-              margin-left: 20px;
-              font-size: $fzMMedium;
-              display: block;
-              color: $colorAccent1;
+
+        &.selected {
+          &.correctAnswerClicked {
+            pointer-events: none;
+            border-left: 5px solid $colorGreen;
+            background-color: $colorGreenLighter;
+            opacity: 1;
+            div.correctIncorrectIcons {
+              span.correctIcon {
+                margin-left: 20px;
+                font-size: $fzMM;
+                display: block;
+                color: $colorGreen;
+                height: 30px;
+              }
+            }
+          }
+          &.incorrectAnswerClicked {
+            pointer-events: none;
+            border-left: 5px solid $colorOrangered;
+            background-color: $colorOrangeredLighter;
+            opacity: 1;
+            div.correctIncorrectIcons {
+              span.incorrectIcon {
+                transform: rotate(225deg) translate(-5px, -5px);
+                margin-left: 20px;
+                font-size: $fzL;
+                display: block;
+                color: $colorOrangered;
+                height: 30px;
+              }
             }
           }
         }
-        &.incorrectAnswerClicked {
-          pointer-events: none;
-          div.correctIncorrectIcons {
-            display: flex;
-            align-items: center;
-            .incorrectIcon {
-              margin-left: 20px;
-              font-size: $fzLarge;
-              display: block;
-              opacity: 1;
-              color: red;
-            }
-          }
+        span.answer {
+          height: 30px;
         }
-        // default no icons
+        // defzult no icons
         div.correctIncorrectIcons {
           .correctIcon {
             display: none;
@@ -295,7 +286,7 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        font-size: $fzSSmall;
+        font-size: $fzSS;
         transition: 0.3s;
         &:hover {
           background: $colorAccent2Light;
@@ -310,7 +301,7 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        font-size: $fzSSmall;
+        font-size: $fzSS;
         transition: 0.3s;
         &:hover {
           background: $colorAccent1Lighter;
@@ -334,14 +325,14 @@
 
 .allQuizzes,
 .quizzes {
-  font-size: $fzSmall;
+  font-size: $fzS;
   .eachQuizContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
     border-bottom: 1px solid $colorAccent1Lighter;
-    font-size: $fzSSmall;
+    font-size: $fzSS;
     &:first-child {
       padding-top: 0;
     }
@@ -385,61 +376,82 @@
   }
   .searchContainer {
     margin-bottom: 20px;
+    font-size: $fzSS;
     .inputs {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 50px;
+      gap: 30px;
       select {
-        width: 175px;
-        height: 45px;
+        width: 160px;
         display: block;
-        flex-direction: column;
         border: none;
         border-bottom: 1px solid rgb(200, 200, 200);
-        font-size: $fzSSmall;
         padding: 10px 15px;
         margin-top: 5px;
         transition: 0.3s;
         &:focus {
           outline: none;
         }
-        &.notDefaultValue {
-          background: $colorAccent1Lighter;
+        &.notDefzultValue {
+          background: $colorAccent2Lighter;
         }
       }
-      input.searchTagInput {
-        height: 45px;
-        width: 175px;
-        border: none;
-        border-bottom: 1px solid rgb(200, 200, 200);
-        font-size: 1.2rem;
-        padding: 10px 15px;
-        margin-top: 5px;
-        transition: .3s;
-        &:focus {
-          outline: none;
+      .searchByTagContainer {
+        position: relative;
+        display: flex;
+        align-items: center;
+        input.searchTagInput {
+          width: 160px;
+          border: none;
+          border-bottom: 1px solid rgb(200, 200, 200);
+          padding: 10px 15px;
+          margin-top: 5px;
+          transition: 0.3s;
+          &:focus {
+            outline: none;
+          }
+          &.notDefzultValue {
+            background: $colorAccent2Lighter;
+          }
         }
-        &.notDefaultValue {
-          background: $colorAccent1Lighter;
-        }
+      }
+    }
+    .submitBtn {
+      padding: 10px 18px;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: #ecf5ff;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+      background: none;
+      font-size: 1.5rem;
+      font-family: Cormorant Garamond, serif;
+      &:hover {
+        background: $colorAccent1Lighter;
+      }
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.3;
+        transition: 0.3s;
       }
     }
   }
 }
 
 .quizResultWindow {
-  font-size: $fzSmall;
+  font-size: $fzS;
   .quizResultText {
     font-weight: bold;
     text-align: center;
-    font-size: $fzMMedium;
+    font-size: $fzMM;
     margin-bottom: 30px;
     h3 {
       font-weight: bold;
     }
     p {
-      font-size: $fzSmall;
+      font-size: $fzS;
     }
   }
   .eachQuizContainer {
@@ -470,7 +482,7 @@
       }
       .biPlus {
         transform: rotate(225deg) translate(-2px, -2px);
-        font-size: $fzMedium;
+        font-size: $fzM;
         height: 20px;
         color: red;
       }

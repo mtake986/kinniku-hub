@@ -26,7 +26,7 @@
 }
 
 #quizHome {
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 #quizHome .testStartContainer {
@@ -51,7 +51,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.all.selected {
-  background: #fff9c8;
+  background: #fff8d5;
   border: 1px solid #ffd500;
 }
 
@@ -73,7 +73,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.selected {
-  background: #fff9c8;
+  background: #fff8d5;
   border: 1px solid #ffd500;
 }
 
@@ -214,7 +214,7 @@
   list-style: none;
   margin: 20px 0;
   padding: 20px;
-  background: #fff9c8;
+  background: #fff8d5;
   font-size: 1.5rem;
   cursor: pointer;
   display: -webkit-box;
@@ -229,64 +229,44 @@
   height: 80px;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {
-  outline: 3px solid #005bbb;
-  background-color: #ecf5ff;
-  opacity: 1;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked span {
-  font-weight: bold;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
-  outline: 3px solid #ffd500;
-  background-color: #fff9c8;
-  opacity: 1;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked div {
-  -webkit-transform: rotate(225deg) translate(-15px, 10px);
-          transform: rotate(225deg) translate(-15px, 10px);
-  font-size: 2rem;
-  height: 20px;
-}
-
 .quizContainer .quiz ul.quizAnswersContainer li:hover {
-  background: #ffe164;
+  background: #fff8d5;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {
   pointer-events: none;
-  background: #ecf5ff;
+  border-left: 5px solid #26be00;
+  background-color: #e0ffd9;
+  opacity: 1;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked div.correctIncorrectIcons .correctIcon {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked div.correctIncorrectIcons span.correctIcon {
   margin-left: 20px;
   font-size: 1.8rem;
   display: block;
-  color: #005bbb;
+  color: #26be00;
+  height: 30px;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
   pointer-events: none;
+  border-left: 5px solid #ff4500;
+  background-color: #ffece6;
+  opacity: 1;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons .incorrectIcon {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked div.correctIncorrectIcons span.incorrectIcon {
+  -webkit-transform: rotate(225deg) translate(-5px, -5px);
+          transform: rotate(225deg) translate(-5px, -5px);
   margin-left: 20px;
   font-size: 2.5rem;
   display: block;
-  opacity: 1;
-  color: red;
+  color: #ff4500;
+  height: 30px;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li span.answer {
+  height: 30px;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .correctIcon {
@@ -353,7 +333,7 @@
 }
 
 .quizContainer .quiz .quizFooter button.testStopBtn:hover {
-  background: #ffe164;
+  background: #ffe668;
 }
 
 .quizContainer .quiz .quizFooter button.goNextPrevQuizBtn {
@@ -483,6 +463,7 @@
 .allQuizzes .searchContainer,
 .quizzes .searchContainer {
   margin-bottom: 20px;
+  font-size: 1rem;
 }
 
 .allQuizzes .searchContainer .inputs,
@@ -495,21 +476,15 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 50px;
+  gap: 30px;
 }
 
 .allQuizzes .searchContainer .inputs select,
 .quizzes .searchContainer .inputs select {
-  width: 175px;
-  height: 45px;
+  width: 160px;
   display: block;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   border: none;
   border-bottom: 1px solid #c8c8c8;
-  font-size: 1rem;
   padding: 10px 15px;
   margin-top: 5px;
   -webkit-transition: 0.3s;
@@ -521,32 +496,69 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs select.notDefaultValue,
-.quizzes .searchContainer .inputs select.notDefaultValue {
-  background: #ecf5ff;
+.allQuizzes .searchContainer .inputs select.notDefzultValue,
+.quizzes .searchContainer .inputs select.notDefzultValue {
+  background: #fff8d5;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput,
-.quizzes .searchContainer .inputs input.searchTagInput {
-  height: 45px;
-  width: 175px;
+.allQuizzes .searchContainer .inputs .searchByTagContainer,
+.quizzes .searchContainer .inputs .searchByTagContainer {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput {
+  width: 160px;
   border: none;
   border-bottom: 1px solid #c8c8c8;
-  font-size: 1.2rem;
   padding: 10px 15px;
   margin-top: 5px;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput:focus,
-.quizzes .searchContainer .inputs input.searchTagInput:focus {
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput:focus,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput:focus {
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs input.searchTagInput.notDefaultValue,
-.quizzes .searchContainer .inputs input.searchTagInput.notDefaultValue {
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue {
+  background: #fff8d5;
+}
+
+.allQuizzes .searchContainer .submitBtn,
+.quizzes .searchContainer .submitBtn {
+  padding: 10px 18px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: #ecf5ff;
+  width: 100%;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: none;
+  font-size: 1.5rem;
+  font-family: Cormorant Garamond, serif;
+}
+
+.allQuizzes .searchContainer .submitBtn:hover,
+.quizzes .searchContainer .submitBtn:hover {
   background: #ecf5ff;
+}
+
+.allQuizzes .searchContainer .submitBtn.disabled,
+.quizzes .searchContainer .submitBtn.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .quizResultWindow {

@@ -1,5 +1,5 @@
 @charset 'utf-8';
-@import "./Variables.scss";
+@import './Variables.scss';
 // To fold everything: cmd+k -> cmd+0
 *,
 *::after,
@@ -30,24 +30,24 @@ main#root {
     #logo {
       a {
         color: $colorAccent2;
-        font-size: $fzLarge;
+        font-size: $fzL;
         font-family: $fontLogo;
       }
     }
-    #appNav{
+    #appNav {
       display: flex;
       align-items: center;
       gap: 5px;
       a {
         color: $colorTextSecond;
-        font-size: $fzSSmall;
+        font-size: $fzSS;
         display: inline-block;
         // font-family: $fontHeader;
         padding: 3px 5px;
-        transition: .3s;
+        transition: 0.3s;
         margin-right: 5px;
         &:hover {
-          opacity: .7;
+          opacity: 0.7;
         }
       }
       span.imgLink {
@@ -65,18 +65,13 @@ main#root {
         }
       }
       #signInBtn {
+        color: white;
+        font-size: $fzMM;
         margin-left: 5px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        border: none;
-        font-size: 1rem;
         cursor: pointer;
-        font-size: $fzSSmall;
-        // font-weight: bold;
-        transition: 0.3s;
-        background: $colorAccent2Lighter;
+        height: 30px;
         &:hover {
-          background: $colorAccent1Lighter;
+          background: rgb(186, 186, 186);
         }
       }
     }
@@ -91,7 +86,7 @@ main#root {
     position: relative;
   }
   footer {
-    font-size: $fzSSSmall;
+    font-size: $fzSSS;
     background: $colorAccent1Lighter;
     text-align: center;
     padding: 5px 0;
@@ -102,7 +97,7 @@ main#root {
 }
 
 // .pageTtl {
-//   font-size: $fzMMedium;
+//   font-size: $fzMM;
 //   font-weight: bold;
 //   font-family: $fontAccent;
 // }

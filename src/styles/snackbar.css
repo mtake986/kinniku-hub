@@ -33,8 +33,8 @@
 
 .snackbar#show {
   visibility: visible;
-  -webkit-animation: fadeIn .5s, fadeOut .5s 2.5s;
-          animation: fadeIn .5s, fadeOut .5s 2.5s;
+  -webkit-animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+          animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

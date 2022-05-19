@@ -11,7 +11,8 @@ const SearchByCategory = ({handleSearchByCategory, searchByCategory, categories}
           : 'categorySearch'
       }
     >
-      <option value=''>All Category</option>
+      <option selected disabled>Select a Category</option>
+      <option value='all' >All</option>
       {categories.map(c => (
         <option key={c} value={c}>
           {c}
