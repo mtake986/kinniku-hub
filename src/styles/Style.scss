@@ -40,7 +40,7 @@ main#root {
       gap: 5px;
       a {
         color: $colorTextSecond;
-        font-size: $faSS;
+        font-size: $fzSS;
         display: inline-block;
         // font-family: $fontHeader;
         padding: 3px 5px;
@@ -66,7 +66,7 @@ main#root {
       }
       #signInBtn {
         color: white;
-        font-size: $faMM;
+        font-size: $fzMM;
         margin-left: 5px;
         cursor: pointer;
         height: 30px;
@@ -86,7 +86,7 @@ main#root {
     position: relative;
   }
   footer {
-    font-size: $faSSS;
+    font-size: $fzSSS;
     background: $colorAccent1Lighter;
     text-align: center;
     padding: 5px 0;
@@ -97,7 +97,7 @@ main#root {
 }
 
 // .pageTtl {
-//   font-size: $faMM;
+//   font-size: $fzMM;
 //   font-weight: bold;
 //   font-family: $fontAccent;
 // }

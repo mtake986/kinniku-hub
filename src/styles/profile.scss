@@ -20,11 +20,11 @@
       }
       .username {
         color: $colorAccent1;
-        font-size: $faS;
+        font-size: $fzS;
         font-family: $fontHeader;
       }
       .email {
-        font-size: $faSS;
+        font-size: $fzSS;
         font-family: $fontHeader;
       }
     }
@@ -37,7 +37,7 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      font-size: $faSS;
+      font-size: $fzSS;
       transition: 0.3s;
       background: $colorAccent1Lighter;
       &:hover {
@@ -49,7 +49,7 @@
     text-align: center;
     .ctrTxt {
       font-weight: bold;
-      font-size: $faMM;
+      font-size: $fzMM;
       padding: 15px 30px;
       border-bottom: 1px solid rgb(230, 230, 230);
       display: inline-block;
@@ -58,7 +58,7 @@
       list-style: none;
       li {
         &.make {
-          font-size: $faS;
+          font-size: $fzS;
           padding: 15px 0;
         }
       }

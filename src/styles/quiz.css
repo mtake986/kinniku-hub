@@ -229,64 +229,44 @@
   height: 80px;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {
-  outline: 3px solid #005bbb;
-  background-color: #ecf5ff;
-  opacity: 1;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked span {
-  font-weight: bold;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
-  outline: 3px solid #ffd500;
-  background-color: #fff8d5;
-  opacity: 1;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked div {
-  -webkit-transform: rotate(225deg) translate(-15px, 10px);
-          transform: rotate(225deg) translate(-15px, 10px);
-  font-size: 2rem;
-  height: 20px;
-}
-
 .quizContainer .quiz ul.quizAnswersContainer li:hover {
-  background: #ffe668;
+  background: #fff8d5;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {
   pointer-events: none;
-  background: #ecf5ff;
+  border-left: 5px solid #26be00;
+  background-color: #e0ffd9;
+  opacity: 1;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.correctAnswerClicked div.correctIncorrectIcons .correctIcon {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked div.correctIncorrectIcons span.correctIcon {
   margin-left: 20px;
   font-size: 1.8rem;
   display: block;
-  color: #005bbb;
+  color: #26be00;
+  height: 30px;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
   pointer-events: none;
+  border-left: 5px solid #ff4500;
+  background-color: #ffece6;
+  opacity: 1;
 }
 
-.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.quizContainer .quiz ul.quizAnswersContainer li.incorrectAnswerClicked div.correctIncorrectIcons .incorrectIcon {
+.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked div.correctIncorrectIcons span.incorrectIcon {
+  -webkit-transform: rotate(225deg) translate(-5px, -5px);
+          transform: rotate(225deg) translate(-5px, -5px);
   margin-left: 20px;
   font-size: 2.5rem;
   display: block;
-  opacity: 1;
-  color: red;
+  color: #ff4500;
+  height: 30px;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li span.answer {
+  height: 30px;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .correctIcon {
@@ -516,8 +496,8 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs select.notDefaultValue,
-.quizzes .searchContainer .inputs select.notDefaultValue {
+.allQuizzes .searchContainer .inputs select.notDefzultValue,
+.quizzes .searchContainer .inputs select.notDefzultValue {
   background: #fff8d5;
 }
 
@@ -548,8 +528,8 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefaultValue,
-.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefaultValue {
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue {
   background: #fff8d5;
 }
 
