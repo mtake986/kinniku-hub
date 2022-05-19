@@ -26,7 +26,7 @@ const AllQuizzes = ({ uid }) => {
   const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [searchByTag, setSearchByTag] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});
@@ -80,10 +80,12 @@ const AllQuizzes = ({ uid }) => {
     }
     const snapshot = await getDocs(q);
     setQuizzes(snapshot.docs.map(doc => doc.data()));
+    setIsLoading(false);
   };
 
   const handleFilter = e => {
     setIsLoading(true);
+    console.log("start filtering", isLoading);
     e.preventDefault();
     const collectionRef = collection(db, 'quizzes');
 
@@ -106,7 +108,8 @@ const AllQuizzes = ({ uid }) => {
         getQuizzes(searchByTag);
       }
     }
-    setIsLoading(false);
+    console.log("almost filtering", isLoading);
+    console.log("end filtering", isLoading);
   };
 
 
