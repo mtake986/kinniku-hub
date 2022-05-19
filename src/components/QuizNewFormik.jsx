@@ -94,7 +94,7 @@ export const QuizNewFormik = ({ user }) => {
         }}
       >
         {({ errors, touched, values }) => (
-          <Form>
+          <Form novalidate>
             <div style={topLabelInputContainer}>
               <label htmlFor='question' style={label}>
                 Question
@@ -122,9 +122,7 @@ export const QuizNewFormik = ({ user }) => {
                   <label htmlFor='answers1' style={label}>
                     Answers
                   </label>
-                  {errors.answers &&
-                  touched.answers &&
-                  errors.answers === 'Duplicate answers are not allowed' ? (
+                  {errors.answers && touched.answers && errors.answers === 'Duplicate answers are not allowed' ? (
                     <div style={quizFormErrMsg}>{errors.answers}</div>
                   ) : null}
                   {values.answers && values.answers.length > 0
@@ -190,9 +188,8 @@ export const QuizNewFormik = ({ user }) => {
                             <ErrorMessage name={`answers.${index}`} />
                           </div> */}
                           {errors.answers &&
-                          touched.answers &&
-                          errors.answers !==
-                            'Duplicate answers are not allowed' ? (
+                          touched.answers && 
+                          errors.answers !== 'Duplicate answers are not allowed' ? (
                             <div style={quizFormErrMsg}>
                               <ErrorMessage name={`answers.${index}`} />
                             </div>
@@ -232,7 +229,9 @@ export const QuizNewFormik = ({ user }) => {
                 }}
                 style={focused === 'ca' ? focusStyle : quizFormInputText}
               />
-              {errors.correctAnswer && touched.correctAnswer ? (
+              {errors.correctAnswer && touched.correctAnswer && values.correctAnswer === "" ? (
+                <div style={quizFormErrMsg}>{errors.category}</div>
+              ) : errors.correctAnswer && touched.correctAnswer ? (
                 <div style={quizFormErrMsg}>
                   Only 1 ~ {values.answers.length} are allowed.
                 </div>

@@ -31,7 +31,7 @@
 }
 
 #quizHome {
-  font-size: $faSS;
+  font-size: $faM;
   .testStartContainer {
     margin-bottom: 70px;
     .textContainer {
@@ -392,7 +392,7 @@
       flex-wrap: wrap;
       gap: 30px;
       select {
-        width: 150px;
+        width: 160px;
         display: block;
         border: none;
         border-bottom: 1px solid rgb(200, 200, 200);
@@ -411,7 +411,7 @@
         display: flex;
         align-items: center;
         input.searchTagInput {
-          width: 150px;
+          width: 160px;
           border: none;
           border-bottom: 1px solid rgb(200, 200, 200);
           padding: 10px 15px;

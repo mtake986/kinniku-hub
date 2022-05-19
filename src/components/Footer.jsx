@@ -6,7 +6,7 @@ const Footer = () => {
 
   return (
     <footer>
-      &copy; Masahiro Takechi {year}
+      &copy; Masahiro Takechi All Rights Reserved {year}
     </footer>
   )
 }

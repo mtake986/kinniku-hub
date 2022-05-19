@@ -108,25 +108,23 @@ const QuizHome = () => {
     <div id='quizHome'>
       <div className='testStartContainer'>
         <div className='textContainer'>
-          <h3>Wanna Start A Test??</h3>
+          <h3>Start A Test</h3>
         </div>
         <div className='btnsContainer'>
           <button
             className={
-              selectedCategories.includes('all')
-                ? 'all selected'
-                : 'all'
+              selectedCategories.includes('all') ? 'all selected' : 'all'
             }
             onClick={e => selectCategory(e)}
             value='all'
           >
             All
           </button>
-            {categories.length === 0 && (
-              <div className="loading">
-                <Loading color={'#005bbb'} />
-              </div>
-            )}
+          {categories.length === 0 && (
+            <div className='loading'>
+              <Loading color={'#005bbb'} />
+            </div>
+          )}
           {categories.map(c => (
             <button
               className={
@@ -150,7 +148,7 @@ const QuizHome = () => {
         <h3>Quizzes Recently Created</h3>
         <div className='quizzes'>
           {quizzes.length === 0 && (
-            <div className="loading">
+            <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
           )}
@@ -160,7 +158,7 @@ const QuizHome = () => {
                 <span className='quizIndex'>{quizIndex + 1}.</span>
                 <p className='quizQuestion'>{quiz.question}</p>
               </div>
-              {quiz.user.uid ?  (
+              {quiz.user.uid ? (
                 <Link
                   to={{ pathname: `/profile/${quiz.user.uid}` }}
                   state={{ user: quiz.user }}
@@ -171,9 +169,7 @@ const QuizHome = () => {
                     referrerPolicy='no-referrer'
                   />
                 </Link>
-              ) : (
-                null
-              )}
+              ) : null}
             </div>
           ))}
         </div>
@@ -182,7 +178,7 @@ const QuizHome = () => {
         <h3>Newbies</h3>
         <div className='newUsers'>
           {newUsers.length === 0 && (
-            <div className="loading">
+            <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
           )}

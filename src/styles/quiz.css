@@ -26,7 +26,7 @@
 }
 
 #quizHome {
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 #quizHome .testStartContainer {
@@ -51,7 +51,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.all.selected {
-  background: #ffec8d;
+  background: #fff8d5;
   border: 1px solid #ffd500;
 }
 
@@ -73,7 +73,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.selected {
-  background: #ffec8d;
+  background: #fff8d5;
   border: 1px solid #ffd500;
 }
 
@@ -214,7 +214,7 @@
   list-style: none;
   margin: 20px 0;
   padding: 20px;
-  background: #ffec8d;
+  background: #fff8d5;
   font-size: 1.5rem;
   cursor: pointer;
   display: -webkit-box;
@@ -241,7 +241,7 @@
 
 .quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
   outline: 3px solid #ffd500;
-  background-color: #ffec8d;
+  background-color: #fff8d5;
   opacity: 1;
 }
 
@@ -501,7 +501,7 @@
 
 .allQuizzes .searchContainer .inputs select,
 .quizzes .searchContainer .inputs select {
-  width: 150px;
+  width: 160px;
   display: block;
   border: none;
   border-bottom: 1px solid #c8c8c8;
@@ -518,7 +518,7 @@
 
 .allQuizzes .searchContainer .inputs select.notDefaultValue,
 .quizzes .searchContainer .inputs select.notDefaultValue {
-  background: #ffec8d;
+  background: #fff8d5;
 }
 
 .allQuizzes .searchContainer .inputs .searchByTagContainer,
@@ -534,7 +534,7 @@
 
 .allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput,
 .quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput {
-  width: 150px;
+  width: 160px;
   border: none;
   border-bottom: 1px solid #c8c8c8;
   padding: 10px 15px;
@@ -550,7 +550,7 @@
 
 .allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefaultValue,
 .quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefaultValue {
-  background: #ffec8d;
+  background: #fff8d5;
 }
 
 .allQuizzes .searchContainer .submitBtn,

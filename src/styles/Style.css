@@ -56,13 +56,13 @@ main#root header #appNav a {
   font-size: 1rem;
   display: inline-block;
   padding: 3px 5px;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   margin-right: 5px;
 }
 
 main#root header #appNav a:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 main#root header #appNav span.imgLink {
