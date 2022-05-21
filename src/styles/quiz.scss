@@ -131,29 +131,80 @@
     //   }
     // }
   }
-  .newUsersContainer {
+  .userRankingContainer {
     margin-bottom: 70px;
-    h3 {
-      @include h3Header();
-    }
-    div.eachNewUserContainer {
+    .top {
       display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 15px 0;
-      border-bottom: 1px solid $colorAccent1Lighter;
-      &:first-child {
-        padding-top: 0;
+      align-items: start;
+      justify-content: space-between;
+      h3 {
+        @include h3Header();
       }
-      a {
-        height: 25px;
-        img {
-          width: 25px;
-          border-radius: 50%;
+      select {
+        padding: 5px 10px;
+        font-size: $fzSS;
+        outline: none;
+        border: $colorAccent1 1px solid;
+        cursor: pointer;
+        background: $bg;
+        text-align: center;
+      }
+    }
+    .usersContainer {
+      div.userContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+        padding: 10px 0;
+        cursor: pointer;
+        font-size: $fzSS;
+        &:hover {
+          background: $hoverGrey;
         }
-      }
-      p.newUserUsername {
-        font-size: $fzS;
+        div.userInfo {
+          display: flex;
+          align-items: center;
+          margin: 0 20px;
+          div.userRankIcon {
+            margin-right: 20px;
+            width: 20px;
+            height: 20px;
+            &.first {
+              color: gold;
+            }
+            &.second {
+              color: silver;
+            }
+            &.third {
+              color: #CD7F32;
+            }
+          }
+          .imgAndUsername {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            img {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+            }
+            h6.username {
+              font-size: $fzS;
+            }
+          }
+        }
+        div.contributionContainer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          span.number {
+            font-size: $fzS;
+          }
+          span.text {
+            font-size: $fzSSSS;
+          }
+        }
       }
     }
   }

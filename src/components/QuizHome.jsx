@@ -14,62 +14,41 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 import QuizHomeStartBtn from './QuizHomeStartBtn';
-
+import { faTrophy } from '../icons/icons';
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
-  const [newUsers, setNewUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+  const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(false);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+
 
   useEffect(() => {
     // todo: Get new quizzes
     const getNewQuizzes = async () => {
+      setIsLoadingQuizzes(true);
       const collectionRef = collection(db, 'quizzes');
       // don't order by likes because onSnapshot listens real time updates so it's gonna make a bug. Order it by something never changes such as id and createAt.
       const q = query(collectionRef, orderBy('createdAt', 'desc'), limit(10));
-      const unsub = onSnapshot(q, {
-        next: snapshot => {
-          setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-        },
-        error: err => {
-          // don't forget error handling! e.g. update component with an error message
-          console.error('quizes listener failed: ', err);
-        },
-      });
-      return unsub;
+      const snapshot = await getDocs(q);
+      setQuizzes(snapshot.docs.map(doc => doc.data()));
+      setIsLoadingQuizzes(false);
     };
     getNewQuizzes();
 
-    // todo: Get 10 new users
-    const getNewUsers = async () => {
-      const usersCollectionRef = collection(db, 'users');
-      const q = query(
-        usersCollectionRef,
-        orderBy('createdAt', 'desc'),
-        limit(10)
-      );
-      let tempNewUsers = [];
-      const newUsersSnapshot = await getDocs(q);
-
-      newUsersSnapshot.forEach(doc => {
-        // setNewUsers([doc.data()]);
-        // console.log(doc.id, " => ", doc.data());
-        tempNewUsers.push(doc.data());
-        // console.log(tempNewUsers)
-      });
-      setNewUsers(tempNewUsers);
-      // console.log(newUsers)
-    };
-    getNewUsers();
-
     // todo: Get categories an user wants to take a test from
     const getQuizCategory = async () => {
+      setIsLoadingCategories(true);
       const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
       const docSnap = await getDoc(docRef);
-
+      console.log(docSnap.data()['categories'])
       if (docSnap.exists()) {
-        console.log('Document data:', docSnap.data()['categories']);
         setCategories(docSnap.data()['categories']);
+        console.log("exist:", categories)
+        setIsLoadingCategories(false);
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document!');
@@ -77,6 +56,24 @@ const QuizHome = () => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
+
+    // todo: Get 10 users, 
+    // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
+    // 2. sort by most users who posts the quiz.
+    // 3. get the top 10
+    // 4. display the top 10
+    const getTopTenUsers = async () => {
+      setIsLoadingUsers(true);
+      const usersCollectionRef = collection(db, 'users');
+      const q = query(
+        usersCollectionRef,
+        limit(10)
+      );
+      const snapshot = await getDocs(q);
+      setUsers(snapshot.docs.map(doc => doc.data()));
+      setIsLoadingUsers(false);
+    };
+    getTopTenUsers();
   }, []);
 
   const selectCategory = e => {
@@ -120,85 +117,126 @@ const QuizHome = () => {
           >
             All
           </button>
-          {categories.length === 0 && (
+          {isLoadingCategories ? (
             <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
+          ) : (
+            categories.length === 0 ? (
+              <p>No categories</p>
+            ) : (
+              categories.map((c, index) => (
+                <button
+                  className={
+                    selectedCategories.includes(c)
+                      ? 'selected'
+                      : selectedCategories.includes('all')
+                      ? 'allSelected'
+                      : null
+                  }
+                  onClick={e => selectCategory(e)}
+                  value={c}
+                  key={index}
+                >
+                  {c}
+                </button>
+              ))
+            )
           )}
-          {categories.map(c => (
-            <button
-              className={
-                selectedCategories.includes(c)
-                  ? 'selected'
-                  : selectedCategories.includes('all')
-                  ? 'allSelected'
-                  : null
-              }
-              onClick={e => selectCategory(e)}
-              value={c}
-              key={c}
-            >
-              {c}
-            </button>
-          ))}
         </div>
         <QuizHomeStartBtn selectedCategories={selectedCategories} />
       </div>
       <div className='quizRecentlyCreatedContainer'>
         <h3>Quizzes Recently Created</h3>
         <div className='quizzes'>
-          {quizzes.length === 0 && (
+        {isLoadingQuizzes ? (
             <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
+          ) : (
+            quizzes.length === 0 ? (
+              <p>No quizzes</p>
+            ) : (
+              quizzes.map((quiz, quizIndex) => (
+                <div className='eachQuizContainer' key={quiz.id}>
+                  <div className='quizQuestionContainer'>
+                    <span className='quizIndex'>{quizIndex + 1}.</span>
+                    <p className='quizQuestion'>{quiz.question}</p>
+                  </div>
+                  {quiz.user.uid ? (
+                    <Link
+                      to={{ pathname: `/profile/${quiz.user.uid}` }}
+                      state={{ user: quiz.user }}
+                    >
+                      <img
+                        src={quiz.user.photoURL}
+                        alt={quiz.user.username}
+                        referrerPolicy='no-referrer'
+                      />
+                    </Link>
+                  ) : null}
+                </div>
+              ))
+            )
           )}
-          {quizzes.map((quiz, quizIndex) => (
-            <div className='eachQuizContainer' key={quiz.id}>
-              <div className='quizQuestionContainer'>
-                <span className='quizIndex'>{quizIndex + 1}.</span>
-                <p className='quizQuestion'>{quiz.question}</p>
-              </div>
-              {quiz.user.uid ? (
+
+        </div>
+      </div>
+      {isLoadingUsers ? (
+        <div className='loading'>
+          <Loading color={'#005bbb'} />
+        </div>
+      ) : (
+        users.length === 0 ? (
+          <div>No users</div>
+        ) : (
+          <div className='userRankingContainer'>
+            <div className="top">
+              <h3>User Ranking</h3>
+              <select>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="total">Total</option>
+              </select>
+            </div>
+            <div className="usersContainer">
+              {users.map((user, userIndex) => (
                 <Link
-                  to={{ pathname: `/profile/${quiz.user.uid}` }}
-                  state={{ user: quiz.user }}
+                  to={{ pathname: `/profile/${user.uid}` }}
+                  state={{ user: user }}
+                  key={user.uid}
                 >
-                  <img
-                    src={quiz.user.photoURL}
-                    alt={quiz.user.username}
-                    referrerPolicy='no-referrer'
-                  />
+                  <div className='userContainer' key={user.uid}>
+                    <div className='userInfo'>
+                      {userIndex === 0 ? (
+                        <div className="userRankIcon first">{faTrophy}</div>
+                      ) : userIndex === 1 ? (
+                        <div className="userRankIcon second">{faTrophy}</div>
+                      ) : userIndex === 2 ? (
+                        <div className="userRankIcon third">{faTrophy}</div>
+                      ) : (
+                        userIndex + 1
+                      )}
+                      <div className="imgAndUsername">
+                        <img
+                          src={user.photoURL}
+                          alt={user.username}
+                          referrerPolicy='no-referrer'
+                        />
+                        <h6 className='username'>{user.username}</h6>
+                      </div>
+                    </div>
+                    <div className="contributionContainer">
+                      <span className="number">100</span>
+                      <span className="text">Contributions</span>
+                    </div>
+                  </div>
                 </Link>
-              ) : null}
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <div className='newUsersContainer'>
-        <h3>Newbies</h3>
-        <div className='newUsers'>
-          {newUsers.length === 0 && (
-            <div className='loading'>
-              <Loading color={'#005bbb'} />
-            </div>
-          )}
-          {newUsers.map((user, userIndex) => (
-            <div className='eachNewUserContainer' key={user.uid}>
-              <Link
-                to={{ pathname: `/profile/${user.uid}` }}
-                state={{ user: user }}
-              >
-                <img
-                  src={user.photoURL}
-                  alt={user.username}
-                  referrerPolicy='no-referrer'
-                />
-              </Link>
-              <p className='newUserUsername'>{user.username}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        )
+      )}
     </div>
   );
 };

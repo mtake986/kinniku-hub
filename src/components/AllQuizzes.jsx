@@ -26,7 +26,7 @@ const AllQuizzes = ({ uid }) => {
   const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [searchByTag, setSearchByTag] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   GetAllQuizzes(quiqzzes={quizzes}, setQuizzes={setQuizzes});

@@ -116,43 +116,125 @@
   margin-bottom: 20px;
 }
 
-#quizHome .newUsersContainer {
+#quizHome .userRankingContainer {
   margin-bottom: 70px;
 }
 
-#quizHome .newUsersContainer h3 {
+#quizHome .userRankingContainer .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#quizHome .userRankingContainer .top h3 {
   font-family: "Cormorant Garmand", serif;
   font-size: 1.8rem;
   margin-bottom: 20px;
 }
 
-#quizHome .newUsersContainer div.eachNewUserContainer {
+#quizHome .userRankingContainer .top select {
+  padding: 5px 10px;
+  font-size: 1rem;
+  outline: none;
+  border: #005bbb 1px solid;
+  cursor: pointer;
+  background: white;
+  text-align: center;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 60px;
+  padding: 10px 0;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer:hover {
+  background: whitesmoke;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 20px;
-  padding: 15px 0;
-  border-bottom: 1px solid #ecf5ff;
+  margin: 0 20px;
 }
 
-#quizHome .newUsersContainer div.eachNewUserContainer:first-child {
-  padding-top: 0;
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon {
+  margin-right: 20px;
+  width: 20px;
+  height: 20px;
 }
 
-#quizHome .newUsersContainer div.eachNewUserContainer a {
-  height: 25px;
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon.first {
+  color: gold;
 }
 
-#quizHome .newUsersContainer div.eachNewUserContainer a img {
-  width: 25px;
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon.second {
+  color: silver;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon.third {
+  color: #CD7F32;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername img {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 
-#quizHome .newUsersContainer div.eachNewUserContainer p.newUserUsername {
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername h6.username {
   font-size: 1.2rem;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.contributionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.contributionContainer span.number {
+  font-size: 1.2rem;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.contributionContainer span.text {
+  font-size: 0.6rem;
 }
 
 .quizContainer {
