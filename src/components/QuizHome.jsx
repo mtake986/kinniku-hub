@@ -7,6 +7,7 @@ import {
   getDocs,
   doc,
   getDoc,
+  where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../config/firebase';
@@ -17,13 +18,14 @@ import QuizHomeStartBtn from './QuizHomeStartBtn';
 import { faTrophy } from '../icons/icons';
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
-  const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [userRankingPostsInLastSevenDays, setUserRankingPostsInLastSevenDays] = useState([]);
+
+  // Loading useState()
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(false);
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const [isLoadingUsersSevenDays, setIsLoadingUsersSevenDays] = useState(false);
 
 
   useEffect(() => {
@@ -44,10 +46,8 @@ const QuizHome = () => {
       setIsLoadingCategories(true);
       const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
       const docSnap = await getDoc(docRef);
-      console.log(docSnap.data()['categories'])
       if (docSnap.exists()) {
         setCategories(docSnap.data()['categories']);
-        console.log("exist:", categories)
         setIsLoadingCategories(false);
       } else {
         // doc.data() will be undefined in this case
@@ -57,23 +57,63 @@ const QuizHome = () => {
     };
     getQuizCategory();
 
+    const getQuizzesPostedInLastSevenDays = async () => {
+      setIsLoadingUsersSevenDays(true);
+      const collectionRef = collection(db, 'quizzes');
+      // don't order by likes because onSnapshot listens real time updates so it's gonna make a bug. Order it by something never changes such as id and createAt.
+      let q = query(collectionRef, orderBy('createdAt', 'desc'));
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      console.log(sevenDaysAgo);
+      q = query(
+        q, 
+        where('createdAt', '>', sevenDaysAgo)
+      );
+      const snapshot = await getDocs(q);
+      let obj = {};
+      snapshot.docs.map(doc => {
+        console.log(doc.data())
+        const uid = doc.data().user['uid'];
+        console.log("uid: ", uid)
+        if (uid !== undefined) {
+          if (uid in obj) {
+            console.log('already exists');
+            obj[uid] += 1;
+          } else {
+            console.log('not exists');
+            obj = { ...obj, [uid]: 1 };
+          }
+        }
+      });
+      console.log(obj)
+      const getTopTenUsers = async () => {
+        console.log("============= get toptenusers =============")
+        const usersCollectionRef = collection(db, 'users');
+        const q = query(
+          usersCollectionRef,
+          limit(10),
+          where('uid', "in", Object.keys(obj)),
+        );
+        const snapshot = await getDocs(q);
+        const users = snapshot.docs.map(doc => doc.data());
+        users.map(user => {
+          user["posts"] = obj[user["uid"]];
+        })
+        console.log(obj)
+        console.log(users)
+        users.sort((a, b) => b.posts - a.posts);
+        setUserRankingPostsInLastSevenDays(users);
+        setIsLoadingUsersSevenDays(false);
+      };
+      getTopTenUsers();
+    }
+    getQuizzesPostedInLastSevenDays();
     // todo: Get 10 users, 
     // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
     // 2. sort by most users who posts the quiz.
     // 3. get the top 10
-    // 4. display the top 10
-    const getTopTenUsers = async () => {
-      setIsLoadingUsers(true);
-      const usersCollectionRef = collection(db, 'users');
-      const q = query(
-        usersCollectionRef,
-        limit(10)
-      );
-      const snapshot = await getDocs(q);
-      setUsers(snapshot.docs.map(doc => doc.data()));
-      setIsLoadingUsers(false);
-    };
-    getTopTenUsers();
+    // 4. display the top 10 users
+
   }, []);
 
   const selectCategory = e => {
@@ -157,10 +197,10 @@ const QuizHome = () => {
             quizzes.length === 0 ? (
               <p>No quizzes</p>
             ) : (
-              quizzes.map((quiz, quizIndex) => (
-                <div className='eachQuizContainer' key={quiz.id}>
+              quizzes.map((quiz, index) => (
+                <div className='eachQuizContainer' key={index}>
                   <div className='quizQuestionContainer'>
-                    <span className='quizIndex'>{quizIndex + 1}.</span>
+                    <span className='quizIndex'>{index + 1}.</span>
                     <p className='quizQuestion'>{quiz.question}</p>
                   </div>
                   {quiz.user.uid ? (
@@ -182,12 +222,12 @@ const QuizHome = () => {
 
         </div>
       </div>
-      {isLoadingUsers ? (
+      {isLoadingUsersSevenDays ? (
         <div className='loading'>
           <Loading color={'#005bbb'} />
         </div>
       ) : (
-        users.length === 0 ? (
+        userRankingPostsInLastSevenDays.length === 0 ? (
           <div>No users</div>
         ) : (
           <div className='userRankingContainer'>
@@ -200,7 +240,7 @@ const QuizHome = () => {
               </select>
             </div>
             <div className="usersContainer">
-              {users.map((user, userIndex) => (
+              {userRankingPostsInLastSevenDays.map((user, userIndex) => (
                 <Link
                   to={{ pathname: `/profile/${user.uid}` }}
                   state={{ user: user }}
@@ -215,7 +255,7 @@ const QuizHome = () => {
                       ) : userIndex === 2 ? (
                         <div className="userRankIcon third">{faTrophy}</div>
                       ) : (
-                        userIndex + 1
+                        <div className="userRankIcon lowerThanThird">{userIndex + 1}</div>
                       )}
                       <div className="imgAndUsername">
                         <img
@@ -227,8 +267,8 @@ const QuizHome = () => {
                       </div>
                     </div>
                     <div className="contributionContainer">
-                      <span className="number">100</span>
-                      <span className="text">Contributions</span>
+                      <span className="number">{user.posts}</span>
+                      <span className="text">Posts</span>
                     </div>
                   </div>
                 </Link>
