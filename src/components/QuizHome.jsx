@@ -20,12 +20,12 @@ const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [userRankingPostsInLastSevenDays, setUserRankingPostsInLastSevenDays] = useState([]);
+  const [rankingUsers, setRankingUsers] = useState([]);
 
   // Loading useState()
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(false);
-  const [isLoadingUsersSevenDays, setIsLoadingUsersSevenDays] = useState(false);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
 
   useEffect(() => {
@@ -56,63 +56,7 @@ const QuizHome = () => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
-
-    const getQuizzesPostedInLastSevenDays = async () => {
-      setIsLoadingUsersSevenDays(true);
-      const collectionRef = collection(db, 'quizzes');
-      // don't order by likes because onSnapshot listens real time updates so it's gonna make a bug. Order it by something never changes such as id and createAt.
-      let q = query(collectionRef, orderBy('createdAt', 'desc'));
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-      console.log(sevenDaysAgo);
-      q = query(
-        q, 
-        where('createdAt', '>', sevenDaysAgo)
-      );
-      const snapshot = await getDocs(q);
-      let obj = {};
-      snapshot.docs.map(doc => {
-        console.log(doc.data())
-        const uid = doc.data().user['uid'];
-        console.log("uid: ", uid)
-        if (uid !== undefined) {
-          if (uid in obj) {
-            console.log('already exists');
-            obj[uid] += 1;
-          } else {
-            console.log('not exists');
-            obj = { ...obj, [uid]: 1 };
-          }
-        }
-      });
-      console.log(obj)
-      const getTopTenUsers = async () => {
-        console.log("============= get toptenusers =============")
-        const usersCollectionRef = collection(db, 'users');
-        const q = query(
-          usersCollectionRef,
-          limit(10),
-          where('uid', "in", Object.keys(obj)),
-        );
-        const snapshot = await getDocs(q);
-        const users = snapshot.docs.map(doc => doc.data());
-        users.map(user => {
-          user["posts"] = obj[user["uid"]];
-        })
-        console.log(obj)
-        console.log(users)
-        users.sort((a, b) => b.posts - a.posts);
-        setUserRankingPostsInLastSevenDays(users);
-        setIsLoadingUsersSevenDays(false);
-      };
-      getTopTenUsers();
-    }
-    getQuizzesPostedInLastSevenDays();
-    // todo: Get 10 users, 
-    // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
-    // 2. sort by most users who posts the quiz.
-    // 3. get the top 10
-    // 4. display the top 10 users
+    getTopTenActiveUsers("weekly", 7);
 
   }, []);
 
@@ -140,6 +84,81 @@ const QuizHome = () => {
       }
     }
   };
+
+  const getTopTenActiveUsers = async (kind, daysAgo) => {
+    // todo: Get 10 users, 
+    // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
+    // 2. get the top 10
+    // 3. sort by most users who posts the quiz.
+
+    // 1.
+    setIsLoadingUsers(true);
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+
+    const collectionRef = collection(db, 'quizzes');
+    let q;
+    if (kind === "total") {
+      q = query(
+        collectionRef, 
+        orderBy('createdAt', 'desc')
+      );
+    } else {
+      q = query(
+        collectionRef, 
+        orderBy('createdAt', 'desc'), 
+        where('createdAt', '>', date)
+      );
+    }
+    const snapshot = await getDocs(q);
+
+    // Make a dict with a key of uid and value of the number of quizzes posted in the last 7 days by the uid
+    let obj = {};
+    snapshot.docs.map(doc => {
+      const uid = doc.data().user['uid'];
+      if (uid !== undefined) {
+        if (uid in obj) {
+          obj[uid] += 1;
+        } else {
+          obj = { ...obj, [uid]: 1 };
+        }
+      }
+    });
+    
+    // 2.
+    const getUsers = async () => {
+      console.log("============= get toptenusers =============")
+      const usersCollectionRef = collection(db, 'users');
+      const q = query(
+        usersCollectionRef,
+        limit(10),
+        where('uid', "in", Object.keys(obj)),
+      );
+      const snapshot = await getDocs(q);
+      const users = snapshot.docs.map(doc => doc.data());
+      users.map(user => {
+        user["posts"] = obj[user["uid"]];
+      })
+      // 3.
+      users.sort((a, b) => b.posts - a.posts);
+      setRankingUsers(users);
+      setIsLoadingUsers(false);
+    };
+    getUsers();
+  }
+
+  const handleSwitchLy = (e) => {
+    if (e.target.value === 'weekly') {
+      console.log(e.target.value)
+      getTopTenActiveUsers("weekly", 7)
+    } else if (e.target.value === 'monthly') {
+      console.log(e.target.value)
+      getTopTenActiveUsers("monthly", 28)
+    } else {
+      console.log(e.target.value)
+      getTopTenActiveUsers("all", 9999)
+    }
+  }
 
   return (
     <div id='quizHome'>
@@ -222,25 +241,25 @@ const QuizHome = () => {
 
         </div>
       </div>
-      {isLoadingUsersSevenDays ? (
-        <div className='loading'>
-          <Loading color={'#005bbb'} />
+      <div className='userRankingContainer'>
+        <div className="top">
+          <h3>User Ranking</h3>
+          <select onChange={handleSwitchLy}>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="total">Total</option>
+          </select>
         </div>
-      ) : (
-        userRankingPostsInLastSevenDays.length === 0 ? (
-          <div>No users</div>
+        {isLoadingUsers ? (
+          <div className='loading'>
+            <Loading color={'#005bbb'} />
+          </div>
         ) : (
-          <div className='userRankingContainer'>
-            <div className="top">
-              <h3>User Ranking</h3>
-              <select>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="total">Total</option>
-              </select>
-            </div>
+          rankingUsers.length === 0 ? (
+            <div>No users</div>
+          ) : (
             <div className="usersContainer">
-              {userRankingPostsInLastSevenDays.map((user, userIndex) => (
+              {rankingUsers.map((user, userIndex) => (
                 <Link
                   to={{ pathname: `/profile/${user.uid}` }}
                   state={{ user: user }}
@@ -274,9 +293,9 @@ const QuizHome = () => {
                 </Link>
               ))}
             </div>
-          </div>
-        )
-      )}
+          )
+        )}
+      </div>
     </div>
   );
 };
