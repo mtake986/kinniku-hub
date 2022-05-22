@@ -142,10 +142,9 @@
   padding: 5px 10px;
   font-size: 1rem;
   outline: none;
-  border: #005bbb 1px solid;
+  border: none;
   cursor: pointer;
-  background: white;
-  text-align: center;
+  text-align: right;
 }
 
 #quizHome .userRankingContainer .usersContainer div.userContainer {
@@ -159,7 +158,7 @@
       -ms-flex-align: center;
           align-items: center;
   height: 60px;
-  padding: 10px 0;
+  padding: 10px;
   cursor: pointer;
   font-size: 1rem;
 }
@@ -175,7 +174,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 20px;
+  margin: 0 20px 0 10px;
 }
 
 #quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon {
@@ -203,7 +202,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 #quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername img {
@@ -474,11 +473,7 @@
   padding: 15px 0;
   border-bottom: 1px solid #ecf5ff;
   font-size: 1rem;
-}
-
-.allQuizzes .eachQuizContainer:first-child,
-.quizzes .eachQuizContainer:first-child {
-  padding-top: 0;
+  padding: 10px;
 }
 
 .allQuizzes .eachQuizContainer .quizQuestionContainer,
@@ -493,13 +488,13 @@
 
 .allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex,
 .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
-  margin-right: 5px;
+  margin: 0 10px;
   min-width: 30px;
 }
 
 .allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion,
 .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
-  margin: 0 15px 0 5px;
+  margin: 0 10px 0 0;
   overflow: scroll;
 }
 

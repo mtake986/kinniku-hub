@@ -7,6 +7,7 @@ import {
   getDocs,
   doc,
   getDoc,
+  where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../config/firebase';
@@ -17,10 +18,11 @@ import QuizHomeStartBtn from './QuizHomeStartBtn';
 import { faTrophy } from '../icons/icons';
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
-  const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [rankingUsers, setRankingUsers] = useState([]);
+
+  // Loading useState()
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(false);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
@@ -44,10 +46,8 @@ const QuizHome = () => {
       setIsLoadingCategories(true);
       const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
       const docSnap = await getDoc(docRef);
-      console.log(docSnap.data()['categories'])
       if (docSnap.exists()) {
         setCategories(docSnap.data()['categories']);
-        console.log("exist:", categories)
         setIsLoadingCategories(false);
       } else {
         // doc.data() will be undefined in this case
@@ -56,24 +56,8 @@ const QuizHome = () => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
+    getTopTenActiveUsers("weekly", 7);
 
-    // todo: Get 10 users, 
-    // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
-    // 2. sort by most users who posts the quiz.
-    // 3. get the top 10
-    // 4. display the top 10
-    const getTopTenUsers = async () => {
-      setIsLoadingUsers(true);
-      const usersCollectionRef = collection(db, 'users');
-      const q = query(
-        usersCollectionRef,
-        limit(10)
-      );
-      const snapshot = await getDocs(q);
-      setUsers(snapshot.docs.map(doc => doc.data()));
-      setIsLoadingUsers(false);
-    };
-    getTopTenUsers();
   }, []);
 
   const selectCategory = e => {
@@ -100,6 +84,81 @@ const QuizHome = () => {
       }
     }
   };
+
+  const getTopTenActiveUsers = async (kind, daysAgo) => {
+    // todo: Get 10 users, 
+    // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
+    // 2. get the top 10
+    // 3. sort by most users who posts the quiz.
+
+    // 1.
+    setIsLoadingUsers(true);
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+
+    const collectionRef = collection(db, 'quizzes');
+    let q;
+    if (kind === "total") {
+      q = query(
+        collectionRef, 
+        orderBy('createdAt', 'desc')
+      );
+    } else {
+      q = query(
+        collectionRef, 
+        orderBy('createdAt', 'desc'), 
+        where('createdAt', '>', date)
+      );
+    }
+    const snapshot = await getDocs(q);
+
+    // Make a dict with a key of uid and value of the number of quizzes posted in the last 7 days by the uid
+    let obj = {};
+    snapshot.docs.map(doc => {
+      const uid = doc.data().user['uid'];
+      if (uid !== undefined) {
+        if (uid in obj) {
+          obj[uid] += 1;
+        } else {
+          obj = { ...obj, [uid]: 1 };
+        }
+      }
+    });
+    
+    // 2.
+    const getUsers = async () => {
+      console.log("============= get toptenusers =============")
+      const usersCollectionRef = collection(db, 'users');
+      const q = query(
+        usersCollectionRef,
+        limit(10),
+        where('uid', "in", Object.keys(obj)),
+      );
+      const snapshot = await getDocs(q);
+      const users = snapshot.docs.map(doc => doc.data());
+      users.map(user => {
+        user["posts"] = obj[user["uid"]];
+      })
+      // 3.
+      users.sort((a, b) => b.posts - a.posts);
+      setRankingUsers(users);
+      setIsLoadingUsers(false);
+    };
+    getUsers();
+  }
+
+  const handleSwitchLy = (e) => {
+    if (e.target.value === 'weekly') {
+      console.log(e.target.value)
+      getTopTenActiveUsers("weekly", 7)
+    } else if (e.target.value === 'monthly') {
+      console.log(e.target.value)
+      getTopTenActiveUsers("monthly", 28)
+    } else {
+      console.log(e.target.value)
+      getTopTenActiveUsers("all", 9999)
+    }
+  }
 
   return (
     <div id='quizHome'>
@@ -157,10 +216,10 @@ const QuizHome = () => {
             quizzes.length === 0 ? (
               <p>No quizzes</p>
             ) : (
-              quizzes.map((quiz, quizIndex) => (
-                <div className='eachQuizContainer' key={quiz.id}>
+              quizzes.map((quiz, index) => (
+                <div className='eachQuizContainer' key={index}>
                   <div className='quizQuestionContainer'>
-                    <span className='quizIndex'>{quizIndex + 1}.</span>
+                    <span className='quizIndex'>{index + 1}.</span>
                     <p className='quizQuestion'>{quiz.question}</p>
                   </div>
                   {quiz.user.uid ? (
@@ -182,25 +241,25 @@ const QuizHome = () => {
 
         </div>
       </div>
-      {isLoadingUsers ? (
-        <div className='loading'>
-          <Loading color={'#005bbb'} />
+      <div className='userRankingContainer'>
+        <div className="top">
+          <h3>User Ranking</h3>
+          <select onChange={handleSwitchLy}>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="total">Total</option>
+          </select>
         </div>
-      ) : (
-        users.length === 0 ? (
-          <div>No users</div>
+        {isLoadingUsers ? (
+          <div className='loading'>
+            <Loading color={'#005bbb'} />
+          </div>
         ) : (
-          <div className='userRankingContainer'>
-            <div className="top">
-              <h3>User Ranking</h3>
-              <select>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="total">Total</option>
-              </select>
-            </div>
+          rankingUsers.length === 0 ? (
+            <div>No users</div>
+          ) : (
             <div className="usersContainer">
-              {users.map((user, userIndex) => (
+              {rankingUsers.map((user, userIndex) => (
                 <Link
                   to={{ pathname: `/profile/${user.uid}` }}
                   state={{ user: user }}
@@ -215,7 +274,7 @@ const QuizHome = () => {
                       ) : userIndex === 2 ? (
                         <div className="userRankIcon third">{faTrophy}</div>
                       ) : (
-                        userIndex + 1
+                        <div className="userRankIcon lowerThanThird">{userIndex + 1}</div>
                       )}
                       <div className="imgAndUsername">
                         <img
@@ -227,16 +286,16 @@ const QuizHome = () => {
                       </div>
                     </div>
                     <div className="contributionContainer">
-                      <span className="number">100</span>
-                      <span className="text">Contributions</span>
+                      <span className="number">{user.posts}</span>
+                      <span className="text">Posts</span>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
-          </div>
-        )
-      )}
+          )
+        )}
+      </div>
     </div>
   );
 };
