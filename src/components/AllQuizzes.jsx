@@ -9,6 +9,7 @@ import {
   getDoc,
   where,
   getDocs,
+  deleteDoc,
 } from 'firebase/firestore';
 import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,6 @@ import { Link } from 'react-router-dom';
 // ========== Import from inside this project ==========
 import { db } from '../config/firebase';
 import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
-import { handleQuizDelete } from '../hooks/quizCRUD';
 import SearchByTag from '../components/SearchByTag';
 import SearchByCategory from '../components/SearchByCategory';
 
@@ -46,13 +46,6 @@ const AllQuizzes = ({ uid }) => {
       }
     };
     getQuizCategory();
-
-    const collectionRef = collection(db, 'quizzes');
-    const getQuizzes = async () => {
-      const snapshot = await getDocs(collectionRef);
-      setQuizzes(snapshot.docs.map(doc => doc.data()));
-      setIsLoading(false);
-    };
     getQuizzes();
   }, []);
 
@@ -68,9 +61,11 @@ const AllQuizzes = ({ uid }) => {
 
   // handle filtering
   const getQuizzes = async (ctg='', tag='') => {
+    setIsLoading(true);
     const collectionRef = collection(db, 'quizzes');
     let q = query(
-      collectionRef
+      collectionRef,
+      orderBy('createdAt', 'desc')
     );
     if (ctg !== "") {
       q = query(q, where('category', '==', ctg));
@@ -79,15 +74,14 @@ const AllQuizzes = ({ uid }) => {
       q = query(q, where('tags', 'array-contains', tag));
     }
     const snapshot = await getDocs(q);
-    setQuizzes(snapshot.docs.map(doc => doc.data()));
+    console.log(snapshot.docs);
+    setQuizzes(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})));
     setIsLoading(false);
   };
 
   const handleFilter = e => {
     setIsLoading(true);
-    console.log("start filtering", isLoading);
     e.preventDefault();
-    const collectionRef = collection(db, 'quizzes');
 
     if((searchByCategory === 'all')) {
       console.log({searchByCategory});
@@ -108,11 +102,20 @@ const AllQuizzes = ({ uid }) => {
         getQuizzes(searchByTag);
       }
     }
-    console.log("almost filtering", isLoading);
-    console.log("end filtering", isLoading);
+    
   };
 
 
+  const handleDelete = async (id) => {
+    const yesNo = prompt("Type yes(y) to delete permanently. You can't undo this action.");
+    console.log(id);
+    if (yesNo === "yes" || yesNo === "y") {
+      const quizDocRef = doc(db, "quizzes", id);
+      console.log(quizDocRef)
+      await deleteDoc(quizDocRef);
+      getQuizzes(searchByCategory, searchByTag);
+    }
+  }
 
   return (
     <div className='allQuizzes'>
@@ -143,12 +146,11 @@ const AllQuizzes = ({ uid }) => {
           <div>no quizzes</div>
         ) : (
           quizzes.map((quiz, quizIndex) => (
-            <div className='eachQuizContainer' key={quiz.index}>
+            <div className='eachQuizContainer' key={quiz.id}>
               <div className='quizQuestionContainer'>
                 <span className='quizIndex'>{quizIndex + 1}.</span>
                 <p className='quizQuestion'>{quiz.question}</p>
               </div>
-    
               {quiz.user.uid && uid === quiz.user.uid ? (
                 <div className='icons'>
                   <Link
@@ -159,7 +161,7 @@ const AllQuizzes = ({ uid }) => {
                   </Link>
                   <i
                     className='riDeleteBinLine'
-                    onClick={() => handleQuizDelete(quiz.id)}
+                    onClick={() => handleDelete(quiz.id)}
                   >
                     {riDeleteBinLine}
                   </i>

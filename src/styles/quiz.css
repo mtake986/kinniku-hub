@@ -573,9 +573,9 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs select.notDefzultValue,
-.quizzes .searchContainer .inputs select.notDefzultValue {
-  background: #fff8d5;
+.allQuizzes .searchContainer .inputs select.chosen,
+.quizzes .searchContainer .inputs select.chosen {
+  background: #e0ffd9;
 }
 
 .allQuizzes .searchContainer .inputs .searchByTagContainer,
@@ -605,9 +605,9 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue,
-.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue {
-  background: #fff8d5;
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.chosen,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.chosen {
+  background: #e0ffd9;
 }
 
 .allQuizzes .searchContainer .submitBtn,

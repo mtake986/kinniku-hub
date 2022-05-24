@@ -21,40 +21,46 @@ const Test = ({currentUser}) => {
   const [testStopBtnClicked, setTestStopBtnClicked] = useState(false);
   const [answeredQuizzes, setAnsweredQuizzes] = useState("")
 
-
   // console.log(`selectedCategories => `, selectedCategories, "desu")
 
   // console.log(currentUser)
 
+  const getQuizzes = async () => {
+    const collectionRef = collection(db, 'quizzes');
+    const snapshot = await getDocs(collectionRef);
+    console.log(snapshot.docs.length);
+    let quizLength = 10;
+    let allQuizzesLength = snapshot.docs.length;
+    let randomQuizIndexes = [];
+    let i = 0;
+    while (randomQuizIndexes.length < quizLength) {
+      const n = Math.floor(Math.random() * allQuizzesLength);
+      console.log(n);
+      if (!randomQuizIndexes.includes(n)) {
+        randomQuizIndexes.push(n);
+        i++;
+      } 
+    }
+    console.log(randomQuizIndexes);
+
+    let quizzesLis = [];
+    snapshot.docs.map((doc, index) => {
+      console.log("setQuizzes", randomQuizIndexes, index);
+      if (randomQuizIndexes.includes(index)) {
+        quizzesLis.push({...doc.data(), id: doc.id});
+        console.log("if true", quizzesLis);
+      } else {
+        console.log("not in");
+      }
+    })
+    console.log(quizzesLis);
+
+    setQuizzes(quizzesLis);
+  };
+
   useEffect(() => {
     // todo: Get new quizzes
-    const getQuizzesFromPassedCategories = async () => {
-      const collectionRef = collection(db, 'quizzes');
-      const q = query(collectionRef, orderBy('likes', 'desc'), limit(10));
-      let tempQuizzes = [];
-      if (selectedCategories.includes("all")) {
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, " => ", doc.data());
-          tempQuizzes.push({ ...doc.data(), id: doc.id });
-        });
-      } else {
-        for (let i = 0; i < selectedCategories.length; i++) {
-          const c = selectedCategories[i];
-          const q = query(collectionRef, where("category", "==", c))
-          // console.log(c, "=>", q)
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
-            // dont forget to add id, refer onSnapshot in QuizHome
-            tempQuizzes.push({ ...doc.data(), id: doc.id });
-          });
-        }
-      }
-      setQuizzes(tempQuizzes);
-      // console.log(quizzes)
-    };
-    getQuizzesFromPassedCategories();
+    getQuizzes();
 
   }, [selectedCategories]);
 

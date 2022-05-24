@@ -411,8 +411,8 @@
         &:focus {
           outline: none;
         }
-        &.notDefzultValue {
-          background: $colorAccent2Lighter;
+        &.chosen {
+          background: $colorGreenLighter;
         }
       }
       .searchByTagContainer {
@@ -429,8 +429,8 @@
           &:focus {
             outline: none;
           }
-          &.notDefzultValue {
-            background: $colorAccent2Lighter;
+          &.chosen {
+            background: $colorGreenLighter;
           }
         }
       }

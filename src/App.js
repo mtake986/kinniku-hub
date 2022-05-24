@@ -86,9 +86,7 @@ function App() {
             <Route
               path="edit/:id"
               element={
-                <QuizEdit
-                  quiz={"quiz props!!"}
-                />
+                <QuizEdit />
               }
             />
           </Route>
