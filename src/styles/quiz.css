@@ -33,16 +33,43 @@
   margin-bottom: 70px;
 }
 
-#quizHome .testStartContainer .textContainer {
-  margin-bottom: 20px;
+#quizHome .testStartContainer .sectionHeader {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
 }
 
-#quizHome .testStartContainer .textContainer h3 {
+#quizHome .testStartContainer .sectionHeader h3 {
   font-family: "Cormorant Garmand", serif;
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
-#quizHome .testStartContainer .textContainer span {
+#quizHome .testStartContainer .sectionHeader .maxTestLengthContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#quizHome .testStartContainer .sectionHeader .maxTestLengthContainer select {
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+#quizHome .testStartContainer .sectionHeader .maxTestLengthContainer span {
   font-size: 0.8rem;
 }
 
@@ -116,29 +143,47 @@
   margin-bottom: 20px;
 }
 
+#quizHome .quizRecentlyCreatedContainer .sectionHeader {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+}
+
+#quizHome .quizRecentlyCreatedContainer .sectionHeader h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 2rem;
+}
+
 #quizHome .userRankingContainer {
   margin-bottom: 70px;
 }
 
-#quizHome .userRankingContainer .top {
+#quizHome .userRankingContainer .sectionHeader {
+  margin-bottom: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
 }
 
-#quizHome .userRankingContainer .top h3 {
+#quizHome .userRankingContainer .sectionHeader h3 {
   font-family: "Cormorant Garmand", serif;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
-#quizHome .userRankingContainer .top select {
+#quizHome .userRankingContainer .sectionHeader select {
   padding: 5px 10px;
   font-size: 1rem;
   outline: none;
@@ -573,9 +618,9 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs select.notDefzultValue,
-.quizzes .searchContainer .inputs select.notDefzultValue {
-  background: #fff8d5;
+.allQuizzes .searchContainer .inputs select.chosen,
+.quizzes .searchContainer .inputs select.chosen {
+  background: #e0ffd9;
 }
 
 .allQuizzes .searchContainer .inputs .searchByTagContainer,
@@ -605,9 +650,9 @@
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue,
-.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.notDefzultValue {
-  background: #fff8d5;
+.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.chosen,
+.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.chosen {
+  background: #e0ffd9;
 }
 
 .allQuizzes .searchContainer .submitBtn,

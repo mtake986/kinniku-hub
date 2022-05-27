@@ -9,7 +9,7 @@ const SearchByTag = ({ handleSearchByTag, searchByTag }) => {
         placeholder='Tag'
         className={
           searchByTag !== ''
-            ? 'searchTagInput notDefaultValue'
+            ? 'searchTagInput chosen'
             : 'searchTagInput'
         }
       />

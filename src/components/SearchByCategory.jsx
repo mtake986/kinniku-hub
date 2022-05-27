@@ -6,12 +6,12 @@ const SearchByCategory = ({handleSearchByCategory, searchByCategory, categories}
       name='category'
       onChange={handleSearchByCategory}
       className={
-        searchByCategory !== '' 
-          ? 'categorySearch notDefaultValue'
+        searchByCategory !== '' && searchByCategory !== 'all'
+          ? 'categorySearch chosen'
           : 'categorySearch'
       }
     >
-      <option selected disabled>Select a Category</option>
+      <option defaultValue disabled>Select a Category</option>
       <option value='all' >All</option>
       {categories.map(c => (
         <option key={c} value={c}>

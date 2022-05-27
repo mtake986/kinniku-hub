@@ -16,45 +16,73 @@ const Test = ({currentUser}) => {
   const [points, setPoints] = useState(0);
   const [usersCorrectAnswers, setUsersCorrectAnswers] = useState([]);
   const [clickedAnswerIndex, setClickedAnswerIndex] = useState();
-  const location = useLocation();
-  const selectedCategories = location.state.selectedCategories;
   const [testStopBtnClicked, setTestStopBtnClicked] = useState(false);
   const [answeredQuizzes, setAnsweredQuizzes] = useState("")
+  const location = useLocation();
+  const selectedCategories = location.state.selectedCategories;
+  const maxTestLength = location.state.maxTestLength;
 
+  const getQuizzes = async () => {
+    const collectionRef = collection(db, 'quizzes');
 
-  // console.log(`selectedCategories => `, selectedCategories, "desu")
+    console.log(selectedCategories)
+    if (selectedCategories[0] !== "all") {
+      console.log("selectedCategories[0] !== 'all'")
+      var q = query(collectionRef, where("category", "in", selectedCategories));
+      var snapshot = await getDocs(q);
+    } else {
+      console.log("selectedCategories[0] === 'all'")
+      var snapshot = await getDocs(collectionRef);
+    }
 
-  // console.log(currentUser)
+    const snapshotLength = snapshot.docs.length;
+    console.log("snapshot.docs.length: ", snapshotLength);
+    let testLength = snapshotLength;
+
+    // When maxTestLength is equal to or bigger than snapshotLength, no selection is needed.
+    if (snapshotLength <= maxTestLength) {
+      setQuizzes(snapshot.docs.map(doc => doc.data()));
+      return
+    } 
+
+    // When maxTestLength is smaller than snapshotLength, I need to choose random questions from snapshot.
+    console.log("need to choose")
+    testLength = maxTestLength;
+    console.log("testLength: ", testLength, "snapshotLength: ", snapshotLength);
+
+    // Create an array of indexes of the snapshot.
+    let randomQuizIndexes = [];
+    let nums = [];
+    for(let i = 0; i < snapshotLength; i++) {
+      nums.push(i);
+    };
+    console.log("nums: ", nums);
+
+    // Choose random indexes from nums.
+    let i = testLength
+    while(i > 0) {
+      const n = Math.floor(Math.random() * nums.length); // random number between 0 and nums.length - 1
+      randomQuizIndexes.push(nums[n]);
+      nums.splice(n, 1);
+      i--;
+      console.log("======== i: ", i, "n: ", n, "nums: ", nums, "randomQuizIndexes: ", randomQuizIndexes);
+    }
+
+    // Get the quizzes from the snapshot.
+    let quizzesLis = [];
+    snapshot.docs.map((doc, index) => {
+      console.log("setQuizzes", randomQuizIndexes, index);
+      if (randomQuizIndexes.includes(index)) {
+        quizzesLis.push({...doc.data(), id: doc.id});
+      }
+    })
+    console.log(quizzesLis);
+    setQuizzes(quizzesLis);
+  };
 
   useEffect(() => {
     // todo: Get new quizzes
-    const getQuizzesFromPassedCategories = async () => {
-      const collectionRef = collection(db, 'quizzes');
-      const q = query(collectionRef, orderBy('likes', 'desc'), limit(10));
-      let tempQuizzes = [];
-      if (selectedCategories.includes("all")) {
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, " => ", doc.data());
-          tempQuizzes.push({ ...doc.data(), id: doc.id });
-        });
-      } else {
-        for (let i = 0; i < selectedCategories.length; i++) {
-          const c = selectedCategories[i];
-          const q = query(collectionRef, where("category", "==", c))
-          // console.log(c, "=>", q)
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
-            // dont forget to add id, refer onSnapshot in QuizHome
-            tempQuizzes.push({ ...doc.data(), id: doc.id });
-          });
-        }
-      }
-      setQuizzes(tempQuizzes);
-      // console.log(quizzes)
-    };
-    getQuizzesFromPassedCategories();
+    getQuizzes();
 
   }, [selectedCategories]);
 
@@ -113,14 +141,14 @@ const Test = ({currentUser}) => {
           <Loading color={'#005bbb'} />
         </div>
       )}
-      {testStopBtnClicked === false && quizzes.map((quiz, quizIndex) => {
-        if (quizIndex === currentQuizIndex) {
+      {testStopBtnClicked === false && quizzes.map((quiz, index) => {
+        if (index === currentQuizIndex) {
           return (
-            <div key={quiz.id} className='quiz'>
+            <div key={quiz.index} className='quiz'>
               <div className='quizHeader'>
                 <span className='createdBy'>Created by: {quiz.user.username ? quiz.user.username : "Anonymous"}</span>
                 <span className='quizNumber'>
-                  {quizIndex + 1}/{quizzes.length}
+                  {index + 1}/{quizzes.length}
                 </span>
               </div>
               <div className='quizQuestionContainer'>
@@ -138,7 +166,7 @@ const Test = ({currentUser}) => {
                   <li
                     key={answerIndex}
                     onClick={e => {
-                      handleJudge(e, answer, quiz, answerIndex, quizIndex);
+                      handleJudge(e, answer, quiz, answerIndex, index);
                     }}
                     className={
                       clickedAnswerIndex &&
@@ -173,7 +201,7 @@ const Test = ({currentUser}) => {
                   <span>Stop</span>
                 </button>
                 <GoodBad quiz={quiz} currentUser={currentUser} />
-                {quizIndex + 1 === quizzes.length ? (
+                {index + 1 === quizzes.length ? (
                     <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
                   ) : (
                     <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Next' clickedAnswerIndex={clickedAnswerIndex ? true : false } />

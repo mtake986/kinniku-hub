@@ -1,6 +1,5 @@
 import {
   collection,
-  onSnapshot,
   query,
   orderBy,
   limit,
@@ -15,6 +14,7 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 import QuizHomeStartBtn from './QuizHomeStartBtn';
+import SelectMaxTestLength from './SelectMaxTestLength';
 import { faTrophy } from '../icons/icons';
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -26,7 +26,7 @@ const QuizHome = () => {
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(false);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-
+  const [maxTestLength, setMaxTestLength] = useState(10);
 
   useEffect(() => {
     // todo: Get new quizzes
@@ -56,8 +56,7 @@ const QuizHome = () => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
-    getTopTenActiveUsers("weekly", 7);
-
+    getTopTenActiveUsers('weekly', 7);
   }, []);
 
   const selectCategory = e => {
@@ -86,7 +85,7 @@ const QuizHome = () => {
   };
 
   const getTopTenActiveUsers = async (kind, daysAgo) => {
-    // todo: Get 10 users, 
+    // todo: Get 10 users,
     // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
     // 2. get the top 10
     // 3. sort by most users who posts the quiz.
@@ -98,15 +97,12 @@ const QuizHome = () => {
 
     const collectionRef = collection(db, 'quizzes');
     let q;
-    if (kind === "total") {
-      q = query(
-        collectionRef, 
-        orderBy('createdAt', 'desc')
-      );
+    if (kind === 'total') {
+      q = query(collectionRef, orderBy('createdAt', 'desc'));
     } else {
       q = query(
-        collectionRef, 
-        orderBy('createdAt', 'desc'), 
+        collectionRef,
+        orderBy('createdAt', 'desc'),
         where('createdAt', '>', date)
       );
     }
@@ -124,47 +120,51 @@ const QuizHome = () => {
         }
       }
     });
-    
+
     // 2.
     const getUsers = async () => {
-      console.log("============= get toptenusers =============")
+      console.log('============= get toptenusers =============');
       const usersCollectionRef = collection(db, 'users');
       const q = query(
         usersCollectionRef,
         limit(10),
-        where('uid', "in", Object.keys(obj)),
+        where('uid', 'in', Object.keys(obj))
       );
       const snapshot = await getDocs(q);
       const users = snapshot.docs.map(doc => doc.data());
       users.map(user => {
-        user["posts"] = obj[user["uid"]];
-      })
+        user['posts'] = obj[user['uid']];
+      });
       // 3.
       users.sort((a, b) => b.posts - a.posts);
       setRankingUsers(users);
       setIsLoadingUsers(false);
     };
     getUsers();
-  }
+  };
 
-  const handleSwitchLy = (e) => {
+  const handleSwitchLy = e => {
     if (e.target.value === 'weekly') {
-      console.log(e.target.value)
-      getTopTenActiveUsers("weekly", 7)
+      console.log(e.target.value);
+      getTopTenActiveUsers('weekly', 7);
     } else if (e.target.value === 'monthly') {
-      console.log(e.target.value)
-      getTopTenActiveUsers("monthly", 28)
+      console.log(e.target.value);
+      getTopTenActiveUsers('monthly', 28);
     } else {
-      console.log(e.target.value)
-      getTopTenActiveUsers("all", 9999)
+      console.log(e.target.value);
+      getTopTenActiveUsers('all', 9999);
     }
-  }
+  };
 
   return (
     <div id='quizHome'>
       <div className='testStartContainer'>
-        <div className='textContainer'>
+        <div className='sectionHeader'>
           <h3>Start A Test</h3>
+          <SelectMaxTestLength
+            maxTestLength={maxTestLength}
+            setMaxTestLength={setMaxTestLength}
+          />
         </div>
         <div className='btnsContainer'>
           <button
@@ -180,120 +180,117 @@ const QuizHome = () => {
             <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
+          ) : categories.length === 0 ? (
+            <p>No categories</p>
           ) : (
-            categories.length === 0 ? (
-              <p>No categories</p>
-            ) : (
-              categories.map((c, index) => (
-                <button
-                  className={
-                    selectedCategories.includes(c)
-                      ? 'selected'
-                      : selectedCategories.includes('all')
-                      ? 'allSelected'
-                      : null
-                  }
-                  onClick={e => selectCategory(e)}
-                  value={c}
-                  key={index}
-                >
-                  {c}
-                </button>
-              ))
-            )
+            categories.map((c, index) => (
+              <button
+                className={
+                  selectedCategories.includes(c)
+                    ? 'selected'
+                    : selectedCategories.includes('all')
+                    ? 'allSelected'
+                    : null
+                }
+                onClick={e => selectCategory(e)}
+                value={c}
+                key={index}
+              >
+                {c}
+              </button>
+            ))
           )}
         </div>
-        <QuizHomeStartBtn selectedCategories={selectedCategories} />
+        <QuizHomeStartBtn selectedCategories={selectedCategories} maxTestLength={maxTestLength} />
       </div>
       <div className='quizRecentlyCreatedContainer'>
-        <h3>Quizzes Recently Created</h3>
+        <div className='sectionHeader'>
+          <h3>Quizzes Recently Created</h3>
+        </div>
         <div className='quizzes'>
-        {isLoadingQuizzes ? (
+          {isLoadingQuizzes ? (
             <div className='loading'>
               <Loading color={'#005bbb'} />
             </div>
+          ) : quizzes.length === 0 ? (
+            <p>No quizzes</p>
           ) : (
-            quizzes.length === 0 ? (
-              <p>No quizzes</p>
-            ) : (
-              quizzes.map((quiz, index) => (
-                <div className='eachQuizContainer' key={index}>
-                  <div className='quizQuestionContainer'>
-                    <span className='quizIndex'>{index + 1}.</span>
-                    <p className='quizQuestion'>{quiz.question}</p>
-                  </div>
-                  {quiz.user.uid ? (
-                    <Link
-                      to={{ pathname: `/profile/${quiz.user.uid}` }}
-                      state={{ user: quiz.user }}
-                    >
-                      <img
-                        src={quiz.user.photoURL}
-                        alt={quiz.user.username}
-                        referrerPolicy='no-referrer'
-                      />
-                    </Link>
-                  ) : null}
+            quizzes.map((quiz, index) => (
+              <div className='eachQuizContainer' key={index}>
+                <div className='quizQuestionContainer'>
+                  <span className='quizIndex'>{index + 1}.</span>
+                  <p className='quizQuestion'>{quiz.question}</p>
                 </div>
-              ))
-            )
+                {quiz.user.uid ? (
+                  <Link
+                    to={{ pathname: `/profile/${quiz.user.uid}` }}
+                    state={{ user: quiz.user }}
+                  >
+                    <img
+                      src={quiz.user.photoURL}
+                      alt={quiz.user.username}
+                      referrerPolicy='no-referrer'
+                    />
+                  </Link>
+                ) : null}
+              </div>
+            ))
           )}
-
         </div>
       </div>
       <div className='userRankingContainer'>
-        <div className="top">
+        <div className='sectionHeader'>
           <h3>User Ranking</h3>
           <select onChange={handleSwitchLy}>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="total">Total</option>
+            <option value='weekly'>Weekly</option>
+            <option value='monthly'>Monthly</option>
+            <option value='total'>Total</option>
           </select>
         </div>
         {isLoadingUsers ? (
           <div className='loading'>
             <Loading color={'#005bbb'} />
           </div>
+        ) : rankingUsers.length === 0 ? (
+          <div>No users</div>
         ) : (
-          rankingUsers.length === 0 ? (
-            <div>No users</div>
-          ) : (
-            <div className="usersContainer">
-              {rankingUsers.map((user, userIndex) => (
-                <Link
-                  to={{ pathname: `/profile/${user.uid}` }}
-                  state={{ user: user }}
-                  key={user.uid}
-                >
-                  <div className='userContainer' key={user.uid}>
-                    <div className='userInfo'>
-                      {userIndex === 0 ? (
-                        <div className="userRankIcon first">{faTrophy}</div>
-                      ) : userIndex === 1 ? (
-                        <div className="userRankIcon second">{faTrophy}</div>
-                      ) : userIndex === 2 ? (
-                        <div className="userRankIcon third">{faTrophy}</div>
-                      ) : (
-                        <div className="userRankIcon lowerThanThird">{userIndex + 1}</div>
-                      )}
-                      <div className="imgAndUsername">
-                        <img
-                          src={user.photoURL}
-                          alt={user.username}
-                          referrerPolicy='no-referrer'
-                        />
-                        <h6 className='username'>{user.username}</h6>
+          <div className='usersContainer'>
+            {rankingUsers.map((user, userIndex) => (
+              <Link
+                to={{ pathname: `/profile/${user.uid}` }}
+                state={{ user: user }}
+                key={user.uid}
+              >
+                <div className='userContainer' key={user.uid}>
+                  <div className='userInfo'>
+                    {userIndex === 0 ? (
+                      <div className='userRankIcon first'>{faTrophy}</div>
+                    ) : userIndex === 1 ? (
+                      <div className='userRankIcon second'>{faTrophy}</div>
+                    ) : userIndex === 2 ? (
+                      <div className='userRankIcon third'>{faTrophy}</div>
+                    ) : (
+                      <div className='userRankIcon lowerThanThird'>
+                        {userIndex + 1}
                       </div>
-                    </div>
-                    <div className="contributionContainer">
-                      <span className="number">{user.posts}</span>
-                      <span className="text">Posts</span>
+                    )}
+                    <div className='imgAndUsername'>
+                      <img
+                        src={user.photoURL}
+                        alt={user.username}
+                        referrerPolicy='no-referrer'
+                      />
+                      <h6 className='username'>{user.username}</h6>
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
-          )
+                  <div className='contributionContainer'>
+                    <span className='number'>{user.posts}</span>
+                    <span className='text'>Posts</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         )}
       </div>
     </div>

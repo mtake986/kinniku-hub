@@ -1,0 +1,2 @@
+- Test: query quizzes by (a) categories. 
+- Test: if a category has less than 10 quizzes, 
