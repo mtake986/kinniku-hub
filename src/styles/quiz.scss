@@ -34,14 +34,29 @@
   font-size: $fzM;
   .testStartContainer {
     margin-bottom: 70px;
-    .textContainer {
-      margin-bottom: 20px;
+    .sectionHeader {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
       h3 {
         font-family: $fontHeader;
-        font-size: $fzMM;
+        font-size: $fzMMM;
       }
-      span {
-        font-size: $fzSSS;
+      .maxTestLengthContainer {
+        display: flex;
+        flex-direction: column;
+        select {
+          // padding: 5px 10px;
+          font-size: $fzSS;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          text-align: center;
+        }
+        span {
+          font-size: $fzSSS;
+        }
       }
     }
     .btnsContainer {
@@ -100,15 +115,27 @@
     h3 {
       @include h3Header();
     }
+    .sectionHeader {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      h3 {
+        font-family: $fontHeader;
+        font-size: $fzMMM;
+      }
+    }
   }
   .userRankingContainer {
     margin-bottom: 70px;
-    .top {
+    .sectionHeader {
+      margin-bottom: 10px;
       display: flex;
-      align-items: start;
       justify-content: space-between;
+      align-items: start;
       h3 {
-        @include h3Header();
+        font-family: $fontHeader;
+        font-size: $fzMMM;
       }
       select {
         padding: 5px 10px;

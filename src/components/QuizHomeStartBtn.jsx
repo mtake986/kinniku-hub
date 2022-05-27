@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const QuizHomeStartBtn = ({ selectedCategories }) => {
+const QuizHomeStartBtn = ({ selectedCategories, maxTestLength }) => {
   return (
     <Link
       to={{ pathname: `/kinniku-quiz/test` }}
-      state={{ selectedCategories: selectedCategories }}
+      state={{ selectedCategories: selectedCategories, maxTestLength: maxTestLength }}
       className={
         selectedCategories.length === 0 ? 'disable startBtn' : 'startBtn'
       }
