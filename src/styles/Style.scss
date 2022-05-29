@@ -44,22 +44,27 @@ main#root {
         position: relative;
         span{
           color: $colorTextSecond;
-          font-size: $fzM;
+          font-size: $fzS;
           display: inline-block;
           // font-family: $fontHeader;
-          padding: 3px 5px;
+          padding: 5px 10px;
           transition: 0.3s;
-          margin-right: 5px;
+          margin-right: 10px;
           cursor: pointer;
+          height: 40px;
+          &:hover {
+            opacity: .7;
+          }
         }
         .navItemDropdownContainer {
           z-index: 1;
           display: flex;
           flex-direction: column;
           position: absolute;
-          top: 50px;
-          background: $colorAccent1;
-          font-size: $fzS;
+          top: 55px;
+          left: -5px;
+          background: $colorAccent1Light;
+          font-size: $fzSSS;
           a{
             padding: 10px 20px;
             color: white;
@@ -86,12 +91,13 @@ main#root {
       }
       #signInBtn {
         color: white;
-        font-size: $fzMM;
+        font-size: $fzMMM;
         margin-left: 5px;
         cursor: pointer;
-        height: 30px;
+        height: 35px;
+        width: 35px;
         &:hover {
-          background: rgb(186, 186, 186);
+          opacity: .7;
         }
       }
     }

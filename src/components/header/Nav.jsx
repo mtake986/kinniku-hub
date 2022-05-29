@@ -1,18 +1,30 @@
-
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { signInWithGoogle } from '../../config/firebase';
 import { faRegUserCircle } from '../../icons/icons';
-import NavQuiz from './NavQuiz'
-import NavPFC from './NavPFC'
+import NavQuiz from './NavQuiz';
+import NavPFC from './NavPFC';
 const Nav = ({ currentUser }) => {
-
-  const [displayDropdown, setDisplayDropdown] = useState("");
+  const [displayDropdown, setDisplayDropdown] = useState('');
+  const activeStyle = {
+    color: '#ffd500',
+    opacity: '1',
+  };
   return (
     <nav id='appNav'>
-      <NavQuiz txt="Quiz" displayDropdown={displayDropdown} setDisplayDropdown={setDisplayDropdown} />
-      <NavPFC txt="PFC" displayDropdown={displayDropdown} setDisplayDropdown={setDisplayDropdown} />
+      <NavQuiz
+        txt='Quiz'
+        displayDropdown={displayDropdown}
+        setDisplayDropdown={setDisplayDropdown}
+        activeStyle={activeStyle}
+      />
+      <NavPFC
+        txt='PFC'
+        displayDropdown={displayDropdown}
+        setDisplayDropdown={setDisplayDropdown}
+        activeStyle={activeStyle}
+      />
       {/* <span onClick={signInWithGoogle}>Sign in</span> */}
       {currentUser.photoURL ? (
         <span className='imgLink'>
@@ -33,7 +45,7 @@ const Nav = ({ currentUser }) => {
         </div>
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

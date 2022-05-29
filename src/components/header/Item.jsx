@@ -3,8 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 const Item = ({handleClick, link, txt}) => {
   let activeStyle = {
     pointerEvents: 'none',
-    opacity: '.5',
+    color: "#ffe668",
   };
+  
   return (
     <>
       <NavLink
@@ -14,18 +15,6 @@ const Item = ({handleClick, link, txt}) => {
       >
         {txt}
       </NavLink>
-      {/* <NavLink
-        to='kinniku-quiz/new'
-        style={({ isActive }) => (isActive ? activeStyle : undefined)}
-      >
-        New
-      </NavLink>
-      <NavLink
-        to='kinniku-quiz/all-quizzes'
-        style={({ isActive }) => (isActive ? activeStyle : undefined)}
-      >
-        All
-      </NavLink> */}
     </>
   )
 }

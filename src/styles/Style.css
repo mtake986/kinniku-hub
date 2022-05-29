@@ -59,13 +59,18 @@ main#root header #appNav .navItem {
 
 main#root header #appNav .navItem span {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: inline-block;
-  padding: 3px 5px;
+  padding: 5px 10px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  margin-right: 5px;
+  margin-right: 10px;
   cursor: pointer;
+  height: 40px;
+}
+
+main#root header #appNav .navItem span:hover {
+  opacity: .7;
 }
 
 main#root header #appNav .navItem .navItemDropdownContainer {
@@ -78,9 +83,10 @@ main#root header #appNav .navItem .navItemDropdownContainer {
       -ms-flex-direction: column;
           flex-direction: column;
   position: absolute;
-  top: 50px;
-  background: #005bbb;
-  font-size: 1.2rem;
+  top: 55px;
+  left: -5px;
+  background: #59a9ff;
+  font-size: 0.8rem;
 }
 
 main#root header #appNav .navItem .navItemDropdownContainer a {
@@ -113,14 +119,15 @@ main#root header #appNav span.imgLink a img {
 
 main#root header #appNav #signInBtn {
   color: white;
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-left: 5px;
   cursor: pointer;
-  height: 30px;
+  height: 35px;
+  width: 35px;
 }
 
 main#root header #appNav #signInBtn:hover {
-  background: #bababa;
+  opacity: .7;
 }
 
 main#root #bodyContainer {
