@@ -20,8 +20,8 @@ const NavPFC = ({ txt, displayDropdown, setDisplayDropdown, activeStyle }) => {
       {displayDropdown === 'pfcdropdown' && (
         <div className='navItemDropdownContainer'>
           <DropdownItem handleClick={handleClick} link='pfc/home' txt='Home' />
-          <DropdownItem handleClick={handleClick} link='pfc/add-food' txt='Add' />
-          <DropdownItem handleClick={handleClick} link='pfc/all-foods' txt='All' />
+          <DropdownItem handleClick={handleClick} link='pfc/add' txt='Add' />
+          <DropdownItem handleClick={handleClick} link='pfc/all' txt='All' />
         </div>
       )}
     </div>

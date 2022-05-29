@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { updateDoc, getDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import Snackbar from './Snackbar';
-import {db} from '../../config/firebase';
-import { ioRemoveCircleSharp } from '../../icons/icons';
+import { db } from '../../../config/firebase';
+import { ioRemoveCircleSharp } from '../../../icons/icons';
 
 Yup.addMethod(Yup.array, 'unique', function (message, mapper = a => a) {
   return this.test('unique', message, function (list) {
@@ -33,21 +33,25 @@ const quizSchema = Yup.object().shape({
     .max(3, `Maximum of 3 tags`),
   createdAt: Yup.date(),
   likes: Yup.number(),
-  whoLikes: Yup.array()
-    .of(Yup.string()),
+  whoLikes: Yup.array().of(Yup.string()),
 });
 
-export const QuizNewFormik = ({ user }) => {
+const Edit = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const quiz = location.state.quiz;
+  // const {quiz} = location.state;
+  console.log(quiz);
   const [focused, setFocused] = useState(false);
   const [submitBtnHover, setSubmitBtnHover] = useState(false);
-  const snackbarRef = useRef(null);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const getQuizCategory = async () => {
       const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
       const docSnap = await getDoc(docRef);
-  
+
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data()['categories']);
         setCategories(docSnap.data()['categories']);
@@ -58,43 +62,29 @@ export const QuizNewFormik = ({ user }) => {
       // console.log("I got all categories!! Here they are: " + categories)
     };
     getQuizCategory();
-
-    return;
-  }, [])
-
-  console.log(user)
-  console.log("categories: ", categories);
+  }, []);
 
   return (
-    <div className='quizNewFormk'>
-      {/* <div className="pageTtl">New</div> */}
-      <Snackbar type='success' msg='Successfully Stored!!' ref={snackbarRef} />
-
+    <div className='quizNewFormik'>
       <Formik
         initialValues={{
-          question: '',
-          answers: ['', ''],
-          correctAnswer: '',
-          category: '',
-          createdAt: new Date(),
-          likes: 0,
-          whoLikes: [],
-          tags: [],
+          question: quiz.question,
+          answers: quiz.answers,
+          correctAnswer: quiz.correctAnswer,
+          category: quiz.category,
+          tags: quiz.tags,
         }}
         validateOnChange
         validationSchema={quizSchema}
-        onSubmit={async (values, { resetForm }) => {
-          // same shape as initial values
-          const quizCollectionRef = collection(db, 'quizzes');
-          const payload = {...values, user};
-          console.log(`values => ${values}`);
-          await addDoc(quizCollectionRef, payload);
-          snackbarRef.current.show()
-          resetForm();
+        onSubmit={async values => {
+          const docRef = doc(db, 'quizzes', id);
+          const payload = { ...values, updated: serverTimestamp() };
+          await updateDoc(docRef, payload);
+          navigate('/kinniku-quiz/all-quizzes');
         }}
       >
         {({ errors, touched, values }) => (
-          <Form novalidate>
+          <Form>
             <div style={topLabelInputContainer}>
               <label htmlFor='question' style={label}>
                 Question
@@ -122,7 +112,9 @@ export const QuizNewFormik = ({ user }) => {
                   <label htmlFor='answers1' style={label}>
                     Answers
                   </label>
-                  {errors.answers && touched.answers && errors.answers === 'Duplicate answers are not allowed' ? (
+                  {errors.answers &&
+                  touched.answers &&
+                  errors.answers === 'Duplicate answers are not allowed' ? (
                     <div style={quizFormErrMsg}>{errors.answers}</div>
                   ) : null}
                   {values.answers && values.answers.length > 0
@@ -132,7 +124,6 @@ export const QuizNewFormik = ({ user }) => {
                             <span style={answerIndex}>{index + 1}</span>
                             <Field
                               name={`answers.${index}`}
-                              key={`answers.${index}`}
                               onFocus={() => {
                                 switch (index) {
                                   case 0:
@@ -181,15 +172,16 @@ export const QuizNewFormik = ({ user }) => {
                                 {ioRemoveCircleSharp}
                               </i>
                             ) : (
-                              null
+                              ''
                             )}
                           </div>
                           {/* <div style={quizFormErrMsg}>
                             <ErrorMessage name={`answers.${index}`} />
                           </div> */}
                           {errors.answers &&
-                          touched.answers && 
-                          errors.answers !== 'Duplicate answers are not allowed' ? (
+                          touched.answers &&
+                          errors.answers !==
+                            'Duplicate answers are not allowed' ? (
                             <div style={quizFormErrMsg}>
                               <ErrorMessage name={`answers.${index}`} />
                             </div>
@@ -229,9 +221,7 @@ export const QuizNewFormik = ({ user }) => {
                 }}
                 style={focused === 'ca' ? focusStyle : quizFormInputText}
               />
-              {errors.correctAnswer && touched.correctAnswer && values.correctAnswer === "" ? (
-                <div style={quizFormErrMsg}>{errors.category}</div>
-              ) : errors.correctAnswer && touched.correctAnswer ? (
+              {errors.correctAnswer && touched.correctAnswer ? (
                 <div style={quizFormErrMsg}>
                   Only 1 ~ {values.answers.length} are allowed.
                 </div>
@@ -254,8 +244,8 @@ export const QuizNewFormik = ({ user }) => {
                 <option value='' disabled>
                   Select a category
                 </option>
-                {categories.map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                {categories.map(c => (
+                  <option value={c}>{c}</option>
                 ))}
               </Field>
               {errors.category && touched.category ? (
@@ -268,9 +258,7 @@ export const QuizNewFormik = ({ user }) => {
               style={quizFormInputText}
               render={arrayHelpers => (
                 <div style={labelInputContainer}>
-                  <label style={label}>
-                    Tags
-                  </label>
+                  <label style={label}>Tags</label>
                   {errors.tags &&
                   touched.tags &&
                   errors.tags === 'Duplicate tags are not allowed' ? (
@@ -327,17 +315,14 @@ export const QuizNewFormik = ({ user }) => {
                               >
                                 {ioRemoveCircleSharp}
                               </i>
-                            ) : (
-                              null
-                            )}
+                            ) : null}
                           </div>
                           {/* <div style={quizFormErrMsg}>
                             <ErrorMessage name={`answers.${index}`} />
                           </div> */}
                           {errors.tags &&
                           touched.tags &&
-                          errors.tags !==
-                            'Duplicate tags are not allowed' ? (
+                          errors.tags !== 'Duplicate tags are not allowed' ? (
                             <div style={quizFormErrMsg}>
                               <ErrorMessage name={`tags.${index}`} />
                             </div>
@@ -345,7 +330,7 @@ export const QuizNewFormik = ({ user }) => {
                         </div>
                       ))
                     : null}
-                  {values.tags.length <= 2 ? (
+                  {!values.tags || values.tags.length <= 2 ? (
                     <div
                       // style={addHover ? moreAnswerIconHover : moreAnswerIcon}
                       style={moreAnswerIcon}
@@ -359,7 +344,7 @@ export const QuizNewFormik = ({ user }) => {
                 </div>
               )}
             />
-            
+
             <button
               // disabled={!dirty && isValid}
               type='submit'
@@ -367,7 +352,7 @@ export const QuizNewFormik = ({ user }) => {
               onMouseEnter={() => setSubmitBtnHover(true)}
               onMouseLeave={() => setSubmitBtnHover(false)}
             >
-              Create
+              Update
             </button>
           </Form>
         )}
@@ -376,20 +361,19 @@ export const QuizNewFormik = ({ user }) => {
   );
 };
 
-
 // ========== Styles =========
 const topLabelInputContainer = {
   background: '',
-  marginTop: "-15px",
+  marginTop: '-15px',
 };
 const labelInputContainer = {
   background: '',
-  margin: '30px 0',
+  margin: '20px 0',
 };
 
 const label = {
   fontSize: '1.5rem',
-  margin: '10px 0 0px',
+  margin: '10px 0 5px',
   fontFamily: "'Cormorant Garamond', serif",
 };
 
@@ -404,6 +388,7 @@ const quizFormInputText = {
   marginTop: '5px',
   transition: '.3s',
 };
+
 const focusStyle = {
   display: 'block',
   width: '100%',
@@ -434,6 +419,7 @@ const indexAnswerIconContainer = {
   marginTop: '20px',
   display: 'flex',
   alignItems: 'center',
+  gap: '10px',
   position: 'relative',
 };
 
@@ -504,4 +490,4 @@ const submitButtonHover = {
   fontFamily: "'Cormorant Garamond', serif",
 };
 
-export default QuizNewFormik;
+export default Edit;

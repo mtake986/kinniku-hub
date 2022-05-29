@@ -6,25 +6,20 @@ import { onAuthStateChanged } from 'firebase/auth'
 // Import files existing in this project
 import './styles/Style.css';
 import './styles/quiz.css';
+
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-
-import Test from "./components/quiz/Test";
-import FixedNewQuizBtn from "./components/quiz/FixedNewQuizBtn";
-import QuizEdit from "./components/quiz/QuizEdit";
-// import About from "./components/quiz/About";
+import RoutesQuiz from './components/quiz/RoutesQuiz';
+import RoutesPFC from './components/pfc/RoutesPFC';
+import Profile from "./components/Profile";
 import ErrorPage from "./components/ErrorPage";
-import Profile from "./components/quiz/Profile";
-import QuizHome from "./components/quiz/QuizHome";
-import AllQuizzes from "./components/quiz/AllQuizzes";
-import QuizNewFormik from "./components/quiz/QuizNewFormik";
+
 import { auth } from './config/firebase';
 
+// =========== Main ===========
 
-// Actual Coding
 function App() {
   const [currentUser, setCurrentUser] = useState("Anonymous");
-  // const [quizzes, setQuizzes] = useState({});
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -53,44 +48,8 @@ function App() {
       <Header currentUser={currentUser} />
       <div id="bodyContainer">
         <Routes>
-          {/* <Route path="/" element={<QuizHeader />} /> */}
-          {/* <Route path="about" element={<About />}/> */}
-          <Route path="kinniku-quiz/" element={<FixedNewQuizBtn />} >
-            <Route
-              path="home"
-              element={<QuizHome />}
-            />
-            <Route
-              path="new"
-              element={
-                <QuizNewFormik
-                  user={currentUser}
-                />
-              }
-            />
-            <Route
-              path="test"
-              element={<Test currentUser={currentUser === {} ? "Anonymous" : currentUser} />}
-            />
-            <Route
-              path="all-quizzes"
-              element={
-                <AllQuizzes
-                  uid={currentUser === {}
-                    ? ""
-                    : currentUser.uid
-                  }
-                />
-              }
-            />
-            <Route
-              path="edit/:id"
-              element={
-                <QuizEdit />
-              }
-            />
-          </Route>
-
+          <Route path="/kinniku-quiz/*" element={<RoutesQuiz currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          <Route path="/pfc/*" element={<RoutesPFC />} />
           <Route
             path="profile/:uid"
             element={

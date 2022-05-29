@@ -14,13 +14,13 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
-import { db } from '../../config/firebase';
-import { riEditBoxLine, riDeleteBinLine } from '../../icons/icons';
+import { db } from '../../../config/firebase';
+import { riEditBoxLine, riDeleteBinLine } from '../../../icons/icons';
 import SearchByTag from './SearchByTag';
 import SearchByCategory from './SearchByCategory';
 
 // ========== Main ==========
-const AllQuizzes = ({ uid }) => {
+const All = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
   const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
@@ -59,14 +59,11 @@ const AllQuizzes = ({ uid }) => {
   };
 
   // handle filtering
-  const getQuizzes = async (ctg='', tag='') => {
+  const getQuizzes = async (ctg = '', tag = '') => {
     setIsLoading(true);
     const collectionRef = collection(db, 'quizzes');
-    let q = query(
-      collectionRef,
-      orderBy('createdAt', 'desc')
-    );
-    if (ctg !== "") {
+    let q = query(collectionRef, orderBy('createdAt', 'desc'));
+    if (ctg !== '') {
       q = query(q, where('category', '==', ctg));
     }
     if (tag !== '') {
@@ -74,7 +71,7 @@ const AllQuizzes = ({ uid }) => {
     }
     const snapshot = await getDocs(q);
     console.log(snapshot.docs);
-    setQuizzes(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})));
+    setQuizzes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     setIsLoading(false);
   };
 
@@ -82,10 +79,10 @@ const AllQuizzes = ({ uid }) => {
     setIsLoading(true);
     e.preventDefault();
 
-    if((searchByCategory === 'all')) {
-      console.log({searchByCategory});
+    if (searchByCategory === 'all') {
+      console.log({ searchByCategory });
       if (searchByTag !== '') {
-        getQuizzes("", searchByTag);
+        getQuizzes('', searchByTag);
       } else {
         getQuizzes();
       }
@@ -103,17 +100,18 @@ const AllQuizzes = ({ uid }) => {
     }
   };
 
-
-  const handleDelete = async (id) => {
-    const yesNo = prompt("Type yes(y) to delete permanently. You can't undo this action.");
+  const handleDelete = async id => {
+    const yesNo = prompt(
+      "Type yes(y) to delete permanently. You can't undo this action."
+    );
     console.log(id);
-    if (yesNo === "yes" || yesNo === "y") {
-      const quizDocRef = doc(db, "quizzes", id);
-      console.log(quizDocRef)
+    if (yesNo === 'yes' || yesNo === 'y') {
+      const quizDocRef = doc(db, 'quizzes', id);
+      console.log(quizDocRef);
       await deleteDoc(quizDocRef);
       getQuizzes(searchByCategory, searchByTag);
     }
-  }
+  };
 
   return (
     <div className='allQuizzes'>
@@ -139,50 +137,47 @@ const AllQuizzes = ({ uid }) => {
         <div className='loading'>
           <Loading color={'#005bbb'} />
         </div>
+      ) : quizzes.length === 0 ? (
+        <div>no quizzes</div>
       ) : (
-        quizzes.length === 0 ? (
-          <div>no quizzes</div>
-        ) : (
-          quizzes.map((quiz, quizIndex) => (
-            <div className='eachQuizContainer' key={quiz.id}>
-              <div className='quizQuestionContainer'>
-                <span className='quizIndex'>{quizIndex + 1}.</span>
-                <p className='quizQuestion'>{quiz.question}</p>
-              </div>
-              {quiz.user.uid && uid === quiz.user.uid ? (
-                <div className='icons'>
-                  <Link
-                    to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
-                    state={{ quiz: quiz }}
-                  >
-                    <i className='riEditBoxLine'>{riEditBoxLine}</i>
-                  </Link>
-                  <i
-                    className='riDeleteBinLine'
-                    onClick={() => handleDelete(quiz.id)}
-                  >
-                    {riDeleteBinLine}
-                  </i>
-                </div>
-              ) : quiz.user.uid && uid !== quiz.user.uid ? (
-                <Link
-                  to={{ pathname: `/profile/${quiz.user.uid}` }}
-                  state={{ user: quiz.user }}
-                >
-                  <img
-                    src={quiz.user.photoURL}
-                    alt={quiz.user.username}
-                    referrerPolicy='no-referrer'
-                  />
-                </Link>
-              ) : null}
+        quizzes.map((quiz, quizIndex) => (
+          <div className='eachQuizContainer' key={quiz.id}>
+            <div className='quizQuestionContainer'>
+              <span className='quizIndex'>{quizIndex + 1}.</span>
+              <p className='quizQuestion'>{quiz.question}</p>
             </div>
-          ))
-        )
+            {quiz.user.uid && uid === quiz.user.uid ? (
+              <div className='icons'>
+                <Link
+                  to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
+                  state={{ quiz: quiz }}
+                >
+                  <i className='riEditBoxLine'>{riEditBoxLine}</i>
+                </Link>
+                <i
+                  className='riDeleteBinLine'
+                  onClick={() => handleDelete(quiz.id)}
+                >
+                  {riDeleteBinLine}
+                </i>
+              </div>
+            ) : quiz.user.uid && uid !== quiz.user.uid ? (
+              <Link
+                to={{ pathname: `/profile/${quiz.user.uid}` }}
+                state={{ user: quiz.user }}
+              >
+                <img
+                  src={quiz.user.photoURL}
+                  alt={quiz.user.username}
+                  referrerPolicy='no-referrer'
+                />
+              </Link>
+            ) : null}
+          </div>
+        ))
       )}
-
     </div>
   );
 };
 
-export default AllQuizzes;
+export default All;

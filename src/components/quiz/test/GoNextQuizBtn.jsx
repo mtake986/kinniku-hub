@@ -1,5 +1,5 @@
 import React from 'react';
-import { bsArrowRight } from '../../icons/icons.jsx';
+import { bsArrowRight } from '../../../icons/icons.jsx';
 
 const GoNextQuizBtn = ({ goNextQuiz, text, clickedAnswerIndex }) => {
   return (
