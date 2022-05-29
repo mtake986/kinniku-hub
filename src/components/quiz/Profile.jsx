@@ -3,8 +3,8 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { auth, db } from '../config/firebase';
-import '../styles/profile.css';
+import { auth, db } from '../../config/firebase';
+import '../../styles/profile.css';
 
 const Profile = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();

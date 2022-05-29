@@ -14,10 +14,10 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
-import { db } from '../config/firebase';
-import { riEditBoxLine, riDeleteBinLine } from '../icons/icons';
-import SearchByTag from '../components/SearchByTag';
-import SearchByCategory from '../components/SearchByCategory';
+import { db } from '../../config/firebase';
+import { riEditBoxLine, riDeleteBinLine } from '../../icons/icons';
+import SearchByTag from './SearchByTag';
+import SearchByCategory from './SearchByCategory';
 
 // ========== Main ==========
 const AllQuizzes = ({ uid }) => {

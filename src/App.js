@@ -9,15 +9,15 @@ import './styles/quiz.css';
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
-import Test from "./components/Test";
-import FixedNewQuizBtn from "./components/FixedNewQuizBtn";
-import QuizEdit from "./components/QuizEdit";
-// import About from "./components/About";
+import Test from "./components/quiz/Test";
+import FixedNewQuizBtn from "./components/quiz/FixedNewQuizBtn";
+import QuizEdit from "./components/quiz/QuizEdit";
+// import About from "./components/quiz/About";
 import ErrorPage from "./components/ErrorPage";
-import Profile from "./components/Profile";
-import QuizHome from "./components/QuizHome";
-import AllQuizzes from "./components/AllQuizzes";
-import QuizNewFormik from "./components/QuizNewFormik";
+import Profile from "./components/quiz/Profile";
+import QuizHome from "./components/quiz/QuizHome";
+import AllQuizzes from "./components/quiz/AllQuizzes";
+import QuizNewFormik from "./components/quiz/QuizNewFormik";
 import { auth } from './config/firebase';
 
 

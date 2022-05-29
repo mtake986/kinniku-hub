@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from 'react';
 import Loading from 'react-simple-loading';
-import { biCircle, biPlus } from '../icons/icons'
+
+import { biCircle, biPlus } from '../../icons/icons'
 
 const QuizResultWindow = ({usersCorrectAnswers, points, answeredQuizzes}) => {
   const [percentScore, setPercentScore] = useState("--");

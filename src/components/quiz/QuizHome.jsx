@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   collection,
   query,
@@ -8,15 +10,13 @@ import {
   getDoc,
   where,
 } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { db } from '../config/firebase';
 import Loading from 'react-simple-loading';
-import { Link } from 'react-router-dom';
 
+import { db } from '../../config/firebase';
 import QuizHomeStartBtn from './QuizHomeStartBtn';
 import SelectMaxTestLength from './SelectMaxTestLength';
+import { faTrophy } from '../../icons/icons';
 
-import { faTrophy } from '../icons/icons';
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [categories, setCategories] = useState([]);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Item from './Item';
+import DropdownItem from './DropdownItem';
 const NavQuiz = ({ txt, displayDropdown, setDisplayDropdown, activeStyle }) => {
   const handleClick = () => {
     displayDropdown !== 'quizdropdown'
@@ -18,9 +18,9 @@ const NavQuiz = ({ txt, displayDropdown, setDisplayDropdown, activeStyle }) => {
       </span>
       {displayDropdown === 'quizdropdown' && (
         <div className='navItemDropdownContainer'>
-          <Item handleClick={handleClick} link='kinniku-quiz/home' txt='Home' />
-          <Item handleClick={handleClick} link='kinniku-quiz/new' txt='New' />
-          <Item
+          <DropdownItem handleClick={handleClick} link='kinniku-quiz/home' txt='Home' />
+          <DropdownItem handleClick={handleClick} link='kinniku-quiz/new' txt='New' />
+          <DropdownItem
             handleClick={handleClick}
             link='kinniku-quiz/all-quizzes'
             txt='All'

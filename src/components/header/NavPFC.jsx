@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Item from './Item';
+import DropdownItem from './DropdownItem';
 
 const NavPFC = ({ txt, displayDropdown, setDisplayDropdown, activeStyle }) => {
   const handleClick = () => {
@@ -19,9 +19,9 @@ const NavPFC = ({ txt, displayDropdown, setDisplayDropdown, activeStyle }) => {
       </span>
       {displayDropdown === 'pfcdropdown' && (
         <div className='navItemDropdownContainer'>
-          <Item handleClick={handleClick} link='pfc/home' txt='Home' />
-          <Item handleClick={handleClick} link='pfc/add-food' txt='Add' />
-          <Item handleClick={handleClick} link='pfc/all-foods' txt='All' />
+          <DropdownItem handleClick={handleClick} link='pfc/home' txt='Home' />
+          <DropdownItem handleClick={handleClick} link='pfc/add-food' txt='Add' />
+          <DropdownItem handleClick={handleClick} link='pfc/all-foods' txt='All' />
         </div>
       )}
     </div>
