@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
@@ -29,19 +29,19 @@ const Test = ({currentUser}) => {
     if (selectedCategories[0] !== "all") {
       console.log("selectedCategories[0] !== 'all'")
       var q = query(collectionRef, where("category", "in", selectedCategories));
-      var snapshot = await getDocs(q);
+      var s = await getDocs(q);
     } else {
       console.log("selectedCategories[0] === 'all'")
-      var snapshot = await getDocs(collectionRef);
+      var s = await getDocs(collectionRef);
     }
 
-    const snapshotLength = snapshot.docs.length;
+    const snapshotLength = s.docs.length;
     console.log("snapshot.docs.length: ", snapshotLength);
     let testLength = snapshotLength;
 
     // When maxTestLength is equal to or bigger than snapshotLength, no selection is needed.
     if (snapshotLength <= maxTestLength) {
-      setQuizzes(snapshot.docs.map(doc => doc.data()));
+      setQuizzes(s.docs.map(doc => doc.data()));
       return
     } 
 
@@ -70,7 +70,7 @@ const Test = ({currentUser}) => {
 
     // Get the quizzes from the snapshot.
     let quizzesLis = [];
-    snapshot.docs.map((doc, index) => {
+    s.docs.map((doc, index) => {
       console.log("setQuizzes", randomQuizIndexes, index);
       if (randomQuizIndexes.includes(index)) {
         quizzesLis.push({...doc.data(), id: doc.id});

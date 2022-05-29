@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 import QuizHomeStartBtn from './QuizHomeStartBtn';
 import SelectMaxTestLength from './SelectMaxTestLength';
+
 import { faTrophy } from '../icons/icons';
 const QuizHome = () => {
   const [quizzes, setQuizzes] = useState([]);

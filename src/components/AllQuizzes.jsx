@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import {
   collection,
-  onSnapshot,
   query,
   orderBy,
   doc,
@@ -102,7 +101,6 @@ const AllQuizzes = ({ uid }) => {
         getQuizzes(searchByTag);
       }
     }
-    
   };
 
 

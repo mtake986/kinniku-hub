@@ -33,9 +33,12 @@ main#root header {
   padding: 10px 20px;
   font-size: 1.5rem;
   background: #005bbb;
+  z-index: 1;
 }
 
 main#root header #logo a {
+  display: block;
+  height: 50px;
   color: #ffd500;
   font-size: 2.5rem;
   font-family: "Caveat", cursive;
@@ -48,21 +51,47 @@ main#root header #appNav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 5px;
 }
 
-main#root header #appNav a {
+main#root header #appNav .navItem {
+  position: relative;
+}
+
+main#root header #appNav .navItem span {
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.5rem;
   display: inline-block;
   padding: 3px 5px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   margin-right: 5px;
+  cursor: pointer;
 }
 
-main#root header #appNav a:hover {
-  opacity: 0.7;
+main#root header #appNav .navItem .navItemDropdownContainer {
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 50px;
+  background: #005bbb;
+  font-size: 1.2rem;
+}
+
+main#root header #appNav .navItem .navItemDropdownContainer a {
+  padding: 10px 20px;
+  color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+main#root header #appNav .navItem .navItemDropdownContainer a:hover {
+  opacity: .7;
 }
 
 main#root header #appNav span.imgLink {

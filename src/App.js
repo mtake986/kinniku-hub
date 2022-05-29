@@ -6,8 +6,8 @@ import { onAuthStateChanged } from 'firebase/auth'
 // Import files existing in this project
 import './styles/Style.css';
 import './styles/quiz.css';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 import Test from "./components/Test";
 import FixedNewQuizBtn from "./components/FixedNewQuizBtn";

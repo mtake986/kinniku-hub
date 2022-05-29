@@ -27,8 +27,11 @@ main#root {
     padding: 10px 20px;
     font-size: 1.5rem;
     background: $colorAccent1;
+    z-index: 1;
     #logo {
       a {
+        display: block;
+        height: 50px;
         color: $colorAccent2;
         font-size: $fzL;
         font-family: $fontLogo;
@@ -37,17 +40,34 @@ main#root {
     #appNav {
       display: flex;
       align-items: center;
-      gap: 5px;
-      a {
-        color: $colorTextSecond;
-        font-size: $fzSS;
-        display: inline-block;
-        // font-family: $fontHeader;
-        padding: 3px 5px;
-        transition: 0.3s;
-        margin-right: 5px;
-        &:hover {
-          opacity: 0.7;
+      .navItem {
+        position: relative;
+        span{
+          color: $colorTextSecond;
+          font-size: $fzM;
+          display: inline-block;
+          // font-family: $fontHeader;
+          padding: 3px 5px;
+          transition: 0.3s;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+        .navItemDropdownContainer {
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          top: 50px;
+          background: $colorAccent1;
+          font-size: $fzS;
+          a{
+            padding: 10px 20px;
+            color: white;
+            transition: 0.3s;
+            &:hover {
+              opacity: .7;
+            }
+          }
         }
       }
       span.imgLink {
@@ -75,6 +95,47 @@ main#root {
         }
       }
     }
+    // #appNav {
+    //   display: flex;
+    //   align-items: center;
+    //   gap: 5px;
+    //   a {
+    //     color: $colorTextSecond;
+    //     font-size: $fzSS;
+    //     display: inline-block;
+    //     // font-family: $fontHeader;
+    //     padding: 3px 5px;
+    //     transition: 0.3s;
+    //     margin-right: 5px;
+    //     &:hover {
+    //       opacity: 0.7;
+    //     }
+    //   }
+    //   span.imgLink {
+    //     width: 40px;
+    //     height: 40px;
+    //     cursor: pointer;
+    //     margin-left: 5px;
+    //     a {
+    //       margin: 0;
+    //       padding: 0;
+    //       img {
+    //         width: 40px;
+    //         border-radius: 50%;
+    //       }
+    //     }
+    //   }
+    //   #signInBtn {
+    //     color: white;
+    //     font-size: $fzMM;
+    //     margin-left: 5px;
+    //     cursor: pointer;
+    //     height: 30px;
+    //     &:hover {
+    //       background: rgb(186, 186, 186);
+    //     }
+    //   }
+    // }
   }
   #bodyContainer {
     /* background-color: #eee; */
