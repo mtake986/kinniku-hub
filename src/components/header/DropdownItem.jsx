@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 
-const Item = ({handleClick, link, txt}) => {
+const DropdownItem = ({handleClick, link, txt}) => {
   let activeStyle = {
     pointerEvents: 'none',
     color: "#ffe668",
@@ -19,4 +19,4 @@ const Item = ({handleClick, link, txt}) => {
   )
 }
 
-export default Item
+export default DropdownItem

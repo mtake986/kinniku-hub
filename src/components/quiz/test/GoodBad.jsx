@@ -8,10 +8,11 @@ import {
   arrayUnion,
   arrayRemove,
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
+import { db } from '../../../config/firebase';
+
+
 
 const GoodBad = ({ quiz, currentUser }) => {
-
   let alreadyLiked = false;
   // console.log(currentUser, quiz)
 

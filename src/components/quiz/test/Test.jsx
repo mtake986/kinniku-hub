@@ -3,11 +3,11 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
-import {db} from '../config/firebase';
 import GoodBad from './GoodBad';
 import GoNextQuizBtn from './GoNextQuizBtn';
 import QuizResultWindow from './QuizResultWindow';
-import { biCircle, biPlus } from '../icons/icons';
+import {db} from '../../../config/firebase';
+import { biCircle, biPlus } from '../../../icons/icons';
 
 const Test = ({currentUser}) => {
   const [quizzes, setQuizzes] = useState([]);
@@ -25,14 +25,15 @@ const Test = ({currentUser}) => {
   const getQuizzes = async () => {
     const collectionRef = collection(db, 'quizzes');
 
+    let s;
     console.log(selectedCategories)
     if (selectedCategories[0] !== "all") {
       console.log("selectedCategories[0] !== 'all'")
-      var q = query(collectionRef, where("category", "in", selectedCategories));
-      var s = await getDocs(q);
+      const q = query(collectionRef, where("category", "in", selectedCategories));
+      s = await getDocs(q);
     } else {
       console.log("selectedCategories[0] === 'all'")
-      var s = await getDocs(collectionRef);
+      s = await getDocs(collectionRef);
     }
 
     const snapshotLength = s.docs.length;

@@ -251,6 +251,7 @@
         justify-content: space-between;
         align-items: center;
         height: 80px;
+        border-left: 5px solid rgba(0, 0, 0, 0);
         &:hover {
           background: $colorAccent2Lighter;
         }
