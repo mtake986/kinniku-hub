@@ -19,7 +19,7 @@ const RoutesQuiz = ({currentUser}) => {
         element={<Test currentUser={currentUser === {} ? "Anonymous" : currentUser} />}
       />
       <Route
-        path="all-quizzes"
+        path="all"
         element={
           <All
             uid={currentUser === {}

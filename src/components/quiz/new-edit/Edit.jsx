@@ -80,7 +80,7 @@ const Edit = () => {
           const docRef = doc(db, 'quizzes', id);
           const payload = { ...values, updated: serverTimestamp() };
           await updateDoc(docRef, payload);
-          navigate('/kinniku-quiz/all-quizzes');
+          navigate('/kinniku-quiz/all');
         }}
       >
         {({ errors, touched, values }) => (

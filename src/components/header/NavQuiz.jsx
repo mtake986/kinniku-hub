@@ -22,7 +22,7 @@ const NavQuiz = ({ txt, displayDropdown, setDisplayDropdown, activeStyle }) => {
           <DropdownItem handleClick={handleClick} link='kinniku-quiz/new' txt='New' />
           <DropdownItem
             handleClick={handleClick}
-            link='kinniku-quiz/all-quizzes'
+            link='kinniku-quiz/all'
             txt='All'
           />
         </div>
