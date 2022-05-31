@@ -372,51 +372,54 @@
 }
 
 .allQuizzes,
-.quizzes {
+.quizRecentlyCreatedContainer {
   font-size: $fzS;
-  .eachQuizContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid $colorAccent1Lighter;
-    font-size: $fzSS;
-    padding: 10px;
-    .quizQuestionContainer {
+  .filterResult,
+  .quizzes {
+    .eachQuizContainer {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      .quizIndex {
-        margin: 0 10px;
-        min-width: 30px;
-      }
-      .quizQuestion {
-        margin: 0 10px 0 0;
-        overflow: scroll;
-      }
-    }
-    a {
-      height: 25px;
-      img {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-      }
-    }
-    div.icons {
-      display: flex;
-      a {
-        height: 20px;
-        margin-right: 10px;
-        i.riEditBoxLine {
-          cursor: pointer;
-          color: $colorAccent1;
+      padding: 15px 0;
+      border-bottom: 1px solid $colorAccent1Lighter;
+      font-size: $fzSS;
+      padding: 10px;
+      .quizQuestionContainer {
+        display: flex;
+        align-items: center;
+        .quizIndex {
+          margin: 0 10px;
+          min-width: 30px;
+        }
+        .quizQuestion {
+          margin: 0 10px 0 0;
+          overflow: scroll;
         }
       }
-      i.riDeleteBinLine {
-        cursor: pointer;
-        height: 20px;
-        width: 20px;
-        color: red;
+      a {
+        height: 25px;
+        img {
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+        }
+      }
+      div.icons {
+        display: flex;
+        a {
+          height: 20px;
+          margin-right: 10px;
+          i.riEditBoxLine {
+            cursor: pointer;
+            color: $colorAccent1;
+          }
+        }
+        i.riDeleteBinLine {
+          cursor: pointer;
+          height: 20px;
+          width: 20px;
+          color: red;
+        }
       }
     }
   }
@@ -425,62 +428,41 @@
     font-size: $fzSS;
     .inputs {
       display: flex;
+      justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 30px;
-      select {
-        width: 160px;
+      border: 1px solid rgb(200, 200, 200);
+      border-radius: 5px;
+      padding: 5px;
+      select, input {
+        min-width: 150px;
         display: block;
         border: none;
-        border-bottom: 1px solid rgb(200, 200, 200);
-        padding: 10px 15px;
-        margin-top: 5px;
+        padding: 5px 10px;
         transition: 0.3s;
         &:focus {
           outline: none;
         }
-        &.chosen {
-          background: $colorGreenLighter;
-        }
+        // &.chosen {
+        //   background: $colorGreenLighter;
+        // }
       }
-      .searchByTagContainer {
-        position: relative;
-        display: flex;
-        align-items: center;
-        input.searchTagInput {
-          width: 160px;
-          border: none;
-          border-bottom: 1px solid rgb(200, 200, 200);
-          padding: 10px 15px;
-          margin-top: 5px;
-          transition: 0.3s;
-          &:focus {
-            outline: none;
-          }
-          &.chosen {
-            background: $colorGreenLighter;
-          }
-        }
-      }
-    }
-    .submitBtn {
-      padding: 10px 18px;
-      margin-top: 20px;
-      border-radius: 5px;
-      border: #ecf5ff;
-      width: 100%;
-      cursor: pointer;
-      transition: 0.3s;
-      background: none;
-      font-size: 1.5rem;
-      font-family: Cormorant Garamond, serif;
-      &:hover {
-        background: $colorAccent1Lighter;
-      }
-      &.disabled {
-        pointer-events: none;
-        opacity: 0.3;
+      .submitBtn {
+        border: #ecf5ff;
+        cursor: pointer;
         transition: 0.3s;
+        background: none;
+        font-size: $fzMM;
+        width: 30px;
+        height: 30px;
+        &:hover {
+          background: $colorAccent1Lighter;
+        }
+        &.disabled {
+          pointer-events: none;
+          opacity: 0.3;
+          transition: 0.3s;
+        }
       }
     }
   }

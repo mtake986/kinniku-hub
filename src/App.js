@@ -9,8 +9,8 @@ import './styles/quiz.css';
 
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import RoutesQuiz from './components/quiz/RoutesQuiz';
-import RoutesPFC from './components/pfc/RoutesPFC';
+import RoutesQuiz from './routes/Quiz';
+import RoutesPFC from './routes/PFC';
 import Profile from "./components/Profile";
 import ErrorPage from "./components/ErrorPage";
 

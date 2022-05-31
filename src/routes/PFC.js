@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './Home'
-import Add from './Add'
-import Edit from './Edit'
-import All from './All'
+import Home from '../components/pfc/Home'
+import Add from '../components/pfc/Add'
+import Edit from '../components/pfc/Edit'
+import All from '../components/pfc/All'
 
 
 
-const RoutesPFC = () => {
+const PFC = () => {
   return (
     <Routes>
       <Route
@@ -29,4 +29,4 @@ const RoutesPFC = () => {
   );
 }
 
-export default RoutesPFC
+export default PFC

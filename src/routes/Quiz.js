@@ -1,13 +1,13 @@
 
 import { Routes, Route } from 'react-router-dom';
 
-import Home from "./home/Home";
-import All from "./all/All";
-import Edit from "./new-edit/Edit";
-import NewQuiz from "./new-edit/NewQuiz";
-import Test from "./test/Test";
+import Home from "../components/quiz/home/Home";
+import All from "../components/quiz/all/All";
+import Edit from "../components/quiz/new-edit/Edit";
+import NewQuiz from "../components/quiz/new-edit/NewQuiz";
+import Test from "../components/quiz/test/Test";
 
-const RoutesQuiz = ({currentUser}) => {
+const Quiz = ({currentUser}) => {
 
   return (
     <Routes>
@@ -41,4 +41,4 @@ const RoutesQuiz = ({currentUser}) => {
   )
 }
 
-export default RoutesQuiz;
+export default Quiz;
