@@ -14,14 +14,14 @@ const Inputs = () => {
       <span>Filter</span>
       <div className="inputs">
         <Category />
-        {"|"}
+        <span className="border">|</span>
         <Tag />
-        {"|"}
+        <span className="border">|</span>
         <User />
-        
-        <span className='submitBtn' onClick={handleFilter}>
+        <span className="border">|</span>
+        <div className='submitBtn' onClick={handleFilter}>
           {ioSearchOutline}
-        </span>
+        </div>
       </div>
     </div>
   )

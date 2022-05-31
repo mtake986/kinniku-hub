@@ -16,7 +16,7 @@ const Category = () => {
       <option defaultValue disabled>
         Select a Category
       </option>
-      <option value='all'>All</option>
+      <option value=''>All</option>
       {categories.map(c => (
         <option key={c} value={c}>
           {c}

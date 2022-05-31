@@ -11,13 +11,12 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 
-
 // ========== Import from inside this project ==========
 import { db } from '../../../config/firebase';
 import Inputs from './inputs/Inputs';
 import { FilterInputsContext } from '../../../contexts/quiz/FilterInputsContext';
 import { FilterResultContext } from '../../../contexts/quiz/FilterResultContext';
-import Result from './Result';
+import FilterResult from './FilterResult';
 
 // ========== Main ==========
 const All = ({ uid }) => {
@@ -34,6 +33,7 @@ const All = ({ uid }) => {
   // })
 
   useEffect(() => {
+    console.log('================== All: useEffect start');
     setIsLoading(true);
     getQuizCategory();
     getUsers();
@@ -56,10 +56,11 @@ const All = ({ uid }) => {
   };
 
   // handle filtering
-  const getQuizzes = async (ctg = '', tag = '', uid="") => {
+  const getQuizzes = async (ctg = '', tag = '', uid = '') => {
     setIsLoading(true);
     const collectionRef = collection(db, 'quizzes');
     let q = query(collectionRef, orderBy('createdAt', 'desc'));
+
     if (ctg !== '') {
       q = query(q, where('category', '==', ctg));
     }
@@ -92,32 +93,13 @@ const All = ({ uid }) => {
     const q = query(collectionRef, orderBy('createdAt', 'desc'));
     const snapshot = await getDocs(q);
     setUsers(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    console.log("users: ", users);
-  }
+    console.log('users: ', users);
+  };
 
   const handleFilter = e => {
-    setIsLoading(true);
     e.preventDefault();
-
-    if (searchByCategory === 'all') {
-      console.log({ searchByCategory });
-      if (searchByTag !== '') {
-        getQuizzes('', searchByTag);
-      } else {
-        getQuizzes();
-      }
-    } else {
-      if ((searchByCategory !== '') & (searchByTag !== '')) {
-        console.log('both filled: ', searchByCategory, searchByTag);
-        getQuizzes(searchByCategory, searchByTag);
-      } else if (searchByCategory !== '') {
-        console.log('category filled', searchByCategory);
-        getQuizzes(searchByCategory);
-      } else if (searchByTag !== '') {
-        console.log('tag filled', searchByTag);
-        getQuizzes(searchByTag);
-      }
-    }
+    console.log('handleFilter: ', searchByCategory, searchByTag, searchByUid)
+    getQuizzes(searchByCategory, searchByTag, searchByUid);
   };
 
   const handleDelete = async id => {
@@ -151,14 +133,14 @@ const All = ({ uid }) => {
         <Inputs />
       </FilterInputsContext.Provider>
       <FilterResultContext.Provider
-        value={{ 
+        value={{
           quizzes,
           isLoading,
           uid,
           handleDelete,
         }}
       >
-        <Result />
+        <FilterResult />
       </FilterResultContext.Provider>
     </div>
   );

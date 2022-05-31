@@ -431,38 +431,31 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      border: 1px solid rgb(200, 200, 200);
-      border-radius: 5px;
-      padding: 5px;
+      border: 1px solid $grey;
+      border-radius: 10px;
+      padding: 10px 20px;
       select, input {
         min-width: 150px;
         display: block;
         border: none;
-        padding: 5px 10px;
         transition: 0.3s;
         &:focus {
           outline: none;
         }
-        // &.chosen {
-        //   background: $colorGreenLighter;
-        // }
       }
-      .submitBtn {
+      div.submitBtn {
         border: #ecf5ff;
         cursor: pointer;
         transition: 0.3s;
         background: none;
-        font-size: $fzMM;
-        width: 30px;
-        height: 30px;
+        font-size: $fzM;
+        height: 24px;
         &:hover {
-          background: $colorAccent1Lighter;
+          color: $colorAccent1;
         }
-        &.disabled {
-          pointer-events: none;
-          opacity: 0.3;
-          transition: 0.3s;
-        }
+      }
+      span.border {
+        color: $grey;
       }
     }
   }

@@ -3,8 +3,9 @@ import Loading from 'react-simple-loading';
 import { Link } from 'react-router-dom';
 import { riEditBoxLine, riDeleteBinLine } from '../../../icons/icons';
 import { FilterResultContext } from '../../../contexts/quiz/FilterResultContext';
+import NoData from '../../NoData';
 
-const Result = () => {
+const FilterResult = () => {
   const { quizzes, isLoading, uid, handleDelete } = useContext(FilterResultContext);
 
   return (
@@ -14,7 +15,7 @@ const Result = () => {
           <Loading color={'#005bbb'} />
         </div>
       ) : quizzes.length === 0 ? (
-        <div>no quizzes</div>
+        <NoData kind='quizzes' />
       ) : (
         quizzes.map((quiz, quizIndex) => (
           <div className='eachQuizContainer' key={quiz.id}>
@@ -56,4 +57,4 @@ const Result = () => {
   )
 }
 
-export default Result
+export default FilterResult
