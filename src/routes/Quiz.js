@@ -6,6 +6,7 @@ import All from "../components/quiz/all/All";
 import Edit from "../components/quiz/new-edit/Edit";
 import NewQuiz from "../components/quiz/new-edit/NewQuiz";
 import Test from "../components/quiz/test/Test";
+import QuizResultWindow from '../components/quiz/test/QuizResultWindow';
 
 const Quiz = ({currentUser}) => {
 
@@ -17,7 +18,10 @@ const Quiz = ({currentUser}) => {
       <Route
         path="test"
         element={<Test currentUser={currentUser === {} ? "Anonymous" : currentUser} />}
-      />
+      >
+      </Route>
+      {/* Don't know why I got an error if I moved this route into test Route.  */}
+      <Route path="test/result" element={<QuizResultWindow />} />
       <Route
         path="all"
         element={

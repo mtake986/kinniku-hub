@@ -15,7 +15,7 @@ const FilterResult = () => {
           <Loading color={'#005bbb'} />
         </div>
       ) : quizzes.length === 0 ? (
-        <NoData kind='quizzes' />
+        <NoData txt='No Quizzes matched this filterization.' />
       ) : (
         quizzes.map((quiz, quizIndex) => (
           <div className='eachQuizContainer' key={quiz.id}>

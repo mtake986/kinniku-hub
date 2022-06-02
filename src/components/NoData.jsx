@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NoData = ({kind}) => {
+const NoData = ({txt}) => {
   const styles = {
     padding: "10px",
     margin: "10px 0",
@@ -10,7 +10,7 @@ const NoData = ({kind}) => {
     borderRadius: "5px",
   };
   return (
-    <div style={styles}>No {kind} to display...</div>
+    <div style={styles}>{txt}</div>
   )
 }
 
