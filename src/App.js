@@ -9,8 +9,8 @@ import './styles/quiz.css';
 
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import RoutesQuiz from './routes/Quiz';
-import RoutesPFC from './routes/PFC';
+import Quiz from './routes/Quiz';
+import PFC from './routes/PFC';
 import Profile from "./components/Profile";
 import ErrorPage from "./components/ErrorPage";
 
@@ -48,8 +48,8 @@ function App() {
       <Header currentUser={currentUser} />
       <div id="bodyContainer">
         <Routes>
-          <Route path="/kinniku-quiz/*" element={<RoutesQuiz currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
-          <Route path="/pfc/*" element={<RoutesPFC />} />
+          <Route path="/kinniku-quiz/*" element={<Quiz currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          <Route path="/pfc/*" element={<PFC />} />
           <Route
             path="profile/:uid"
             element={
