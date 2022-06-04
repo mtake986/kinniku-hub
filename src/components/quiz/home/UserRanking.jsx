@@ -12,6 +12,7 @@ import Loading from 'react-simple-loading';
 
 import { db } from '../../../config/firebase';
 import { faTrophy } from '../../../icons/icons';
+import NoData from '../../NoData';
 
 const UserRanking = () => {
   // const [isLoadingUsers, setIsLoadingUsers] = useState(false);
@@ -108,7 +109,7 @@ const UserRanking = () => {
           <Loading color={'#005bbb'} />
         </div>
       ) : rankingUsers.length === 0 ? (
-        <div>No users</div>
+        <NoData txt='So sad to know users do not post...' />
       ) : (
         <div className='usersContainer'>
           {rankingUsers.map((user, userIndex) => (

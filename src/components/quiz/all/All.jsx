@@ -10,21 +10,22 @@ import {
   getDocs,
   deleteDoc,
 } from 'firebase/firestore';
-import Loading from 'react-simple-loading';
-import { Link } from 'react-router-dom';
 
 // ========== Import from inside this project ==========
 import { db } from '../../../config/firebase';
-import { riEditBoxLine, riDeleteBinLine } from '../../../icons/icons';
-import SearchByTag from './SearchByTag';
-import SearchByCategory from './SearchByCategory';
+import Inputs from './inputs/Inputs';
+import { FilterInputsContext } from '../../../contexts/quiz/FilterInputsContext';
+import { FilterResultContext } from '../../../contexts/quiz/FilterResultContext';
+import FilterResult from './FilterResult';
 
 // ========== Main ==========
 const All = ({ uid }) => {
   const [quizzes, setQuizzes] = useState([]);
+  const [users, setUsers] = useState([]);
   const [searchByCategory, setSearchByCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [searchByTag, setSearchByTag] = useState('');
+  const [searchByUid, setSearchByUid] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
@@ -32,19 +33,10 @@ const All = ({ uid }) => {
   // })
 
   useEffect(() => {
+    console.log('================== All: useEffect start');
     setIsLoading(true);
-    const getQuizCategory = async () => {
-      const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setCategories(docSnap.data()['categories']);
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-      }
-    };
     getQuizCategory();
+    getUsers();
     getQuizzes();
   }, []);
 
@@ -58,16 +50,25 @@ const All = ({ uid }) => {
     console.log(searchByTag);
   };
 
+  const handleSearchByUid = e => {
+    setSearchByUid(e.target.value);
+    console.log(searchByUid);
+  };
+
   // handle filtering
-  const getQuizzes = async (ctg = '', tag = '') => {
+  const getQuizzes = async (ctg = '', tag = '', uid = '') => {
     setIsLoading(true);
     const collectionRef = collection(db, 'quizzes');
     let q = query(collectionRef, orderBy('createdAt', 'desc'));
+
     if (ctg !== '') {
       q = query(q, where('category', '==', ctg));
     }
     if (tag !== '') {
       q = query(q, where('tags', 'array-contains', tag));
+    }
+    if (uid !== '') {
+      q = query(q, where('user.uid', '==', uid));
     }
     const snapshot = await getDocs(q);
     console.log(snapshot.docs);
@@ -75,29 +76,30 @@ const All = ({ uid }) => {
     setIsLoading(false);
   };
 
-  const handleFilter = e => {
-    setIsLoading(true);
-    e.preventDefault();
+  const getQuizCategory = async () => {
+    const docRef = doc(db, 'quizCategory', 'quizCategoryCategories');
+    const docSnap = await getDoc(docRef);
 
-    if (searchByCategory === 'all') {
-      console.log({ searchByCategory });
-      if (searchByTag !== '') {
-        getQuizzes('', searchByTag);
-      } else {
-        getQuizzes();
-      }
+    if (docSnap.exists()) {
+      setCategories(docSnap.data()['categories']);
     } else {
-      if ((searchByCategory !== '') & (searchByTag !== '')) {
-        console.log('both filled: ', searchByCategory, searchByTag);
-        getQuizzes(searchByCategory, searchByTag);
-      } else if (searchByCategory !== '') {
-        console.log('category filled', searchByCategory);
-        getQuizzes(searchByCategory);
-      } else if (searchByTag !== '') {
-        console.log('tag filled', searchByTag);
-        getQuizzes(searchByTag);
-      }
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
     }
+  };
+
+  const getUsers = async () => {
+    const collectionRef = collection(db, 'users');
+    const q = query(collectionRef, orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
+    setUsers(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    console.log('users: ', users);
+  };
+
+  const handleFilter = e => {
+    e.preventDefault();
+    console.log('handleFilter: ', searchByCategory, searchByTag, searchByUid)
+    getQuizzes(searchByCategory, searchByTag, searchByUid);
   };
 
   const handleDelete = async id => {
@@ -115,67 +117,31 @@ const All = ({ uid }) => {
 
   return (
     <div className='allQuizzes'>
-      <div className='searchContainer'>
-        <span>Filter</span>
-        <div className='inputs'>
-          <SearchByCategory
-            handleSearchByCategory={handleSearchByCategory}
-            searchByCategory={searchByCategory}
-            categories={categories}
-          />
-          <SearchByTag
-            handleSearchByTag={handleSearchByTag}
-            searchByTag={searchByTag}
-          />
-        </div>
-        <button className='submitBtn' onClick={handleFilter}>
-          Filter
-        </button>
-      </div>
-
-      {isLoading ? (
-        <div className='loading'>
-          <Loading color={'#005bbb'} />
-        </div>
-      ) : quizzes.length === 0 ? (
-        <div>no quizzes</div>
-      ) : (
-        quizzes.map((quiz, quizIndex) => (
-          <div className='eachQuizContainer' key={quiz.id}>
-            <div className='quizQuestionContainer'>
-              <span className='quizIndex'>{quizIndex + 1}.</span>
-              <p className='quizQuestion'>{quiz.question}</p>
-            </div>
-            {quiz.user.uid && uid === quiz.user.uid ? (
-              <div className='icons'>
-                <Link
-                  to={{ pathname: `/kinniku-quiz/edit/${quiz.id}` }}
-                  state={{ quiz: quiz }}
-                >
-                  <i className='riEditBoxLine'>{riEditBoxLine}</i>
-                </Link>
-                <i
-                  className='riDeleteBinLine'
-                  onClick={() => handleDelete(quiz.id)}
-                >
-                  {riDeleteBinLine}
-                </i>
-              </div>
-            ) : quiz.user.uid && uid !== quiz.user.uid ? (
-              <Link
-                to={{ pathname: `/profile/${quiz.user.uid}` }}
-                state={{ user: quiz.user }}
-              >
-                <img
-                  src={quiz.user.photoURL}
-                  alt={quiz.user.username}
-                  referrerPolicy='no-referrer'
-                />
-              </Link>
-            ) : null}
-          </div>
-        ))
-      )}
+      <FilterInputsContext.Provider
+        value={{
+          handleSearchByCategory,
+          searchByCategory,
+          categories,
+          handleSearchByTag,
+          searchByTag,
+          handleSearchByUid,
+          searchByUid,
+          users,
+          handleFilter,
+        }}
+      >
+        <Inputs />
+      </FilterInputsContext.Provider>
+      <FilterResultContext.Provider
+        value={{
+          quizzes,
+          isLoading,
+          uid,
+          handleDelete,
+        }}
+      >
+        <FilterResult />
+      </FilterResultContext.Provider>
     </div>
   );
 };

@@ -1,16 +1,27 @@
 
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Loading from 'react-simple-loading';
 
 import { biCircle, biPlus } from '../../../icons/icons'
 
-const QuizResultWindow = ({usersCorrectAnswers, points, answeredQuizzes}) => {
+const QuizResultWindow = () => {
   const [percentScore, setPercentScore] = useState("--");
+  const location = useLocation();
+  const usersCorrectAnswers = location.state.usersCorrectAnswers;
+  const points = location.state.points;
+  const answeredQuizzes = location.state.answeredQuizzes;
+
+  console.log("usersCorrectAnswers: ", usersCorrectAnswers)
+  console.log("points: ", points)
+  console.log("answeredQuizzes: ", answeredQuizzes)
+
   useEffect(() => {
     if (answeredQuizzes) {
       setPercentScore(`${Math.round(points/answeredQuizzes.length*1000) / 10}%`);
     }
   }, [])
+  
   return (
     <div className="quizResultWindow">
       <div className="quizResultText">

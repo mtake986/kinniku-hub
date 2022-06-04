@@ -1,6 +1,8 @@
-import React from 'react';
+import { useContext } from 'react';
+import { FilterInputsContext } from '../../../../contexts/quiz/FilterInputsContext';
 
-const SearchByTag = ({ handleSearchByTag, searchByTag }) => {
+const Tag = () => {
+  const { handleSearchByTag, searchByTag } = useContext(FilterInputsContext);
   return (
     <div className='searchByTagContainer'>
       <input
@@ -17,4 +19,4 @@ const SearchByTag = ({ handleSearchByTag, searchByTag }) => {
   );
 };
 
-export default SearchByTag;
+export default Tag;

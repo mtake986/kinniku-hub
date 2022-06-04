@@ -501,12 +501,14 @@
 }
 
 .allQuizzes,
-.quizzes {
+.quizRecentlyCreatedContainer {
   font-size: 1.2rem;
 }
 
-.allQuizzes .eachQuizContainer,
-.quizzes .eachQuizContainer {
+.allQuizzes .filterResult .eachQuizContainer,
+.allQuizzes .quizzes .eachQuizContainer,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -522,8 +524,10 @@
   padding: 10px;
 }
 
-.allQuizzes .eachQuizContainer .quizQuestionContainer,
-.quizzes .eachQuizContainer .quizQuestionContainer {
+.allQuizzes .filterResult .eachQuizContainer .quizQuestionContainer,
+.allQuizzes .quizzes .eachQuizContainer .quizQuestionContainer,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer .quizQuestionContainer,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer .quizQuestionContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -532,51 +536,67 @@
           align-items: center;
 }
 
-.allQuizzes .eachQuizContainer .quizQuestionContainer .quizIndex,
-.quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
+.allQuizzes .filterResult .eachQuizContainer .quizQuestionContainer .quizIndex,
+.allQuizzes .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer .quizQuestionContainer .quizIndex,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
   margin: 0 10px;
   min-width: 30px;
 }
 
-.allQuizzes .eachQuizContainer .quizQuestionContainer .quizQuestion,
-.quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
+.allQuizzes .filterResult .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.allQuizzes .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
   margin: 0 10px 0 0;
   overflow: scroll;
 }
 
-.allQuizzes .eachQuizContainer a,
-.quizzes .eachQuizContainer a {
+.allQuizzes .filterResult .eachQuizContainer a,
+.allQuizzes .quizzes .eachQuizContainer a,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer a,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer a {
   height: 25px;
 }
 
-.allQuizzes .eachQuizContainer a img,
-.quizzes .eachQuizContainer a img {
+.allQuizzes .filterResult .eachQuizContainer a img,
+.allQuizzes .quizzes .eachQuizContainer a img,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer a img,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer a img {
   width: 25px;
   height: 25px;
   border-radius: 50%;
 }
 
-.allQuizzes .eachQuizContainer div.icons,
-.quizzes .eachQuizContainer div.icons {
+.allQuizzes .filterResult .eachQuizContainer div.icons,
+.allQuizzes .quizzes .eachQuizContainer div.icons,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.allQuizzes .eachQuizContainer div.icons a,
-.quizzes .eachQuizContainer div.icons a {
+.allQuizzes .filterResult .eachQuizContainer div.icons a,
+.allQuizzes .quizzes .eachQuizContainer div.icons a,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons a,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons a {
   height: 20px;
   margin-right: 10px;
 }
 
-.allQuizzes .eachQuizContainer div.icons a i.riEditBoxLine,
-.quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
+.allQuizzes .filterResult .eachQuizContainer div.icons a i.riEditBoxLine,
+.allQuizzes .quizzes .eachQuizContainer div.icons a i.riEditBoxLine,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons a i.riEditBoxLine,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
   cursor: pointer;
   color: #005bbb;
 }
 
-.allQuizzes .eachQuizContainer div.icons i.riDeleteBinLine,
-.quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
+.allQuizzes .filterResult .eachQuizContainer div.icons i.riDeleteBinLine,
+.allQuizzes .quizzes .eachQuizContainer div.icons i.riDeleteBinLine,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons i.riDeleteBinLine,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
   cursor: pointer;
   height: 20px;
   width: 20px;
@@ -584,104 +604,64 @@
 }
 
 .allQuizzes .searchContainer,
-.quizzes .searchContainer {
+.quizRecentlyCreatedContainer .searchContainer {
   margin-bottom: 20px;
   font-size: 1rem;
 }
 
 .allQuizzes .searchContainer .inputs,
-.quizzes .searchContainer .inputs {
+.quizRecentlyCreatedContainer .searchContainer .inputs {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 30px;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  padding: 10px 20px;
 }
 
-.allQuizzes .searchContainer .inputs select,
-.quizzes .searchContainer .inputs select {
-  width: 160px;
+.allQuizzes .searchContainer .inputs select, .allQuizzes .searchContainer .inputs input,
+.quizRecentlyCreatedContainer .searchContainer .inputs select,
+.quizRecentlyCreatedContainer .searchContainer .inputs input {
+  min-width: 150px;
   display: block;
   border: none;
-  border-bottom: 1px solid #c8c8c8;
-  padding: 10px 15px;
-  margin-top: 5px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-.allQuizzes .searchContainer .inputs select:focus,
-.quizzes .searchContainer .inputs select:focus {
+.allQuizzes .searchContainer .inputs select:focus, .allQuizzes .searchContainer .inputs input:focus,
+.quizRecentlyCreatedContainer .searchContainer .inputs select:focus,
+.quizRecentlyCreatedContainer .searchContainer .inputs input:focus {
   outline: none;
 }
 
-.allQuizzes .searchContainer .inputs select.chosen,
-.quizzes .searchContainer .inputs select.chosen {
-  background: #e0ffd9;
-}
-
-.allQuizzes .searchContainer .inputs .searchByTagContainer,
-.quizzes .searchContainer .inputs .searchByTagContainer {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput,
-.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput {
-  width: 160px;
-  border: none;
-  border-bottom: 1px solid #c8c8c8;
-  padding: 10px 15px;
-  margin-top: 5px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput:focus,
-.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput:focus {
-  outline: none;
-}
-
-.allQuizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.chosen,
-.quizzes .searchContainer .inputs .searchByTagContainer input.searchTagInput.chosen {
-  background: #e0ffd9;
-}
-
-.allQuizzes .searchContainer .submitBtn,
-.quizzes .searchContainer .submitBtn {
-  padding: 10px 18px;
-  margin-top: 20px;
-  border-radius: 5px;
+.allQuizzes .searchContainer .inputs div.submitBtn,
+.quizRecentlyCreatedContainer .searchContainer .inputs div.submitBtn {
   border: #ecf5ff;
-  width: 100%;
   cursor: pointer;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   background: none;
   font-size: 1.5rem;
-  font-family: Cormorant Garamond, serif;
+  height: 24px;
 }
 
-.allQuizzes .searchContainer .submitBtn:hover,
-.quizzes .searchContainer .submitBtn:hover {
-  background: #ecf5ff;
+.allQuizzes .searchContainer .inputs div.submitBtn:hover,
+.quizRecentlyCreatedContainer .searchContainer .inputs div.submitBtn:hover {
+  color: #005bbb;
 }
 
-.allQuizzes .searchContainer .submitBtn.disabled,
-.quizzes .searchContainer .submitBtn.disabled {
-  pointer-events: none;
-  opacity: 0.3;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+.allQuizzes .searchContainer .inputs span.border,
+.quizRecentlyCreatedContainer .searchContainer .inputs span.border {
+  color: gainsboro;
 }
 
 .quizResultWindow {

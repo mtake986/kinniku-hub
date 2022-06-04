@@ -1,13 +1,14 @@
 
 import { Routes, Route } from 'react-router-dom';
 
-import Home from "./home/Home";
-import All from "./all/All";
-import Edit from "./new-edit/Edit";
-import NewQuiz from "./new-edit/NewQuiz";
-import Test from "./test/Test";
+import Home from "../components/quiz/home/Home";
+import All from "../components/quiz/all/All";
+import Edit from "../components/quiz/new-edit/Edit";
+import NewQuiz from "../components/quiz/new-edit/NewQuiz";
+import Test from "../components/quiz/test/Test";
+import QuizResultWindow from '../components/quiz/test/QuizResultWindow';
 
-const RoutesQuiz = ({currentUser}) => {
+const Quiz = ({currentUser}) => {
 
   return (
     <Routes>
@@ -17,7 +18,10 @@ const RoutesQuiz = ({currentUser}) => {
       <Route
         path="test"
         element={<Test currentUser={currentUser === {} ? "Anonymous" : currentUser} />}
-      />
+      >
+      </Route>
+      {/* Don't know why I got an error if I moved this route into test Route.  */}
+      <Route path="test/result" element={<QuizResultWindow />} />
       <Route
         path="all"
         element={
@@ -41,4 +45,4 @@ const RoutesQuiz = ({currentUser}) => {
   )
 }
 
-export default RoutesQuiz;
+export default Quiz;

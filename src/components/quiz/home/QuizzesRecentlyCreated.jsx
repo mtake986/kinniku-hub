@@ -10,7 +10,7 @@ import {
 import Loading from 'react-simple-loading';
 
 import { db } from '../../../config/firebase';
-
+import NoData from '../../NoData'
 const QuizzesRecentlyCreated = () => {
   // const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(false);
   const [quizzes, setQuizzes] = useState([]);
@@ -41,7 +41,7 @@ const QuizzesRecentlyCreated = () => {
             <Loading color={'#005bbb'} />
           </div>
         ) : quizzes.length === 0 ? (
-          <p>No quizzes</p>
+          <NoData txt="No Quizzes" />
         ) : (
           quizzes.map((quiz, index) => (
             <div className='eachQuizContainer' key={index}>

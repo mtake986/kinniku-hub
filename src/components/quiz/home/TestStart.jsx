@@ -8,6 +8,7 @@ import { db } from '../../../config/firebase';
 
 import TestStartBtn from './TestStartBtn.jsx'
 import SelectMaxTestLength from './SelectMaxTestLength.jsx'
+import NoData from '../../NoData';
 
 const TestStart = () => {
   // const [isLoadingCategories, setIsLoadingCategories] = useState(false);
@@ -84,7 +85,7 @@ const TestStart = () => {
             <Loading color={'#005bbb'} />
           </div>
         ) : categories.length === 0 ? (
-          <p>No categories</p>
+          <NoData txt='No categories available' />
         ) : (
           categories.map((c, index) => (
             <button

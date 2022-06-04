@@ -93,7 +93,7 @@ export const NewQuiz = ({ user }) => {
         }}
       >
         {({ errors, touched, values }) => (
-          <Form novalidate>
+          <Form noValidate>
             <div style={topLabelInputContainer}>
               <label htmlFor='question' style={label}>
                 Question
