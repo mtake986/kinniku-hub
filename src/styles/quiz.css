@@ -78,7 +78,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.all.selected {
-  background: #fff8d5;
+  background: #fff9d8;
   border: 1px solid #ffd500;
 }
 
@@ -100,7 +100,7 @@
 }
 
 #quizHome .testStartContainer .btnsContainer button.selected {
-  background: #fff8d5;
+  background: #fff9d8;
   border: 1px solid #ffd500;
 }
 
@@ -340,7 +340,7 @@
   list-style: none;
   margin: 20px 0;
   padding: 20px;
-  background: #fff8d5;
+  background: #fff9d8;
   font-size: 1.5rem;
   cursor: pointer;
   display: -webkit-box;
@@ -357,7 +357,7 @@
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li:hover {
-  background: #fff8d5;
+  background: #fff9d8;
 }
 
 .quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {

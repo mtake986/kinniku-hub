@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from '../components/pfc/Home'
+import Home from '../components/pfc/home/Home'
 import Add from '../components/pfc/Add'
 import Edit from '../components/pfc/Edit'
 import All from '../components/pfc/All'
