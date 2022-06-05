@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import TabBar from './TabBar'
-import Header from './Header'
 import Body from './Body'
 
 const Summary = () => {
@@ -14,7 +13,6 @@ const Summary = () => {
   return (
     <div className="summary">
       <TabBar active = {active} handleSwitchTab = {handleSwitchTab} />
-      <Header txt={active} />
       <Body />
     </div>
   )
