@@ -1,21 +1,18 @@
-import { useState } from 'react'
+import { useContext } from 'react';
 
-import TabBar from './TabBar'
-import Body from './Body'
+import TabBar from './TabBar';
+import CaloriesBody from './calories/CaloriesBody';
+import PFCBody from './pfc/PFCBody';
+import { HomeContext } from '../../../../contexts/pfc/HomeContext';
 
 const Summary = () => {
-  const [active, setActive] = useState("Calories")
-  const handleSwitchTab = (e) => {
-    setActive(e.target.innerText)
-    console.log(active)
-  }
-
+  const { kind } = useContext(HomeContext);
   return (
-    <div className="summary">
-      <TabBar active = {active} handleSwitchTab = {handleSwitchTab} />
-      <Body />
+    <div className='summary'>
+      <TabBar />
+      {kind === 'Calories' ? <CaloriesBody /> : <PFCBody />}
     </div>
-  )
-}
+  );
+};
 
-export default Summary
+export default Summary;
