@@ -15,8 +15,6 @@ import { faTrophy } from '../../../icons/icons';
 import NoData from '../../NoData';
 
 const UserRanking = () => {
-  // const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-
   const [rankingUsers, setRankingUsers] = useState([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   useEffect(() => {
@@ -33,11 +31,14 @@ const UserRanking = () => {
     const date = new Date();
     date.setDate(date.getDate() - daysAgo);
 
+    console.log(date)
+
     const collectionRef = collection(db, 'quizzes');
     let q;
     if (kind === 'total') {
       q = query(collectionRef, orderBy('createdAt', 'desc'));
     } else {
+      console.log(`else, ${kind}`)
       q = query(
         collectionRef,
         orderBy('createdAt', 'desc'),
@@ -58,10 +59,10 @@ const UserRanking = () => {
         }
       }
     });
+    console.log(obj)
 
     // 2.
     const getUsers = async () => {
-      console.log('============= get toptenusers =============');
       const usersCollectionRef = collection(db, 'users');
       const q = query(
         usersCollectionRef,
@@ -78,16 +79,22 @@ const UserRanking = () => {
       setRankingUsers(users);
       setIsLoadingUsers(false);
     };
-    getUsers();
+    if (Object.keys(obj).length === 0){
+      console.log("obj is empty")
+      setIsLoadingUsers(false)
+    } else {
+      getUsers();
+    }
   };
 
   const selectTerm = e => {
+    setRankingUsers([])
     if (e.target.value === 'weekly') {
       console.log(e.target.value);
       getTopTenActiveUsers('weekly', 7);
     } else if (e.target.value === 'monthly') {
       console.log(e.target.value);
-      getTopTenActiveUsers('monthly', 28);
+      getTopTenActiveUsers('monthly', 30);
     } else {
       console.log(e.target.value);
       getTopTenActiveUsers('all', 9999);
@@ -108,49 +115,51 @@ const UserRanking = () => {
         <div className='loading'>
           <Loading color={'#005bbb'} />
         </div>
-      ) : rankingUsers.length === 0 ? (
-        <NoData txt='So sad to know users do not post...' />
       ) : (
-        <div className='usersContainer'>
-          {rankingUsers.map((user, userIndex) => (
-            <Link
-              to={{ pathname: `/profile/${user.uid}` }}
-              state={{ user: user }}
-              key={user.uid}
-            >
-              <div className='userContainer' key={user.uid}>
-                <div className='userInfo'>
-                  {userIndex === 0 ? (
-                    <div className='userRankIcon first'>{faTrophy}</div>
-                  ) : userIndex === 1 ? (
-                    <div className='userRankIcon second'>{faTrophy}</div>
-                  ) : userIndex === 2 ? (
-                    <div className='userRankIcon third'>{faTrophy}</div>
-                  ) : (
-                    <div className='userRankIcon lowerThanThird'>
-                      {userIndex + 1}
+        rankingUsers.length === 0 ? (
+          <NoData txt='So sad to know users do not post...' />
+        ) : (
+          <div className='usersContainer'>
+            {rankingUsers.map((user, userIndex) => (
+              <Link
+                to={{ pathname: `/profile/${user.uid}` }}
+                state={{ user: user }}
+                key={user.uid}
+              >
+                <div className='userContainer' key={user.uid}>
+                  <div className='userInfo'>
+                    {userIndex === 0 ? (
+                      <div className='userRankIcon first'>{faTrophy}</div>
+                    ) : userIndex === 1 ? (
+                      <div className='userRankIcon second'>{faTrophy}</div>
+                    ) : userIndex === 2 ? (
+                      <div className='userRankIcon third'>{faTrophy}</div>
+                    ) : (
+                      <div className='userRankIcon lowerThanThird'>
+                        {userIndex + 1}
+                      </div>
+                    )}
+                    <div className='imgAndUsername'>
+                      <img
+                        src={user.photoURL}
+                        alt={user.username}
+                        referrerPolicy='no-referrer'
+                      />
+                      <h6 className='username'>{user.username}</h6>
                     </div>
-                  )}
-                  <div className='imgAndUsername'>
-                    <img
-                      src={user.photoURL}
-                      alt={user.username}
-                      referrerPolicy='no-referrer'
-                    />
-                    <h6 className='username'>{user.username}</h6>
+                  </div>
+                  <div className='contributionContainer'>
+                    <span className='number'>{user.posts}</span>
+                    <span className='text'>Posts</span>
                   </div>
                 </div>
-                <div className='contributionContainer'>
-                  <span className='number'>{user.posts}</span>
-                  <span className='text'>Posts</span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        )
       )}
     </div>
-  )
-}
+  );
+};
 
-export default UserRanking
+export default UserRanking;

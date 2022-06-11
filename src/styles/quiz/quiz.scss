@@ -1,4 +1,5 @@
-@import 'Variables';
+@import '../variables';
+@import './snackbar';
 
 .fixedNewQuizBtn {
   position: absolute;

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { auth, db } from '../config/firebase';
-import '../styles/profile.css';
 
 const Profile = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();

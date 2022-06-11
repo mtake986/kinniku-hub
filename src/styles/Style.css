@@ -1,3 +1,916 @@
+.snackbar {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto 30px;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  border: 1px solid #73e457;
+  background: #e0ffd9;
+  color: #26be00;
+  font-size: 1rem;
+}
+
+.snackbar div.icon {
+  height: 20px;
+  width: 20px;
+  font-size: 1.2rem;
+}
+
+.snackbar div.msg {
+  font-weight: bold;
+}
+
+.snackbar#show {
+  visibility: visible;
+  -webkit-animation: fzdeIn 0.5s, fzdeOut 0.5s 2.5s;
+          animation: fzdeIn 0.5s, fzdeOut 0.5s 2.5s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.snackbar#hide {
+  visibility: hidden;
+  display: none;
+}
+
+@-webkit-keyframes fzdeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fzdeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fzdeOut {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0px;
+    opacity: 0;
+  }
+}
+
+@keyframes fzdeOut {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0px;
+    opacity: 0;
+  }
+}
+
+.fixedNewQuizBtn {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  font-size: 1.5rem;
+  width: 80px;
+}
+
+.fixedNewQuizBtn a {
+  border: 1px solid #005bbb;
+  background: #ecf5ff;
+  color: #005bbb;
+  padding: 5px 15px;
+  border-radius: 5px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  width: 80px;
+}
+
+.fixedNewQuizBtn a:hover {
+  opacity: 0.7;
+}
+
+.loading {
+  padding: 30px;
+}
+
+#quizHome {
+  font-size: 1.5rem;
+}
+
+#quizHome .testStartContainer {
+  margin-bottom: 70px;
+}
+
+#quizHome .testStartContainer .sectionHeader {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+}
+
+#quizHome .testStartContainer .sectionHeader h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 2rem;
+}
+
+#quizHome .testStartContainer .sectionHeader .maxTestLengthContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#quizHome .testStartContainer .sectionHeader .maxTestLengthContainer select {
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+#quizHome .testStartContainer .sectionHeader .maxTestLengthContainer span {
+  font-size: 0.8rem;
+}
+
+#quizHome .testStartContainer .btnsContainer button.all {
+  display: block;
+}
+
+#quizHome .testStartContainer .btnsContainer button.all.selected {
+  background: #fff9d8;
+  border: 1px solid #ffd500;
+}
+
+#quizHome .testStartContainer .btnsContainer button.all.othersSelected {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+#quizHome .testStartContainer .btnsContainer button {
+  padding: 10px 20px;
+  margin: 0 10px 10px 0;
+  border-radius: 5px;
+  border: 1px solid white;
+  background: white;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#quizHome .testStartContainer .btnsContainer button.selected {
+  background: #fff9d8;
+  border: 1px solid #ffd500;
+}
+
+#quizHome .testStartContainer .btnsContainer button.allSelected {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+#quizHome .testStartContainer a.startBtn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  display: block;
+  text-align: center;
+}
+
+#quizHome .testStartContainer a.startBtn:hover {
+  background: #ecf5ff;
+}
+
+#quizHome .testStartContainer a.startBtn.disable {
+  pointer-events: none;
+  opacity: 0.3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#quizHome .quizRecentlyCreatedContainer {
+  margin-bottom: 70px;
+}
+
+#quizHome .quizRecentlyCreatedContainer h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+#quizHome .quizRecentlyCreatedContainer .sectionHeader {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+}
+
+#quizHome .quizRecentlyCreatedContainer .sectionHeader h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 2rem;
+}
+
+#quizHome .userRankingContainer {
+  margin-bottom: 70px;
+}
+
+#quizHome .userRankingContainer .sectionHeader {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+}
+
+#quizHome .userRankingContainer .sectionHeader h3 {
+  font-family: "Cormorant Garmand", serif;
+  font-size: 2rem;
+}
+
+#quizHome .userRankingContainer .sectionHeader select {
+  padding: 5px 10px;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-align: right;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 60px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer:hover {
+  background: whitesmoke;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 20px 0 10px;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon {
+  margin-right: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon.first {
+  color: gold;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon.second {
+  color: silver;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo div.userRankIcon.third {
+  color: #CD7F32;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.userInfo .imgAndUsername h6.username {
+  font-size: 1.2rem;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.contributionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.contributionContainer span.number {
+  font-size: 1.2rem;
+}
+
+#quizHome .userRankingContainer .usersContainer div.userContainer div.contributionContainer span.text {
+  font-size: 0.6rem;
+}
+
+.quizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.quizContainer .quiz {
+  margin-bottom: 50px;
+}
+
+.quizContainer .quiz .quizHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+}
+
+.quizContainer .quiz .quizHeader span.quizNumber,
+.quizContainer .quiz .quizHeader span.createdBy {
+  font-size: 0.8rem;
+}
+
+.quizContainer .quiz .quizQuestionContainer p.quizQuestionText {
+  font-size: 1.8rem;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer {
+  padding: 0;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer.answerDefined li {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer.answerDefined li.incorrectAnswerClicked {
+  opacity: 1;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li {
+  list-style: none;
+  margin: 20px 0;
+  padding: 20px;
+  background: #fff9d8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 80px;
+  border-left: 5px solid rgba(0, 0, 0, 0);
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li:hover {
+  background: #fff9d8;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked {
+  pointer-events: none;
+  border-left: 5px solid #26be00;
+  background-color: #e0ffd9;
+  opacity: 1;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li.selected.correctAnswerClicked div.correctIncorrectIcons span.correctIcon {
+  margin-left: 20px;
+  font-size: 1.8rem;
+  display: block;
+  color: #26be00;
+  height: 30px;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked {
+  pointer-events: none;
+  border-left: 5px solid #ff4500;
+  background-color: #ffece6;
+  opacity: 1;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li.selected.incorrectAnswerClicked div.correctIncorrectIcons span.incorrectIcon {
+  -webkit-transform: rotate(225deg) translate(-5px, -5px);
+          transform: rotate(225deg) translate(-5px, -5px);
+  margin-left: 20px;
+  font-size: 2.5rem;
+  display: block;
+  color: #ff4500;
+  height: 30px;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li span.answer {
+  height: 30px;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .correctIcon {
+  display: none;
+}
+
+.quizContainer .quiz ul.quizAnswersContainer li div.correctIncorrectIcons .incorrectIcon {
+  display: none;
+}
+
+.quizContainer .quiz .quizFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-top: 30px;
+}
+
+.quizContainer .quiz .quizFooter .likesCounterContainer {
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  color: red;
+  position: relative;
+}
+
+.quizContainer .quiz .quizFooter .likesCounterContainer.checked {
+  background: #fff0f0;
+}
+
+.quizContainer .quiz .quizFooter .likesCounterContainer span.heartIcon {
+  height: 15px;
+  margin-right: 15px;
+}
+
+.quizContainer .quiz .quizFooter button.testStopBtn {
+  padding: 10px 18px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  font-size: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.quizContainer .quiz .quizFooter button.testStopBtn:hover {
+  background: #ffe668;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn {
+  padding: 10px 18px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  font-size: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn:hover {
+  background: #ecf5ff;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn.disable {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn .bsArrowRight {
+  height: 20px;
+  margin-left: 10px;
+}
+
+.quizContainer .quiz .quizFooter button.goNextPrevQuizBtn .bsArrowLeft {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.allQuizzes,
+.quizRecentlyCreatedContainer {
+  font-size: 1.2rem;
+}
+
+.allQuizzes .filterResult .eachQuizContainer,
+.allQuizzes .quizzes .eachQuizContainer,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #ecf5ff;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.allQuizzes .filterResult .eachQuizContainer .quizQuestionContainer,
+.allQuizzes .quizzes .eachQuizContainer .quizQuestionContainer,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer .quizQuestionContainer,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer .quizQuestionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.allQuizzes .filterResult .eachQuizContainer .quizQuestionContainer .quizIndex,
+.allQuizzes .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer .quizQuestionContainer .quizIndex,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer .quizQuestionContainer .quizIndex {
+  margin: 0 10px;
+  min-width: 30px;
+}
+
+.allQuizzes .filterResult .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.allQuizzes .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer .quizQuestionContainer .quizQuestion,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer .quizQuestionContainer .quizQuestion {
+  margin: 0 10px 0 0;
+  overflow: scroll;
+}
+
+.allQuizzes .filterResult .eachQuizContainer a,
+.allQuizzes .quizzes .eachQuizContainer a,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer a,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer a {
+  height: 25px;
+}
+
+.allQuizzes .filterResult .eachQuizContainer a img,
+.allQuizzes .quizzes .eachQuizContainer a img,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer a img,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer a img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.allQuizzes .filterResult .eachQuizContainer div.icons,
+.allQuizzes .quizzes .eachQuizContainer div.icons,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.allQuizzes .filterResult .eachQuizContainer div.icons a,
+.allQuizzes .quizzes .eachQuizContainer div.icons a,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons a,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons a {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.allQuizzes .filterResult .eachQuizContainer div.icons a i.riEditBoxLine,
+.allQuizzes .quizzes .eachQuizContainer div.icons a i.riEditBoxLine,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons a i.riEditBoxLine,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons a i.riEditBoxLine {
+  cursor: pointer;
+  color: #005bbb;
+}
+
+.allQuizzes .filterResult .eachQuizContainer div.icons i.riDeleteBinLine,
+.allQuizzes .quizzes .eachQuizContainer div.icons i.riDeleteBinLine,
+.quizRecentlyCreatedContainer .filterResult .eachQuizContainer div.icons i.riDeleteBinLine,
+.quizRecentlyCreatedContainer .quizzes .eachQuizContainer div.icons i.riDeleteBinLine {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  color: red;
+}
+
+.allQuizzes .searchContainer,
+.quizRecentlyCreatedContainer .searchContainer {
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.allQuizzes .searchContainer .inputs,
+.quizRecentlyCreatedContainer .searchContainer .inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.allQuizzes .searchContainer .inputs select, .allQuizzes .searchContainer .inputs input,
+.quizRecentlyCreatedContainer .searchContainer .inputs select,
+.quizRecentlyCreatedContainer .searchContainer .inputs input {
+  min-width: 150px;
+  display: block;
+  border: none;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.allQuizzes .searchContainer .inputs select:focus, .allQuizzes .searchContainer .inputs input:focus,
+.quizRecentlyCreatedContainer .searchContainer .inputs select:focus,
+.quizRecentlyCreatedContainer .searchContainer .inputs input:focus {
+  outline: none;
+}
+
+.allQuizzes .searchContainer .inputs div.submitBtn,
+.quizRecentlyCreatedContainer .searchContainer .inputs div.submitBtn {
+  border: #ecf5ff;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: none;
+  font-size: 1.5rem;
+  height: 24px;
+}
+
+.allQuizzes .searchContainer .inputs div.submitBtn:hover,
+.quizRecentlyCreatedContainer .searchContainer .inputs div.submitBtn:hover {
+  color: #005bbb;
+}
+
+.allQuizzes .searchContainer .inputs span.border,
+.quizRecentlyCreatedContainer .searchContainer .inputs span.border {
+  color: gainsboro;
+}
+
+.quizResultWindow {
+  font-size: 1.2rem;
+}
+
+.quizResultWindow .quizResultText {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.quizResultWindow .quizResultText h3 {
+  font-weight: bold;
+}
+
+.quizResultWindow .quizResultText p {
+  font-size: 1.2rem;
+}
+
+.quizResultWindow .eachQuizContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ecf5ff;
+}
+
+.quizResultWindow .eachQuizContainer:first-child {
+  margin-top: 0;
+}
+
+.quizResultWindow .eachQuizContainer .quizQuestionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.quizResultWindow .eachQuizContainer .quizQuestionContainer .quizIndex {
+  margin-right: 15px;
+}
+
+.quizResultWindow .eachQuizContainer .quizQuestionContainer .quizQuestion {
+  margin: 0 15px;
+}
+
+.quizResultWindow .eachQuizContainer div.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.quizResultWindow .eachQuizContainer div.icons .biCircle {
+  color: #005bbb;
+  height: 20px;
+}
+
+.quizResultWindow .eachQuizContainer div.icons .biPlus {
+  -webkit-transform: rotate(225deg) translate(-2px, -2px);
+          transform: rotate(225deg) translate(-2px, -2px);
+  font-size: 1.5rem;
+  height: 20px;
+  color: red;
+}
+
+div.pfcHome div.summary {
+  background-color: #ecf5ff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+div.pfcHome div.summary div.tabBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+div.pfcHome div.summary div.tabBar div.tab {
+  padding: 10px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #333;
+}
+
+div.pfcHome div.summary div.tabBar div.tab.active {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #005bbb;
+  pointer-events: none;
+}
+
+div.pfcHome div.summary div.tabBar div.tab:hover {
+  opacity: .7;
+}
+
+div.pfcHome div.summary {
+  background-color: #ecf5ff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+div.pfcHome div.summary div.tabBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+div.pfcHome div.summary div.tabBar div.tab {
+  padding: 10px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #333;
+}
+
+div.pfcHome div.summary div.tabBar div.tab.active {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #005bbb;
+  pointer-events: none;
+}
+
+div.pfcHome div.summary div.tabBar div.tab:hover {
+  opacity: .7;
+}
+
 *,
 *::after,
 *::before {

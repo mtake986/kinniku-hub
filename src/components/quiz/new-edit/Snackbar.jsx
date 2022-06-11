@@ -1,7 +1,6 @@
 
 import { useState, forwardRef, useImperativeHandle } from 'react'
 import { riCheckFill } from '../../../icons/icons'
-import "../../../styles/snackbar.css"
 
 const Snackbar =  forwardRef((props, ref) => {
   const [showSnackbar, setShowSnackbar] = useState(false)
