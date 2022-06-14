@@ -381,7 +381,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 0;
       border-bottom: 1px solid $colorAccent1Lighter;
       font-size: $fzSS;
       padding: 10px;
@@ -389,11 +388,10 @@
         display: flex;
         align-items: center;
         .quizIndex {
-          margin: 0 10px;
           min-width: 30px;
         }
         .quizQuestion {
-          margin: 0 10px 0 0;
+          margin: 0 10px;
           overflow: scroll;
         }
       }
@@ -481,7 +479,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 10px 0;
-    padding: 10px 0;
+    padding: 10px;
     border-bottom: 1px solid $colorAccent1Lighter;
     &:first-child {
       margin-top: 0;
@@ -490,14 +488,18 @@
       display: flex;
       align-items: center;
       .quizIndex {
-        margin-right: 15px;
+        min-width: 30px;
       }
       .quizQuestion {
-        margin: 0 15px;
+        overflow: scroll;
+        margin: 0 10px;
       }
     }
     div.icons {
       display: flex;
+      span.noAnswerLine {
+        margin-right: 5px;
+      }
       .biCircle {
         color: $colorAccent1;
         height: 20px;

@@ -18,19 +18,22 @@ const UserRanking = () => {
   const [rankingUsers, setRankingUsers] = useState([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   useEffect(() => {
-    getTopTenActiveUsers('weekly', 7);
+    getTopTenActiveUsers('weekly');
   }, []);
-  const getTopTenActiveUsers = async (kind, daysAgo) => {
+  const getTopTenActiveUsers = async (kind) => {
+    setIsLoadingUsers(true);
     // todo: Get 10 users,
     // 1. get all quizzes posted in the last 7 days and make a dictionary of users who posted those quizzes
     // 2. get the top 10
     // 3. sort by most users who posts the quiz.
 
     // 1.
-    setIsLoadingUsers(true);
     const date = new Date();
-    date.setDate(date.getDate() - daysAgo);
-
+    if (kind === 'weekly') {
+      date.setDate(date.getDate() - 7);
+      console.log(date.getDay())
+    }
+    
     console.log(date)
 
     const collectionRef = collection(db, 'quizzes');
@@ -91,13 +94,13 @@ const UserRanking = () => {
     setRankingUsers([])
     if (e.target.value === 'weekly') {
       console.log(e.target.value);
-      getTopTenActiveUsers('weekly', 7);
+      getTopTenActiveUsers('weekly');
     } else if (e.target.value === 'monthly') {
       console.log(e.target.value);
-      getTopTenActiveUsers('monthly', 30);
+      getTopTenActiveUsers('monthly');
     } else {
       console.log(e.target.value);
-      getTopTenActiveUsers('all', 9999);
+      getTopTenActiveUsers('all');
     }
   };
 

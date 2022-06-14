@@ -1,8 +1,10 @@
 @charset 'utf-8';
 @import './variables';
+@import './profile';
 @import './quiz/quiz';
 @import './pfc/pfc';
 // To fold everything: cmd+k -> cmd+0
+
 *,
 *::after,
 *::before {

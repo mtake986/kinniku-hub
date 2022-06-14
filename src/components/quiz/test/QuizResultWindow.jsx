@@ -11,6 +11,7 @@ const QuizResultWindow = () => {
   const usersCorrectAnswers = location.state.usersCorrectAnswers;
   const points = location.state.points;
   const answeredQuizzes = location.state.answeredQuizzes;
+  const quizzes = location.state.quizzes;
 
   console.log("usersCorrectAnswers: ", usersCorrectAnswers)
   console.log("points: ", points)
@@ -33,15 +34,17 @@ const QuizResultWindow = () => {
           <Loading color={'#005bbb'} />
         </div>
       )}
-      {answeredQuizzes && (
-        answeredQuizzes.map((quiz, quizIndex) => (
+      {quizzes && (
+        quizzes.map((quiz, quizIndex) => (
           <div className="eachQuizContainer" key={quizIndex}>
             <div className="quizQuestionContainer">
               <span className="quizIndex">{quizIndex+1}.</span>
               <p className="quizQuestion">{quiz.question}</p>
             </div>
             <div className="icons">
-              {usersCorrectAnswers.includes(quizIndex+1) ? (
+              {quizIndex >= answeredQuizzes.length ? (
+                <span className="noAnswerLine">--</span>
+              ) : usersCorrectAnswers.includes(quizIndex+1) ? (
                 <i className="biCircle">{biCircle}</i>
               ) : (
                 <i className="biPlus">{biPlus}</i>

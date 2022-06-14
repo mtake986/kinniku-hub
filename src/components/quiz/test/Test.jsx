@@ -189,31 +189,20 @@ const Test = ({ currentUser }) => {
                   ))}
                 </ul>
                 <div className='quizFooter'>
-                  {/* {quizIndex !== 0 ? (
-                    <GoPrevQuizBtn
-                      goPrevQuiz={goPrevQuiz}
-                      text='Prev'
-                      disable=''
+                  {index + 1 !== quizzes.length && (
+                    <GoResultWindowBtn
+                      goNextQuiz={goNextQuiz}
+                      text='Stop'
+                      clickedAnswerIndex={clickedAnswerIndex ? true : false}
+                      usersCorrectAnswers={usersCorrectAnswers}
+                      points={points}
+                      answeredQuizzes={answeredQuizzes}
+                      stopBtn={true}
+                      quizzes={quizzes}
                     />
-                  ) : (
-                    <GoPrevQuizBtn
-                      goPrevQuiz={goPrevQuiz}
-                      text='Prev'
-                      disable='disable'
-                    />
-                  )} */}
-                  <button
-                    className='testStopBtn'
-                    onClick={() => {
-                      setTestStopBtnClicked(true);
-                    }}
-                  >
-                    <span>Stop</span>
-                  </button>
+                  )}
                   <GoodBad quiz={quiz} currentUser={currentUser} />
-                  {/* todo: context provider here */}
                   {index + 1 === quizzes.length ? (
-                    // <GoNextQuizBtn goNextQuiz={goNextQuiz} text='Result' clickedAnswerIndex={clickedAnswerIndex ? true : false } />
                     <GoResultWindowBtn
                       goNextQuiz={goNextQuiz}
                       text='Result'
@@ -221,6 +210,8 @@ const Test = ({ currentUser }) => {
                       usersCorrectAnswers={usersCorrectAnswers}
                       points={points}
                       answeredQuizzes={answeredQuizzes}
+                      stopBtn={false}
+                      quizzes={quizzes}
                     />
                   ) : (
                     <GoNextQuizBtn
